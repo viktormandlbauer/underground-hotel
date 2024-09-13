@@ -10,7 +10,7 @@
     Allow from all
 </Files>
 
-# Rewrite all requests to index.php, so i handles them
+# Rewrite all requests to index.php (router)
 
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
