@@ -1,0 +1,45 @@
+
+body {
+    background-image: url('concrete.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+h1 {
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    color: #f6f2f2;
+}
+
+h2 {
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    color: #f6f2f2;
+}
+
+h3 {
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    color: #f6f2f2;
+}
+
+p {
+    font-family: 'Arial', sans-serif;
+    color: #f6f2f2;
+}
+
+.form-group label {
+    font-weight: bold;
+    color: #f6f2f2;
+}
+
+.btn-primary {
+    background-color: #0056b3;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #003d80;
+}
+
