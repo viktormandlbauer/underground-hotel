@@ -32,8 +32,8 @@ switch ($request) {
         require 'src/views/auth/login.php';
         break;
 
-    case '/test':
-        require 'src/views/test.php';
+    case '/testing':
+        require 'src/controllers/test.php';
         break;
 
     default:
