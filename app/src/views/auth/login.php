@@ -1,16 +1,9 @@
-<!DOCTYPE html>
-<html lang="de">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Login</title>
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-        <!-- Eigene CSS Datei -->
-        <link rel="stylesheet" href="styles.css">
-    </head>
+<?php include 'src/views/includes/header.php'; ?>
+<?php include 'src/views/includes/navbar.php'; ?>
 
-    <body>
+<title name="login">Login</title>
+
+
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-6 col-md-8 col-sm-12">
@@ -36,5 +29,5 @@
                 </div>
             </div>
         </div>
-    </body>
-</html>
+
+        <?php include 'src/views/includes/footer.php'; ?>  

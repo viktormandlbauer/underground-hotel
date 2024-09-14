@@ -1,15 +1,6 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrierung</title>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Eigene CSS Datei -->
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+<?php include 'src/views/includes/header.php'; ?>
+<?php include 'src/views/includes/navbar.php'; ?>
+
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-6 col-md-8 col-sm-12">
@@ -18,8 +9,8 @@
                     
                     <!-- Anrede -->
                     <div class="form-group">
-                        <label for="anrede">Anrede:</label>
-                        <select id="anrede" name="anrede" class="form-control" required>
+                        <label for="pronouns">Anrede:</label>
+                        <select id="pronouns" name="anrede" class="form-control" required>
                             <option value="">Bitte wählen</option>
                             <option value="Herr">Herr</option>
                             <option value="Frau">Frau</option>
@@ -29,14 +20,14 @@
     
                     <!-- Vorname -->
                     <div class="form-group">
-                        <label for="vorname">Vorname:</label>
-                        <input type="text" id="vorname" name="vorname" class="form-control" pattern="[A-Za-zÄäÖöÜüß]+" title="Bitte nur Buchstaben verwenden" required>
+                        <label for="givenname">Vorname:</label>
+                        <input type="text" id="givenname" name="surname" class="form-control" pattern="[A-Za-zÄäÖöÜüß]+" title="Bitte nur Buchstaben verwenden" required>
                     </div>
     
                     <!-- Nachname -->
                     <div class="form-group">
-                        <label for="nachname">Nachname:</label>
-                        <input type="text" id="nachname" name="nachname" class="form-control" pattern="[A-Za-zÄäÖöÜüß]+" title="Bitte nur Buchstaben verwenden" required>
+                        <label for="surname">Nachname:</label>
+                        <input type="text" id="surname" name="nachname" class="form-control" pattern="[A-Za-zÄäÖöÜüß]+" title="Bitte nur Buchstaben verwenden" required>
                     </div>
     
                     <!-- E-Mail -->
@@ -83,5 +74,5 @@
         });
     </script>
     
-</body>
-</html>
+    
+    <?php include 'src/views/includes/footer.php'; ?>

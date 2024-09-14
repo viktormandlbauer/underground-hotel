@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+<?php include 'src/views/includes/header.php'; ?>
+<?php include 'src/views/includes/navbar.php'; ?>
+
+=======
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -21,6 +26,7 @@
     </style>
 </head>
 <body class="bg-image">
+>>>>>>> 215242aa559f7136ff15cc81073670b99ff78a4d
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-6 col-md-8 col-sm-12">
@@ -29,7 +35,7 @@
                  <!--Firmen Worlaut-->
                  
                  <div class="form-group">
-                    <h2>Firmen Wortlaut</h2>
+                    <h2>Firmen Wortlaut test</h2>
                     <p>
                         Underground Hotel GmbH<br>
                         Musterstraße 123<br>
@@ -108,5 +114,4 @@
         </div>
     </div>
 
-</body>
-</html>
+    <?php include 'src/views/includes/footer.php'; ?>
