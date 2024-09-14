@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   hotel-db:
-    image: viktormandlbauer/hotel-db:latest
+    image: hotel-db:latest
     container_name: hotel-db
     environment:
       MYSQL_DATABASE: hotel
@@ -12,7 +12,7 @@ services:
     ports:
       - "3306:3306"
   hotel-app:
-    image: viktormandlbauer/hotel-app:latest
+    image: hotel-app:latest
     container_name: hotel-app
     depends_on:
       - hotel-db
