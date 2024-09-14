@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  hotel-db:
+    image: viktormandlbauer/hotel-db:latest
+    container_name: hotel-db
+    environment:
+      MYSQL_DATABASE: hotel
+      MYSQL_ROOT_PASSWORD: hotel
+      MYSQL_USER: hotel
+      MYSQL_PASSWORD: hotel
+    ports:
+      - "3306:3306"
+  hotel-app:
+    image: viktormandlbauer/hotel-app:latest
+    container_name: hotel-app
+    depends_on:
+      - hotel-db
+    ports:
+      - "3000:80"
+    environment:
+      DB_HOST: localhost
+      DB_DATABASE: hotel
+      DB_USER: hotel
+      DB_PASSWORD: hotel
+    volumes:
+      - ./app:/var/www/html
