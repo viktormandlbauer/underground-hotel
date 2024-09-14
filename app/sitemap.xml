@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+   <!-- Homepage -->
+   <url>
+      <loc>https://www.example.com/</loc>
+      <priority>1.00</priority>
+   </url>
+
+   <!-- Search Results -->
+   <url>
+      <loc>https://www.example.com/search</loc>
+      <priority>0.80</priority>
+   </url>
+
+   <!-- Hotel Details Page -->
+   <url>
+      <loc>https://www.example.com/hotel/hotel-name</loc>
+      <priority>0.80</priority>
+   </url>
+
+   <!-- Booking Process -->
+   <url>
+      <loc>https://www.example.com/booking/select-room</loc>
+      <priority>0.70</priority>
+   </url>
+   <url>
+      <loc>https://www.example.com/booking/guest-info</loc>
+      <priority>0.70</priority>
+   </url>
+   <url>
+      <loc>https://www.example.com/booking/payment</loc>
+      <priority>0.70</priority>
+   </url>
+   <url>
+      <loc>https://www.example.com/booking/confirmation</loc>
+      <priority>0.70</priority>
+   </url>
+
+   <!-- User Account Pages -->
+   <url>
+      <loc>https://www.example.com/account/profile</loc>
+      <priority>0.60</priority>
+   </url>
+   <url>
+      <loc>https://www.example.com/account/bookings</loc>
+      <priority>0.60</priority>
+   </url>
+   <url>
+      <loc>https://www.example.com/account/favorites</loc>
+      <priority>0.60</priority>
+   </url>
+
+   <!-- Authentication -->
+   <url>
+      <loc>https://www.example.com/login</loc>
+      <priority>0.60</priority>
+   </url>
+   <url>
+      <loc>https://www.example.com/register</loc>
+      <priority>0.60</priority>
+   </url>
+   <url>
+      <loc>https://www.example.com/forgot-password</loc>
+      <priority>0.50</priority>
+   </url>
+
+   <!-- Support & Help -->
+   <url>
+      <loc>https://www.example.com/support</loc>
+      <priority>0.50</priority>
+   </url>
+   <url>
+      <loc>https://www.example.com/contact-us</loc>
+      <priority>0.50</priority>
+   </url>
+
+   <!-- About Us -->
+   <url>
+      <loc>https://www.example.com/about-us</loc>
+      <priority>0.50</priority>
+   </url>
+
+   <!-- Blog -->
+   <url>
+      <loc>https://www.example.com/blog</loc>
+      <priority>0.40</priority>
+   </url>
+   <url>
+      <loc>https://www.example.com/blog/travel-tips</loc>
+      <priority>0.40</priority>
+   </url>
+
+   <!-- Legal -->
+   <url>
+      <loc>https://www.example.com/terms</loc>
+      <priority>0.30</priority>
+   </url>
+   <url>
+      <loc>https://www.example.com/privacy-policy</loc>
+      <priority>0.30</priority>
+   </url>
+   <url>
+      <loc>https://www.example.com/cancellation-policy</loc>
+      <priority>0.30</priority>
+   </url>
+
+</urlset>

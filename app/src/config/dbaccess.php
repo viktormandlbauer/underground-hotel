@@ -13,4 +13,5 @@ if ($conn->connect_error) {
 }
 
 // Now you can use $conn to interact with the database
+// TODO - Implement CRUD operations
 ?>

@@ -24,6 +24,18 @@ switch ($request) {
         require 'src/views/help.php';
         break;
 
+    case '/auth/register':
+        require 'src/views/auth/register.php';
+        break;
+    
+    case '/auth/login':
+        require 'src/views/auth/login.php';
+        break;
+
+    case '/test':
+        require 'src/views/test.php';
+        break;
+
     default:
         http_response_code(404);
         require 'src/views/404.php';

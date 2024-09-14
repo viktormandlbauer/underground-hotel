@@ -7,9 +7,20 @@
      <!-- Bootstrap CSS -->
      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
      <!-- Eigene CSS Datei -->
-     <link rel="stylesheet" href="Styles.css">
+     <link rel="stylesheet" href="/public/style.css">
+     <style>
+        /* Custom CSS for background image */
+        .bg-image {
+            background-image: url('/public/images/concrete.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+    </style>
+    </style>
 </head>
-<body>
+<body class="bg-image">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-6 col-md-8 col-sm-12">
