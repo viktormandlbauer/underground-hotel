@@ -1,10 +1,12 @@
 # underground-hotel
 
-## Used libraries/frameworks
+## Build and deploy
 
-* <https://www.php.net/manual/de/book.mysqli.php>
-* <https://getbootstrap.com/docs/5.3/getting-started/introduction/>
+```bash
+docker build -t hotel-app:latest app/
+docker build -t hotel-db:latest db/
+docker-compose up -d
 
-## Sources
+```
 
 * <https://www.freecodecamp.org/news/how-to-build-a-routing-system-in-php/>
