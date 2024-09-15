@@ -4,9 +4,13 @@ USE hotel;
 -- Create users table
 CREATE TABLE users (
     user_id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(100) NOT NULL,
+    pronouns VARCHAR(10) NOT NULL,
+    givenname VARCHAR(100) NOT NULL,
+    surname VARCHAR(100) NOT NULL,
+    username VARCHAR(100) NOT NULL UNIQUE,
     email VARCHAR(100) NOT NULL UNIQUE,
-    password VARCHAR(100) NOT NULL
+    password_hash VARCHAR(100) NOT NULL,
+    salt VARCHAR(100) NOT NULL
 );
 
 -- Create rooms table
@@ -28,18 +32,21 @@ CREATE TABLE bookings (
     FOREIGN KEY (room_id) REFERENCES rooms(room_id)
 );
 
--- Create payments news
+-- Create news
 CREATE TABLE news (
     news_id INT PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(100) NOT NULL,
-    text VARCHAR(5000) NOT NULL,
+    text VARCHAR(5000) NOT NULL
 );
 
 -- Create a view to join users, bookings, and rooms and group by users
 CREATE VIEW user_bookings AS
 SELECT 
     u.user_id,
-    u.name,
+    u.pronouns,
+    u.surname,
+    u.givenname,
+    u.username,
     u.email,
     COUNT(b.booking_id) AS total_bookings,
     GROUP_CONCAT(r.room_number ORDER BY b.check_in_date) AS booked_rooms
@@ -50,15 +57,4 @@ INNER JOIN
 INNER JOIN 
     rooms r ON b.room_id = r.room_id
 GROUP BY 
-    u.user_id, u.name, u.email;
-
--- Create a trigger to update the status of a room to 'booked' when a new booking is made
-CREATE TRIGGER update_room_status
-AFTER INSERT ON bookings
-FOR EACH ROW
-BEGIN
-    UPDATE rooms
-    SET status = 'booked'
-    WHERE room_id = NEW.room_id;
-END
-
+    u.user_id;

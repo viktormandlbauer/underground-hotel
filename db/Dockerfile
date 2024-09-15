@@ -5,6 +5,7 @@ FROM mysql:latest
 ENV MYSQL_DATABASE=hotel
 ENV MYSQL_USER=hotel
 ENV MYSQL_PASSWORD=hotel
+ENV MYSQL_RANDOM_ROOT_PASSWORD=yes
 
 # Copy the initialization SQL script to the Docker image
 COPY init.sql /docker-entrypoint-initdb.d/
