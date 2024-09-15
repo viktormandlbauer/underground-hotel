@@ -5,9 +5,9 @@
         <div class="row justify-content-center">
             <div class="col-lg-6 col-md-8 col-sm-12">
                 <h1 class="text-center mt-5">Registrierung</h1>
-                <form action="/submit_registration" method="POST" class="mt-4">
+                <form action="/auth/register.php" method="POST" class="mt-4">
                     
-                    <!-- Anrede -->
+                    <!-- Pronouns -->
                     <div class="form-group">
                         <label for="pronouns">Anrede:</label>
                         <select id="pronouns" name="anrede" class="form-control" required>
@@ -18,13 +18,13 @@
                         </select>
                     </div>
     
-                    <!-- Vorname -->
+                    <!-- Givenname -->
                     <div class="form-group">
                         <label for="givenname">Vorname:</label>
                         <input type="text" id="givenname" name="surname" class="form-control" pattern="[A-Za-zÄäÖöÜüß]+" title="Bitte nur Buchstaben verwenden" required>
                     </div>
     
-                    <!-- Nachname -->
+                    <!-- Surname -->
                     <div class="form-group">
                         <label for="surname">Nachname:</label>
                         <input type="text" id="surname" name="nachname" class="form-control" pattern="[A-Za-zÄäÖöÜüß]+" title="Bitte nur Buchstaben verwenden" required>
@@ -42,13 +42,13 @@
                         <input type="text" id="username" name="username" class="form-control" minlength="3" maxlength="20" required>
                     </div>
     
-                    <!-- Passwort -->
+                    <!-- Password -->
                     <div class="form-group">
                         <label for="password">Passwort:</label>
                         <input type="password" id="password" name="password" class="form-control" minlength="8" required>
                     </div>
     
-                    <!-- Passwort bestätigen -->
+                    <!-- Password confirm -->
                     <div class="form-group">
                         <label for="password_confirm">Passwort bestätigen:</label>
                         <input type="password" id="password_confirm" name="password_confirm" class="form-control" minlength="8" required>
