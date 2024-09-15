@@ -36,12 +36,16 @@ switch ($request) {
         require 'src/views/auth/login.php';
         break;
 
-    case '/register.php':
+    case 'auth/register.php':
         require 'src/controllers/auth/register.php';
         break;
 
     case '/auth/submit/registration':
         require 'src/controllers/auth/register.php';
+        break;
+    
+    case '/testing':
+        require 'src/controllers/test.php';
         break;
 
     

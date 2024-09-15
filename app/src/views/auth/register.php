@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-6 col-md-8 col-sm-12">
                 <h1 class="text-center mt-5">Registrierung</h1>
-                <form action="/auth/register.php" method="POST" class="mt-4">
+                <form action="/auth/submit/registration" method="POST" class="mt-4">
                     
                     <!-- Pronouns -->
                     <div class="form-group">
