@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Util;
+
 # Create a hashing class
 class Hash {
     # Hash a string
@@ -9,7 +11,7 @@ class Hash {
 
     # Generate a salt
     public static function salt($length) {
-        return random_bytes($length);
+        return bin2hex(random_bytes($length));
     }
 
     # Generate a unique hash
@@ -17,5 +19,4 @@ class Hash {
         return self::make(uniqid());
     }
 }
-
 ?>

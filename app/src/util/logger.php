@@ -14,7 +14,6 @@ class Logger {
         $timestamp = date('Y-m-d H:i:s');
         $logMessage = "[$timestamp] $message" . PHP_EOL;
         fwrite($this->logFile, $logMessage);
-        echo $logMessage;
     }
 
     public function __destruct() {
