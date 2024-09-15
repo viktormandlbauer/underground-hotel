@@ -8,7 +8,7 @@
             <div class="row justify-content-center">
                 <div class="col-lg-6 col-md-8 col-sm-12">
                     <h1 class="text-center mt-5">Login</h1>
-                    <form action="/submit_login" method="POST" class="mt-4">
+                    <form action="/auth/submit/login" method="POST" class="mt-4">
 
                         <!-- Username -->
                          <div class="form-group">
