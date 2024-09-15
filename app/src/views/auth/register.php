@@ -10,7 +10,7 @@
                     <!-- Pronouns -->
                     <div class="form-group">
                         <label for="pronouns">Anrede:</label>
-                        <select id="pronouns" name="anrede" class="form-control" required>
+                        <select id="pronouns" name="pronouns" class="form-control" required>
                             <option value="">Bitte wählen</option>
                             <option value="Herr">Herr</option>
                             <option value="Frau">Frau</option>
@@ -21,13 +21,13 @@
                     <!-- Givenname -->
                     <div class="form-group">
                         <label for="givenname">Vorname:</label>
-                        <input type="text" id="givenname" name="surname" class="form-control" pattern="[A-Za-zÄäÖöÜüß]+" title="Bitte nur Buchstaben verwenden" required>
+                        <input type="text" id="givenname" name="givenname" class="form-control" pattern="[A-Za-zÄäÖöÜüß]+" title="Bitte nur Buchstaben verwenden" required>
                     </div>
     
                     <!-- Surname -->
                     <div class="form-group">
                         <label for="surname">Nachname:</label>
-                        <input type="text" id="surname" name="nachname" class="form-control" pattern="[A-Za-zÄäÖöÜüß]+" title="Bitte nur Buchstaben verwenden" required>
+                        <input type="text" id="surname" name="surname" class="form-control" pattern="[A-Za-zÄäÖöÜüß]+" title="Bitte nur Buchstaben verwenden" required>
                     </div>
     
                     <!-- E-Mail -->
