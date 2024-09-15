@@ -42,6 +42,15 @@ class User {
     public function setPassword($password) {
         $this->password = $password;
     }
+
+    public static function exists($username) {
+        global $conn;
+        $stmt = $conn->prepare("SELECT username FROM users WHERE username = ?");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->num_rows > 0;
+    }
 }
 
 ?>
