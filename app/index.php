@@ -31,8 +31,12 @@ switch ($request) {
     case '/login':
         require 'src/views/auth/login.php';
         break;
-        
-        
+
+    case 'app/src/controllers/auth/register.php':
+        require 'app/src/controllers/auth/register.php';
+        break;
+
+    
     default:
         http_response_code(404);
         require 'src/views/404.php';
