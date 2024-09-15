@@ -10,21 +10,21 @@
         </div>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="images/carousel1.jpg" class="d-block w-100" alt="...">
+                <img src="public/images/carousel1.jpg" class="d-block w-100" alt="Zwei gelbe U-Bahn mit offenen Türen">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>First slide label</h5>
                     <p>Some representative placeholder content for the first slide.</p>
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="images/carousel2.jpg" class="d-block w-100" alt="...">
+                <img src="public/images/carousel2.jpg" class="d-block w-100" alt="Fünf Sprayer die die gelben U-Bahn Wagen Blau ansprayen">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>Second slide label</h5>
                     <p>Some representative placeholder content for the second slide.</p>
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="images/carousel3.jpg" class="d-block w-100" alt="...">
+                <img src="public/images/concrete.jpg" class="d-block w-100" alt="Beton-Optik Bild">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>Third slide label</h5>
                     <p>Some representative placeholder content for the third slide.</p>

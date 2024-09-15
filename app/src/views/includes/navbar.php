@@ -4,7 +4,7 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
+    <ul class="navbar-nav me-auto">
     <li class="nav-item">
         <a class="nav-link" href="/">Startseite</a>
     </li>
@@ -24,7 +24,7 @@
   </ul>
 
 
-  <ul class="navbar-nav ml-auto">
+  <ul class="navbar-nav ms-auto">
   <li class="nav-item">
     <a class="btn btn-outline-primary mr-2" href="/login">Login</a>
   </li>

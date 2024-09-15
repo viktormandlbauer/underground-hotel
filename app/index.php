@@ -23,7 +23,7 @@ switch ($request) {
     case '/help':
         require 'src/views/help.php';
         break;
-
+        
     case '/register':
         require 'src/views/auth/register.php';
         break;
@@ -36,10 +36,15 @@ switch ($request) {
         require 'src/views/auth/login.php';
         break;
 
-    case '/testing':
-        require 'src/controllers/test.php';
+    case '/register.php':
+        require 'src/controllers/auth/register.php';
         break;
 
+    case '/auth/submit/registration':
+        require 'src/controllers/auth/register.php';
+        break;
+
+    
     default:
         http_response_code(404);
         require 'src/views/404.php';
