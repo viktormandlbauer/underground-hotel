@@ -9,6 +9,7 @@ CREATE TABLE users (
     surname VARCHAR(100) NOT NULL,
     username VARCHAR(100) NOT NULL UNIQUE,
     email VARCHAR(100) NOT NULL UNIQUE,
+    role ENUM('admin', 'user') NOT NULL,
     password_hash VARCHAR(100) NOT NULL,
     salt VARCHAR(100) NOT NULL
 );
@@ -58,3 +59,7 @@ INNER JOIN
     rooms r ON b.room_id = r.room_id
 GROUP BY 
     u.user_id;
+
+-- Create initial admin user with password 'underground-hotel'
+INSERT INTO users (pronouns, givenname, surname, username, email, role, password_hash, salt) 
+VALUES ('Mr', 'hotel', 'admin', 'admin', 'admin@underground-hotel.de', 'admin', 'e93730fa0232088ea4d810ebf625686291ff6977e1fdb4f6569252fd40b1f796', '0088359d9501078e5a16c7fcbaffdfd6');
