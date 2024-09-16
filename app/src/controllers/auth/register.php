@@ -1,9 +1,13 @@
 <?php
+
+include '/underground-hotel/db/init.sql';
+include 'src/config/dbaccess.php';
 require 'src/util/logger.php';
 require 'src/models/user.php';
 require 'src/config/dbaccess.php';
 
 $logger = new Logger('logs/controller.log');
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
