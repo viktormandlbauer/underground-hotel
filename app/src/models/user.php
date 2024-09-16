@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
-include 'src/util/hash.php';
+require 'src/config/dbaccess.php';
+require 'src/util/hash.php';
+
 use App\Util\Hash;
 
 class User
@@ -20,7 +22,7 @@ class User
         $this->load();
     }
 
-    public static function exists($username)
+    public static function exists_username($username)
     {
         global $conn;
         $stmt = $conn->prepare("SELECT username FROM users WHERE username = ?");
@@ -30,10 +32,20 @@ class User
         return $result->num_rows > 0;
     }
 
+    public static function exists_email($email)
+    {
+        global $conn;
+        $stmt = $conn->prepare("SELECT email FROM users WHERE email = ?");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->num_rows > 0;
+    }
+
     public static function register($pronouns, $givenname, $surname, $email, $username, $password)
     {
 
-        if ($username == "" || $password == "" || $email == "" || $givenname == "" || $surname == "") {
+        if (!isset($pronouns, $givenname, $surname, $email, $username, $password)) {
             return false;
         }
 
@@ -53,12 +65,12 @@ class User
     public static function login($username, $password)
     {
 
-        if ($username == "" || $password == "") {
+        if (!isset($username, $password)) {
             return false;
         }
 
         global $conn;
-        
+
         $stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
         $stmt->bind_param("s", $username);
         $stmt->execute();
@@ -80,7 +92,7 @@ class User
         $stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
         $stmt->bind_param("i", $this->username);
         $stmt->execute();
-        
+
         $result = $stmt->get_result();
         $user = $result->fetch_assoc();
 
@@ -93,10 +105,20 @@ class User
         }
     }
 
-    public function save() {
+    public function save()
+    {
         global $conn;
         $stmt = $conn->prepare("UPDATE users SET pronouns = ?, givenname = ?, surname = ?, email = ? WHERE username = ?");
         $stmt->bind_param("sssss", $this->pronouns, $this->givenname, $this->surname, $this->email, $this->username);
+        $stmt->execute();
+    }
+
+    public function delete()
+    {
+        global $conn;
+
+        $stmt = $conn->prepare("DELETE FROM users WHERE username = ?");
+        $stmt->bind_param("s", $this->username);
         $stmt->execute();
     }
 }

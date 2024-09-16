@@ -1,9 +1,8 @@
 <?php
 require 'src/util/logger.php';
 require 'src/models/user.php';
-require 'src/config/dbaccess.php';
 
-$logger = new Logger('logs/controller.log');
+$logger = new Logger('logs/auth.log');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -13,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (\App\Models\User::login($_POST['username'], $_POST['password'])) {
             $logger->log('Login successful for user: ' . $_POST['username']);            
 
-            // TODO: Handle session
+            $_SESSION['username'] = $_POST['username'];
 
             // Redirect to home page
             header('Location: /');
