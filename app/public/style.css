@@ -1,9 +1,17 @@
 .carousel-item {
-    height: 800px;
+    height: 800px; 
 }
 
 .carousel-item img {
-    object-fit: cover;
-    width: 100%;
+    object-fit: cover; 
     height: 100%;
+    width: 100%;
+}
+
+.navbar-brand {
+    margin-left: 1em;
+}
+
+.navbar-items-right {
+    margin-right: 1em;
 }
