@@ -12,7 +12,7 @@ class Logger {
 
     public function log($message) {
         $timestamp = date('Y-m-d H:i:s');
-        $logMessage = "[$timestamp] $message" . PHP_EOL;
+        $logMessage = "[$timestamp] $message" . "\r\n";
         fwrite($this->logFile, $logMessage);
     }
 

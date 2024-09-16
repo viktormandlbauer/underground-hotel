@@ -2,20 +2,27 @@
 
 require 'src/util/logger.php';
 require 'src/models/user.php';
-require 'src/config/dbaccess.php';
 
-$logger = new Logger('logs/controller.log');
+$logger = new Logger('logs/auth.log');
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($_SERVER['REQUEST_URI'] === '/auth/submit/registration') {
-        
+
         $logger->log('Handling registration request for user: ' . $_POST['username']);
 
-        if (\App\Models\User::exists($_POST['username'])) {
+        if (\App\Models\User::exists_username($_POST['username'])) {
 
             $logger->log('User already exists');
+
+            // TODO : Set error parameter
+
+            header('Location: /register');
+
+        } elseif (\App\Models\User::exists_email($_POST['email'])) {
+
+            $logger->log('Email already exists');
 
             // TODO : Set error parameter
 
@@ -30,9 +37,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_POST['password']
             )) {
 
-                $logger->log('Registration successful for user: ' . $_POST['username']);
-
                 // TODO: Handle session
+                $_SESSION['username'] = $_POST['username'];
+
+                $logger->log('Registration successful for user: ' .
+                    $_SESSION['username'] .
+                    " with session variable: " .
+                    print_r($_SESSION, true));
+
                 header('Location: /');
             } else {
 
@@ -44,4 +56,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
-?>

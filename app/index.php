@@ -1,6 +1,8 @@
 <?php
 
 $request = $_SERVER['REQUEST_URI'];
+$stage = getenv('STAGE') ?: 'development';
+session_start();
 
 switch ($request) {
     case '':
@@ -42,6 +44,18 @@ switch ($request) {
 
     case '/auth/submit/login':
         require 'src/controllers/auth/login.php';
+        break;
+
+    case '/logout':
+        require 'src/controllers/auth/logout.php';
+        break;
+    
+    case '/test':
+        header('Content-type: text/plain');
+        echo "This is " .  $stage . "!\r\n";
+        if($stage === 'development') {
+            require 'src/controllers/test.php';
+        }
         break;
     
     default:

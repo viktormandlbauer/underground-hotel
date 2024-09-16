@@ -23,7 +23,6 @@ $username = $_SESSION['username'];
 $user = new \App\Models\User($username);
 $user->load();
 
-
 ?>
 
 <div class="container mt-5">
