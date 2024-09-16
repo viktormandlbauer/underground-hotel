@@ -1,18 +1,18 @@
 <?php include 'src/views/includes/header.php'; ?>
 <?php include 'src/views/includes/navbar.php'; ?>
 
-
 <style>
 .carousel-item {
     height: 800px; 
 }
 .carousel-item img {
     object-fit: cover; 
+    height: 100%;
+    width: 100%;
 }
 </style>
 
-
-    <div id="carouselExampleCaptions" class="carousel slide">
+    <div id="carouselExampleCaptions" class="carousel slide" >
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
             <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>

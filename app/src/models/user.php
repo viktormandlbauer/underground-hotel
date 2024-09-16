@@ -14,7 +14,7 @@ class User
     private $pronouns;
     private $email;
 
-    private function __construct($username)
+    public function __construct($username)
     {
         $this->username = $username;
         $this->load();
@@ -85,7 +85,7 @@ class User
         $user = $result->fetch_assoc();
 
         if ($user) {
-            $this->id = $user['id'];
+            $this->id = $user['user_id'];
             $this->givenname = $user['givenname'];
             $this->surname = $user['surname'];
             $this->pronouns = $user['pronouns'];
@@ -99,4 +99,38 @@ class User
         $stmt->bind_param("sssss", $this->pronouns, $this->givenname, $this->surname, $this->email, $this->username);
         $stmt->execute();
     }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    public function getGivenname()
+    {
+        return $this->givenname;
+    }
+
+    public function getSurname()
+    {
+        return $this->surname;
+    }
+
+    public function getPronouns()
+    {
+        return $this->pronouns;
+    }
+
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+
+
+
 }

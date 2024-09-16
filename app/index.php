@@ -23,6 +23,10 @@ switch ($request) {
     case '/help':
         require 'src/views/help.php';
         break;
+
+    case '/profile':
+        require 'src/views/profile.php';
+        break;
         
     case '/register':
         require 'src/views/auth/register.php';
