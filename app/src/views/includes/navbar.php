@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" style="margin-left:15px" href="#">Underground Hotel</a>
+  <a class="navbar-brand" href="#">Underground Hotel</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -26,10 +26,10 @@
       echo '
     <ul class="navbar-nav ms-auto">
       <li class="nav-item">
-        <a class="btn btn-outline-primary mr-2" href="/login">Login</a>
+        <a class="btn btn-outline-primary mr-2 navbar-items-right" href="/login">Login</a>
       </li>
       <li class="nav-item">
-        <a class="btn btn-primary" href="/register">Registrieren</a>
+        <a class="btn btn-primary navbar-items-right" href="/register">Registrieren</a>
       </li>
     </ul>
     ';
@@ -37,10 +37,10 @@
       echo '
     <ul class="navbar-nav ms-auto">
       <li class="nav-item">
-        <a class="btn btn-outline-primary mr-2" href="/profile">' . htmlspecialchars($_SESSION['username']) . '</a>
+        <a class="btn btn-outline-primary mr-2 navbar-items-right" href="/profile">' . htmlspecialchars($_SESSION['username']) . '</a>
       </li>
       <li class="nav-item">
-        <a class="btn btn-primary" href="/logout">Logout</a>
+        <a class="btn btn-primary navbar-items-right" href="/logout">Logout</a>
       </li>
     </ul>
     ';
