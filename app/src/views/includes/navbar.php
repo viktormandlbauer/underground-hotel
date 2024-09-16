@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Underground Hotel</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" style="margin-left:15px" href="#">Underground Hotel</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -26,10 +26,10 @@
 
   <ul class="navbar-nav ms-auto">
   <li class="nav-item">
-    <a class="btn btn-outline-primary mr-2" href="/login">Login</a>
+    <a class="btn btn-outline-primary mr-2" style="margin-right:15px" href="/login">Login</a>
   </li>
   <li class="nav-item">
-    <a class="btn btn-primary" href="/register">Registrieren</a>
+    <a class="btn btn-primary" style="margin-right:15px" href="/register">Registrieren</a>
   </li>
 </ul>
   </div>
