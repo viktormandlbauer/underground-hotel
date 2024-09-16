@@ -1,8 +1,10 @@
 <?php
+
 require 'src/util/logger.php';
 require 'src/models/user.php';
 
 $logger = new Logger('logs/auth.log');
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 

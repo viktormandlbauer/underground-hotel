@@ -14,14 +14,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $_SESSION['username'] = $_POST['username'];
 
+            $_SESSION['username'] = $_POST['username'];
+
             // Redirect to home page
-            header('Location: /');
+            header('Location: /profile');
 
         } else {
 
             // TODO: Set error parameter
 
             header('Location: /login');
+            exit();
         }
     }
 }
