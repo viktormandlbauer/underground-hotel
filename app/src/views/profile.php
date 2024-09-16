@@ -1,34 +1,14 @@
-<?php session_start(); 
-use App\Models\User;?>
 <?php include 'src/views/includes/header.php'; ?>
 <?php include 'src/views/includes/navbar.php'; ?>
+<?php require 'src/controllers/auth/login.php'; ?>
+<?php $user = unserialize($_SESSION['user_data']); ?>
 
-<?php
-
-require 'src/util/logger.php';
-require 'src/models/user.php';
-require 'src/config/dbaccess.php';
-
-$logger = new Logger('logs/controller.log');
-
-// Überprüfen, ob der Benutzer eingeloggt ist
-if (!isset($_SESSION['username'])) {
-    header('Location: /login');
-    exit();
-}
-
-// Benutzername aus der Session holen
-$username = $_SESSION['username'];
-
-$user = new \App\Models\User($username);
-$user->load();
-
-?>
 
 <div class="container mt-5">
     <h1 class="mb-4">Profilverwaltung</h1>
+
     <div class="card p-4 mb-4">
-        <p>Angemeldet als: <strong><?php echo htmlspecialchars($username); ?></strong></p>
+        <p>Angemeldet als: <strong><?php echo htmlspecialchars($_SESSION['username']); ?></strong></p>
         <p>Pronomen: <strong><?php echo htmlspecialchars($user->getPronouns()); ?></strong></p>
         <p>Vorname: <strong><?php echo htmlspecialchars($user->getGivenname()); ?></strong></p>
         <p>Nachname: <strong><?php echo htmlspecialchars($user->getSurname()); ?></strong></p>

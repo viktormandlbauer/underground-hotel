@@ -13,8 +13,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $logger->log('Login successful for user: ' . $_POST['username']);            
 
             $_SESSION['username'] = $_POST['username'];
+            
+            // generate user-object
+            $user = new \App\Models\User($_SESSION['username']);
+            $user->load();
 
-            $_SESSION['username'] = $_POST['username'];
+            $_SESSION['user_data'] = serialize($user);
 
             // Redirect to home page
             header('Location: /profile');
