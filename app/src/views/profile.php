@@ -1,12 +1,13 @@
 <?php include 'src/views/includes/header.php'; ?>
 <?php include 'src/views/includes/navbar.php'; ?>
-<?php require 'src/controllers/auth/login.php'; ?>
+<?php include 'src/controllers/auth/login.php'; ?>
 <?php include 'src/controllers/flashmessage.php'; ?>
 <?php $user = unserialize($_SESSION['user_data']); ?>
 
 
 <div class="container mt-5">
     <h1 class="mb-4">Profilverwaltung</h1>
+
 
     <div class="card p-4 mb-4">
         <p>Angemeldet als: <strong><?php echo htmlspecialchars($_SESSION['username']); ?></strong></p>
