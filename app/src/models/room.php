@@ -2,70 +2,26 @@
 
 namespace App\Models;
 
+include 'src/config/dbaccess.php';
+
 class Room
 {
-    private $id;
-    private $number;
-    private $type;
-    private $price;
-    private $status;
-
-    public function __construct($id, $number, $type, $price, $status)
+    public static function search_free_rooms($check_in_data, $check_out_date): array
     {
-        $this->id = $id;
-        $this->number = $number;
-        $this->type = $type;
-        $this->price = $price;
-        $this->status = $status;
-    }
+        global $conn;
+        $stmt = $conn->prepare("SELECT room_number FROM rooms r WHERE r.room_number NOT IN (
+        SELECT room_number FROM rooms r INNER JOIN bookings b ON r.room_id = b.room_id
+        WHERE (b.check_in_date BETWEEN ? AND ?) OR 
+        (b.check_out_date  BETWEEN ? AND ?) OR 
+        (b.check_in_date > ? AND b.check_out_date < ?));");
+        $stmt->bind_param("ssssss", $check_in_data, $check_out_date, $check_in_data, $check_out_date, $check_in_data, $check_out_date);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function getNumber()
-    {
-        return $this->number;
-    }
-
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    public function getPrice()
-    {
-        return $this->price;
-    }
-
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    public function setNumber($number)
-    {
-        $this->number = $number;
-    }
-
-    public function setType($type)
-    {
-        $this->type = $type;
-    }
-
-    public function setPrice($price)
-    {
-        $this->price = $price;
-    }
-
-    public function setStatus($status)
-    {
-        $this->status = $status;
+        $rooms = [];
+        while ($row = $result->fetch_assoc()) {
+            $rooms[] = $row;
+        }
+        return $rooms;
     }
 }

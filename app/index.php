@@ -2,6 +2,7 @@
 
 $request = $_SERVER['REQUEST_URI'];
 $stage = getenv('STAGE') ?: 'development';
+
 session_start();
 
 switch ($request) {
@@ -24,6 +25,14 @@ switch ($request) {
 
     case '/help':
         require 'src/views/help.php';
+        break;
+
+    case '/rooms':
+        require 'src/views/rooms.php';
+        break;
+    
+    case '/search/rooms':
+        require 'src/controllers/rooms.php';
         break;
 
     case '/profile':
