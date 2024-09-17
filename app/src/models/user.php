@@ -105,12 +105,27 @@ class User
         }
     }
 
-    public function save()
+    public function save($givenname, $surname, $email)
     {
         global $conn;
-        $stmt = $conn->prepare("UPDATE users SET pronouns = ?, givenname = ?, surname = ?, email = ? WHERE username = ?");
-        $stmt->bind_param("sssss", $this->pronouns, $this->givenname, $this->surname, $this->email, $this->username);
+        $this->givenname = $givenname;
+        $this->surname = $surname;
+        $this->email = $email;
+
+        $stmt = $conn->prepare("UPDATE users SET givenname = ?, surname = ?, email = ? WHERE username = ?");
+        $stmt->bind_param("ssss",  $this->givenname, $this->surname, $this->email, $this->username);
         $stmt->execute();
+    }
+
+    public function changePassword($password): void
+    {
+        global $conn;
+        $salt = Hash::salt(16);
+        $password_hash = Hash::make($password, $salt);
+        $stmt = $conn->prepare("UPDATE users SET password_hash = ?, salt = ? WHERE username = ?");
+        $stmt->bind_param("sss", $password_hash, $salt, $this->username);
+        $stmt->execute();
+
     }
 
     public function getId()
@@ -152,3 +167,5 @@ class User
         $stmt->execute();
     }
 }
+
+?>
