@@ -26,5 +26,3 @@ if (isset($_SESSION['flash_messages'])) {
     // Flash-Nachrichten löschen
     unset($_SESSION['flash_messages']);
 }
-    
-?>

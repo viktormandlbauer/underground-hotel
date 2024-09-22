@@ -53,6 +53,14 @@ switch ($request) {
     case '/auth/submit/profile_action':
         require 'src/controllers/auth/profile.php';
         break;
+
+    case '/adminpage':
+        require 'src/views/adminpage.php';
+        break;
+
+    case '/controllers/adminpage':
+        require 'src/controllers/adminpage.php';
+        break;
     
     case '/test':
         header('Content-type: text/plain');

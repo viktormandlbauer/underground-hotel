@@ -1,9 +1,11 @@
 <?php include 'src/views/includes/header.php'; ?>
 <?php include 'src/views/includes/navbar.php'; ?>
-<?php include 'src/controllers/auth/login.php'; ?>
 <?php include 'src/controllers/flashmessage.php'; ?>
+<?php include 'src/models/user.php'; ?>
+
 <?php $user = unserialize($_SESSION['user_data']); ?>
 
+<title>Profilverwaltung</title>
 
 <div class="container mt-5">
     <h1 class="mb-4">Profilverwaltung</h1>
