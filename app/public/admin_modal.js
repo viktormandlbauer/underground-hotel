@@ -37,31 +37,21 @@ document.addEventListener('DOMContentLoaded', function () {
       const formData = new FormData(this);
       console.log(formData);
        // AJAX-Request zum Server senden
-    fetch('/controllers/adminpage/save', {
-      method: 'POST',
-      body: formData
-  })
-  .then(response => {
-      // Überprüfen, ob die Antwort JSON ist
-      const contentType = response.headers.get("content-type");
-      if (contentType && contentType.includes("application/json")) {
-          return response.json(); // Nur JSON parsen, wenn es auch wirklich JSON ist
-      } else {
-          throw new Error("Antwort ist kein gültiges JSON");
-      }
-  })
-  .then(data => {
-      if (data.success) {
-          alert('Benutzerdaten erfolgreich aktualisiert.');
-          location.reload(); // Seite aktualisieren, um die neuen Daten anzuzeigen
-      } else {
-          alert('Fehler beim Aktualisieren der Benutzerdaten.');
-      }
-  })
-  .catch(error => {
-      console.error('Fehler bei der Verarbeitung:', error);
-      alert("Es ist ein Fehler aufgetreten: " + error.message);
+       fetch('/controllers/adminpage/save', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text())  // Hole die Antwort als Text
+    .then(text => {
+        const data = JSON.parse(text);   // Konvertiere den Text in JSON-Objekt
+        if (data.success) {
+            alert('Benutzerdaten erfolgreich aktualisiert.');
+            location.reload();
+        } else {
+            alert('Fehler beim Aktualisieren der Benutzerdaten.');
+        }
+    })
+    .catch(error => console.error('Error:', error));
   });
-});
 });
   

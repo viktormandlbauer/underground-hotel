@@ -103,7 +103,6 @@ class User
             $this->surname = $user['surname'];
             $this->pronouns = $user['pronouns'];
             $this->email = $user['email'];
-            return true;
         }
     }
 
@@ -117,8 +116,6 @@ class User
         $stmt = $conn->prepare("UPDATE users SET givenname = ?, surname = ?, email = ? WHERE username = ?");
         $stmt->bind_param("ssss",  $this->givenname, $this->surname, $this->email, $this->username);
         $stmt->execute();
-
-        return true;
     }
 
 
