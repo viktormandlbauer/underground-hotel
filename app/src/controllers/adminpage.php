@@ -22,7 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $user->save($givenname, $surname, $email);
 
-        echo json_encode(true,"Daten erfolgreich aktualisiert.");
+        echo json_encode(['success' => true]);
+
         exit(); 
     }
     
