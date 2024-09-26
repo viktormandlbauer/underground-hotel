@@ -1,5 +1,6 @@
-let checkin_date, checkin_div, checkin_dp,
-    checkout_date, checkout_div, checkout_dp;
+let checkin_date, datepicker_div, datepicker,
+    checkout_date;
+
 
 // function for udpating displayed date in button
 function update() {
@@ -11,21 +12,34 @@ function update() {
     }
 }
 
+
 // create checkin datepicker
-checkin_div = $('.checkin-picker').datepicker({
+datepicker_div = $('.datepicker').datepicker({
     autoclose: false,
+    startDate: new Date(),
+    startView: 0,
+    weekStart: 1,
     beforeShowDay: function (date) {
-        if (checkout_date !== undefined) {
-            // disabled date selection for day after checkout date
-            if (date > checkout_date) {
-                return false;
+
+        // display checkin date
+        if (checkin_date !== undefined) {
+            if (date.getDate() === checkin_date.getDate() &&
+                date.getMonth() === checkin_date.getMonth() &&
+                date.getFullYear() === checkin_date.getFullYear()) {
+                return {
+                    classes: 'check start'
+                };
             }
+        }
+
+        if (checkout_date !== undefined) {
+
             // display checkout date in checkin datepicker
             if (date.getDate() === checkout_date.getDate() &&
                 date.getMonth() === checkout_date.getMonth() &&
                 date.getFullYear() === checkout_date.getFullYear()) {
                 return {
-                    classes: 'is-selected'
+                    classes: 'check end'
                 };
             }
         }
@@ -37,85 +51,14 @@ checkin_div = $('.checkin-picker').datepicker({
                 };
             }
         }
-        // display checkin date
-        if (checkin_date !== undefined) {
-            if (date.getDate() === checkin_date.getDate() &&
-                date.getMonth() === checkin_date.getMonth() &&
-                date.getFullYear() === checkin_date.getFullYear()) {
-                return {
-                    classes: 'active'
-                };
-            }
-        }
+
         return true;
     }
 });
 
 // save checkin datepicker for later
-checkin_dp = checkin_div.data('datepicker');
+datepicker = datepicker_div.data('datepicker');
 
-// update datepickers on checkin date change
-checkin_div.on('changeDate', (event) => {
-    // save checkin date
-    checkin_date = event.date;
-    // update checkout datepicker so range dates are displayed
-    checkout_dp.update();
-    checkin_dp.update();
-    update();
-});
-
-// create checkout datepicker
-checkout_div = $('.checkout-picker').datepicker({
-    autoclose: false,
-    beforeShowDay: function (date) {
-        if (checkin_date !== undefined) {
-            // disabled date selection for day before checkin date
-            if (date < checkin_date) {
-                return false;
-            }
-            // display checkin date in checkout datepicker
-            if (date.getDate() === checkin_date.getDate() &&
-                date.getMonth() === checkin_date.getMonth() &&
-                date.getFullYear() === checkin_date.getFullYear()) {
-                return {
-                    classes: 'is-selected'
-                };
-            }
-        }
-        // display range dates in checkout datepicker
-        if (checkin_date !== undefined && checkout_date !== undefined) {
-            if (date > checkin_date && date < checkout_date) {
-                return {
-                    classes: 'is-between'
-                };
-            }
-        }
-        // display checkout date
-        if (checkout_date !== undefined) {
-            if (date.getDate() === checkout_date.getDate() &&
-                date.getMonth() === checkout_date.getMonth() &&
-                date.getFullYear() === checkout_date.getFullYear()) {
-                return {
-                    classes: 'active'
-                };
-            }
-        }
-        return true;
-    }
-});
-
-// save checkout datepicker for later
-checkout_dp = checkout_div.data('datepicker');
-
-// update datepickers on checkout date change
-checkout_div.on('changeDate', (event) => {
-    // save checkout date
-    checkout_date = event.date;
-    // update checkin datepicker so range dates are displayed
-    checkin_dp.update();
-    checkout_dp.update();
-    update();
-});
 
 // Handle search button click
 function search_free_rooms() {
@@ -153,19 +96,22 @@ function search_free_rooms() {
         });
 }
 
-// Handle change event on both datepickers
-checkin_div.on('changeDate', (event) => {
-    checkin_date = event.date;
-    checkout_dp.update();
-    checkin_dp.update();
-    update();
-    search_free_rooms();
-});
+// Handle change event on datepicker
+datepicker_div.on('changeDate', (event) => {
 
-checkout_div.on('changeDate', (event) => {
-    checkout_date = event.date;
-    checkin_dp.update();
-    checkout_dp.update();
+    if (checkin_date === undefined) {
+        checkin_date = event.date;
+    } else if (checkin_date > event.date && checkout_date === undefined) {
+        checkin_date = event.date;
+    }
+    else if (checkin_date !== undefined && checkout_date !== undefined) {
+        checkin_date = event.date;
+        checkout_date = undefined;
+    } else {
+        checkout_date = event.date;
+    }
+
+    datepicker.update();
     update();
     search_free_rooms();
 });

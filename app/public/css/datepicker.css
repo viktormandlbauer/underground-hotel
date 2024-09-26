@@ -17,10 +17,6 @@ p {
     margin-bottom: 0;
 }
 
-.is-selected {
-    background-color: #286090;
-    color: white;
-}
 
 .is-selected:hover {
     background-color: #204d74 !important;
@@ -36,14 +32,17 @@ p {
     background-color: #204d74 !important;
 }
 
-.checkin-picker .active,
-.checkout-picker .is-selected {
+.datepicker .check {
+    background-color: #202374;
+    color: white;
+}
+
+.datepicker .start {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
 
-.checkout-picker .active,
-.checkin-picker .is-selected {
+.datepicker .end {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
 }
