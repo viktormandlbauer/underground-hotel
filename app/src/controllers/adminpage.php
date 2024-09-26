@@ -3,7 +3,6 @@
 header('Content-Type: application/json');
 
 require 'src/models/user.php';
-include 'src/controllers/flashmessage.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 

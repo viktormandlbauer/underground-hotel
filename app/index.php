@@ -61,6 +61,10 @@ switch ($request) {
     case '/controllers/adminpage':
         require 'src/controllers/adminpage.php';
         break;
+
+    case '/controllers/adminpage/save':
+        require 'src/controllers/adminpage.php';
+        break;
     
     case '/test':
         header('Content-type: text/plain');
