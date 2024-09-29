@@ -54,16 +54,16 @@ switch ($request) {
         require 'src/controllers/auth/profile.php';
         break;
 
-    case '/adminpage':
-        require 'src/views/adminpage.php';
+    case '/admin':
+        require 'src/views/admin.php';
         break;
 
-    case '/controllers/adminpage':
-        require 'src/controllers/adminpage.php';
+    case '/admin/users':
+        require 'src/controllers/admin.php';
         break;
 
-    case '/controllers/adminpage/save':
-        require 'src/controllers/adminpage.php';
+    case '/admin/users/save':
+        require 'src/controllers/admin.php';
         break;
     
     case '/test':

@@ -50,7 +50,7 @@ require 'src/models/user.php';
         </table>
     </div>
 
-    <script src="public/admin_modal.js"></script>
+    <script src="public/js/userEdit.js"></script>
 
 <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -99,9 +99,5 @@ require 'src/models/user.php';
     </div>
   </div>
 </div>
-
-
-
-
 
 <?php include 'src/views/includes/footer.php'; ?>

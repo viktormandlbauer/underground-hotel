@@ -6,7 +6,7 @@ require 'src/models/user.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    if ($_SERVER['REQUEST_URI'] === '/controllers/adminpage/save') {
+    if ($_SERVER['REQUEST_URI'] === '/admin/users/save') {
         
         $userId = $_POST['user_id'];
         $username = $_POST['username'];

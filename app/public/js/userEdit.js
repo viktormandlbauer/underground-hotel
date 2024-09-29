@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const formData = new FormData(this);
     console.log(formData);
 
-    fetch('/controllers/adminpage/save', {
+    fetch('/admin/users/save', {
       method: 'POST',
       body: formData
     })
