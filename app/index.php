@@ -59,6 +59,22 @@ switch ($request) {
         require 'src/controllers/auth/logout.php';
         break;
     
+    case '/auth/submit/profile_action':
+        require 'src/controllers/auth/profile.php';
+        break;
+
+    case '/admin':
+        require 'src/views/admin.php';
+        break;
+
+    case '/admin/users':
+        require 'src/controllers/admin.php';
+        break;
+
+    case '/admin/users/save':
+        require 'src/controllers/admin.php';
+        break;
+    
     case '/test':
         header('Content-type: text/plain');
         echo "This is " .  $stage . "!\r\n";

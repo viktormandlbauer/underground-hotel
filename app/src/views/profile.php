@@ -1,11 +1,15 @@
 <?php include 'src/views/includes/header.php'; ?>
 <?php include 'src/views/includes/navbar.php'; ?>
-<?php require 'src/controllers/auth/login.php'; ?>
+<?php include 'src/controllers/flashmessage.php'; ?>
+<?php include 'src/models/user.php'; ?>
+
 <?php $user = unserialize($_SESSION['user_data']); ?>
 
+<title>Profilverwaltung</title>
 
 <div class="container mt-5">
     <h1 class="mb-4">Profilverwaltung</h1>
+
 
     <div class="card p-4 mb-4">
         <p>Angemeldet als: <strong><?php echo htmlspecialchars($_SESSION['username']); ?></strong></p>
@@ -17,7 +21,7 @@
 
     <!-- Formular zum Ändern der Profildaten -->
     <h2 class="mb-3">Profildaten aktualisieren</h2>
-    <form method="post" action="update_profile.php" class="mb-4">
+    <form method="post" action="/auth/submit/profile_action" class="mb-4">
         <div class="mb-3">
             <label for="givenname" class="form-label">Vorname:</label>
             <input type="text" name="givenname" class="form-control" value="<?php echo $user->getGivenname(); ?>" required>
@@ -33,12 +37,12 @@
             <input type="email" name="email" class="form-control" value="<?php echo $user->getEmail(); ?>" required>
         </div>
         
-        <button type="submit" class="btn btn-primary">Daten aktualisieren</button>
+        <button type="submit" name="update_profile" class="btn btn-primary">Daten aktualisieren</button>
     </form>
 
     <!-- Formular zum Ändern des Passworts -->
     <h2 class="mb-3">Passwort ändern</h2>
-    <form method="post" action="change_password.php">
+    <form method="post" action="/auth/submit/profile_action">
         <div class="mb-3">
             <label for="old_password" class="form-label">Altes Passwort:</label>
             <input type="password" name="old_password" class="form-control" required>
@@ -54,7 +58,7 @@
             <input type="password" name="confirm_password" class="form-control" required>
         </div>
         
-        <button type="submit" class="btn btn-primary">Passwort ändern</button>
+        <button type="submit" name="change_password" class="btn btn-primary">Passwort ändern</button>
     </form>
 </div>
 

@@ -10,6 +10,7 @@ use App\Util\Hash;
 class User
 {
     private $id;
+    private $role;
     private $username;
     private $givenname;
     private $surname;
@@ -51,7 +52,7 @@ class User
 
         global $conn;
 
-        $stmt = $conn->prepare("INSERT INTO users (pronouns, givenname, surname, username, email, password_hash, salt) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO users ( pronouns, givenname, surname, username, email, password_hash, salt) VALUES (?, ?, ?, ?, ?, ?, ?)");
 
         $salt = Hash::salt(16);
         $password_hash = Hash::make($password, $salt);
@@ -90,7 +91,7 @@ class User
     {
         global $conn;
         $stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
-        $stmt->bind_param("i", $this->username);
+        $stmt->bind_param("s", $this->username);
         $stmt->execute();
 
         $result = $stmt->get_result();
@@ -105,43 +106,82 @@ class User
         }
     }
 
-    public function save()
+    public function save($givenname, $surname, $email)
     {
         global $conn;
-        $stmt = $conn->prepare("UPDATE users SET pronouns = ?, givenname = ?, surname = ?, email = ? WHERE username = ?");
-        $stmt->bind_param("sssss", $this->pronouns, $this->givenname, $this->surname, $this->email, $this->username);
+        $this->givenname = $givenname;
+        $this->surname = $surname;
+        $this->email = $email;
+
+        $stmt = $conn->prepare("UPDATE users SET givenname = ?, surname = ?, email = ? WHERE username = ?");
+        $stmt->bind_param("ssss",  $this->givenname, $this->surname, $this->email, $this->username);
         $stmt->execute();
     }
 
-    public function getId()
+
+    public function changePassword($password): void
+    {
+        global $conn;
+        $salt = Hash::salt(16);
+        $password_hash = Hash::make($password, $salt);
+        $stmt = $conn->prepare("UPDATE users SET password_hash = ?, salt = ? WHERE username = ?");
+        $stmt->bind_param("sss", $password_hash, $salt, $this->username);
+        $stmt->execute();
+
+    }
+
+    public static function getAllUsers()
+    {
+        global $conn;
+        $stmt = $conn->prepare("SELECT user_id, role, username, givenname, surname, email, pronouns FROM users");
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $users = [];
+        while ($user = $result->fetch_assoc()) {
+            $users[] = $user;
+        }
+
+        $stmt->close();
+        $conn->close();
+        return $users;
+        
+    }
+
+    public function getId(): string
     {
         return $this->id;
     }
 
-    public function getUsername()
+    public function getUsername(): string
     {
         return $this->username;
     }
 
-    public function getGivenname()
+    public function getGivenname(): string
     {
         return $this->givenname;
     }
 
-    public function getSurname()
+    public function getSurname(): string
     {
         return $this->surname;
     }
 
-    public function getPronouns()
+    public function getPronouns(): string
     {
         return $this->pronouns;
     }
 
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
+
+    //public function getRole(): string
+    //{
+    //    return $this->role;
+    //}
 
     public function delete()
     {

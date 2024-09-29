@@ -1,6 +1,8 @@
 <?php include 'src/views/includes/header.php'; ?>
 <?php include 'src/views/includes/navbar.php'; ?>
 
+<title>Impressum</title>
+
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-6 col-md-8 col-sm-12">

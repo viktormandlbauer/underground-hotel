@@ -1,16 +1,7 @@
 <?php include 'src/views/includes/header.php'; ?>
 <?php include 'src/views/includes/navbar.php'; ?>
 
-<style>
-.carousel-item {
-    height: 800px; 
-}
-.carousel-item img {
-    object-fit: cover; 
-    height: 100%;
-    width: 100%;
-}
-</style>
+<title>Startseite</title>
 
     <div id="carouselExampleCaptions" class="carousel slide" >
         <div class="carousel-indicators">
