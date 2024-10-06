@@ -4,7 +4,6 @@ USE hotel;
 -- Create users table
 CREATE TABLE users (
     user_id INT PRIMARY KEY AUTO_INCREMENT,
-    role VARCHAR(10) NOT NULL DEFAULT 'User',
     pronouns VARCHAR(10) NOT NULL,
     givenname VARCHAR(100) NOT NULL,
     surname VARCHAR(100) NOT NULL,
@@ -17,9 +16,9 @@ CREATE TABLE users (
 
 -- Create rooms table
 CREATE TABLE rooms (
-    room_id INT PRIMARY KEY AUTO_INCREMENT,
-    room_number VARCHAR(10) NOT NULL UNIQUE,
+    room_id INT PRIMARY KEY,
     type VARCHAR(50) NOT NULL,
+    description VARCHAR(500),
     status ENUM('booked', 'free', 'reserved') NOT NULL
 );
 

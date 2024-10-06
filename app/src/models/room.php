@@ -10,7 +10,7 @@ class Room
     {
         global $conn;
         $stmt = $conn->prepare("SELECT room_number FROM rooms r WHERE r.room_number NOT IN (
-        SELECT room_number FROM rooms r INNER JOIN bookings b ON r.room_id = b.room_id
+        SELECT room_id FROM rooms r INNER JOIN bookings b ON r.room_id = b.room_id
         WHERE (b.check_in_date BETWEEN ? AND ?) OR 
         (b.check_out_date  BETWEEN ? AND ?) OR 
         (b.check_in_date > ? AND b.check_out_date < ?));");
@@ -24,4 +24,6 @@ class Room
         }
         return $rooms;
     }
+
+
 }

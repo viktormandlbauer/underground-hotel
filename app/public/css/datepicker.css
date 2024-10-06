@@ -1,22 +1,7 @@
-.well {
-    margin-top: 20px;
-}
-
-.date-range {
-    margin: auto;
-    text-align: center;
-}
-
 .date-range>div {
     display: inline-block;
     margin: 10px;
 }
-
-p {
-    text-align: right;
-    margin-bottom: 0;
-}
-
 
 .is-selected:hover {
     background-color: #204d74 !important;

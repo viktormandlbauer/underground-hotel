@@ -1,17 +1,5 @@
-let checkin_date, datepicker_div, datepicker,
-    checkout_date;
-
-
-// function for udpating displayed date in button
-function update() {
-    if (checkin_date !== undefined) {
-        $('#display-checkin').html(checkin_date.toLocaleDateString());
-    }
-    if (checkout_date !== undefined) {
-        $('#display-checkout').html(checkout_date.toLocaleDateString());
-    }
-}
-
+// selected dates from datepicker
+let checkin_date, checkout_date;
 
 // create checkin datepicker
 datepicker_div = $('.datepicker').datepicker({
@@ -60,42 +48,6 @@ datepicker_div = $('.datepicker').datepicker({
 datepicker = datepicker_div.data('datepicker');
 
 
-// Handle search button click
-function search_free_rooms() {
-
-    if (checkin_date === undefined || checkout_date === undefined) {
-        return;
-    }
-
-    fetch('/search/rooms', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ checkin_date, checkout_date })
-    })
-        .then(response => response.json())
-        .then(data => {
-            // Handle the response data
-            console.log(data);
-
-            // Clear the rooms list
-            $('#rooms-list').empty();
-
-            // Append the rooms to the list
-            data.forEach(room => {
-                $('#rooms-list').append(`
-                    <p>${room.room_number}</p>
-                `)
-            });
-
-
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-}
-
 // Handle change event on datepicker
 datepicker_div.on('changeDate', (event) => {
 
@@ -112,6 +64,38 @@ datepicker_div.on('changeDate', (event) => {
     }
 
     datepicker.update();
-    update();
-    search_free_rooms();
 });
+
+function load_rooms() {
+
+    // let checkin_date, checkout_date = getDatepickerDates();
+    let person_count = document.getElementById('person_count').innerText 
+    let price_min = document.getElementById('price_min').value;
+    let price_max = document.getElementById('price_max').value;
+
+    fetch('/search/rooms', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ checkin_date, checkout_date, person_count, price_min, price_max })
+    })
+        .then(response => response.json())
+        .then(data => { 
+            let tableBody = $('#rooms_table tbody');
+            tableBody.empty();
+            
+            data.forEach(room => {
+                console.log(room);
+                let row = $('<tr></tr>');
+                row.append(`<td><img src="" alt="temp" class="img-fluid"></td>`);
+                row.append(`<td>${room.room_number}</td>`);
+                row.append(`<td></td>`);
+                row.append(`<td>/night</td>`);
+                tableBody.append(row);
+            }); 
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}

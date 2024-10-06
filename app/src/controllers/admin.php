@@ -16,7 +16,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $pronouns = $_POST['pronouns'];
         $role = $_POST['role'] ?? null;
 
-
         $user = new \App\Models\User($username);
         $user->load();
 
