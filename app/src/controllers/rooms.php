@@ -27,6 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $logger->log('Searching for free rooms between ' . $data['checkin_date'] . ' and ' . $data['checkout_date']);
         $rooms = \App\Models\Room::search_free_rooms($data['checkin_date'], $data['checkout_date']);
+        
         $logger->log('Found rooms: ' . print_r($rooms, true));
         echo json_encode($rooms);
     }

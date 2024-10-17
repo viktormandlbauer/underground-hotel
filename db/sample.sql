@@ -6,13 +6,22 @@ INSERT INTO users (pronouns, givenname, surname, username, email, role, password
 ('she/her', 'Emily', 'Davis', 'emilydavis', 'emily@example.com', 'user', 'hashedpassword5', 'salt5'),
 ('they/them', 'Taylor', 'Wilson', 'taylorwilson', 'taylor@example.com', 'user', 'hashedpassword6', 'salt6');
 
-INSERT INTO rooms (room_number, type, status) VALUES
-('101', 'Single', 'free'),
-('102', 'Double', 'booked'),
-('103', 'Suite', 'reserved'),
-('104', 'Single', 'free'),
-('105', 'Double', 'booked'),
-('106', 'Suite', 'free');
+
+CREATE TABLE rooms (
+    room_id INT PRIMARY KEY,
+    type VARCHAR(50) NOT NULL,
+    description VARCHAR(500),
+    price_per_night DECIMAL(10, 2) NOT NULL,
+    status ENUM('booked', 'free', 'reserved') NOT NULL
+);
+
+INSERT INTO rooms (room_id, type, description, price_per_night, status) VALUES
+(201, 'Single', 'A single room with a single bed', 50.00, 'free'),
+(202, 'Double', 'A double room with a double bed', 75.00, 'booked'),
+(203, 'Suite', 'A suite with a living area and bedroom', 150.00, 'reserved'),
+(204, 'Single', 'A single room with a single bed', 50.00, 'free'),
+(205, 'Double', 'A double room with a double bed', 75.00, 'booked'),
+(206, 'Suite', 'A suite with a living area and bedroom', 150.00, 'free');
 
 INSERT INTO bookings (user_id, room_id, check_in_date, check_out_date) VALUES
 (1, 1, '2023-10-20', '2023-10-25'),

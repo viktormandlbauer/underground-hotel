@@ -1,6 +1,10 @@
 # Use the official MySQL image from the Docker Hub
 FROM mysql:latest
 
+
+ENV GLOBAL general_log = 'ON';
+ENV GLOBAL general_log_file = '/var/log/mysql/mysql.log';
+
 # Set environment variables for MySQL
 ENV MYSQL_DATABASE=hotel
 ENV MYSQL_USER=hotel

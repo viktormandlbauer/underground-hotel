@@ -11,18 +11,18 @@
 
                     <label for="person_count" class="form-label">Personen</label>
                     <output id="personCountValue" class="form-label">1</output>
-                    <input type="range" class="form-range" min="1" max="5" value="1" id="person_count" oninput="document.getElementById('rangeValue').innerText = this.value">
+                    <input type="range" class="form-range" min="1" max="5" value="1" id="person_count" oninput="document.getElementById('personCountValue').innerText = this.value">
 
                     <label for="price_min" class="form-label">></label>
                     <output id="minPriceValue" class="form-label">50€</output>
                     <input type="range" class="form-range" min="50" max="300" value="50" id="price_min" oninput="document.getElementById('minPriceValue').innerText = this.value + '€'">
 
-                    <label for="price_max" class="form-label"><</label>
-                    <output id="maxPriceValue" class="form-label">300€</output>
-                    <input type="range" class="form-range" min="50" max="300" value="300" id="price_max" oninput="document.getElementById('maxPriceValue').innerText = this.value + '€'">
-                
-                    <a class="btn btn-success d-flex justify-content-center mt-3" role="button" onClick="load_rooms()">Search</a>
-                
+                    <label for="price_max" class="form-label">
+                        << /label>
+                            <output id="maxPriceValue" class="form-label">300€</output>
+                            <input type="range" class="form-range" min="50" max="300" value="300" id="price_max" oninput="document.getElementById('maxPriceValue').innerText = this.value + '€'">
+
+                            <a class="btn btn-success d-flex justify-content-center mt-3" role="button" onClick="load_rooms()">Search</a>
                 </div>
             </div>
         </div>

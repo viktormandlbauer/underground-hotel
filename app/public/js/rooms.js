@@ -68,10 +68,11 @@ datepicker_div.on('changeDate', (event) => {
 
 function load_rooms() {
 
-    // let checkin_date, checkout_date = getDatepickerDates();
-    let person_count = document.getElementById('person_count').innerText 
+    let person_count = document.getElementById('person_count').value;
     let price_min = document.getElementById('price_min').value;
     let price_max = document.getElementById('price_max').value;
+
+    console.log(JSON.stringify({ checkin_date, checkout_date, person_count, price_min, price_max }));
 
     fetch('/search/rooms', {
         method: 'POST',
@@ -81,10 +82,10 @@ function load_rooms() {
         body: JSON.stringify({ checkin_date, checkout_date, person_count, price_min, price_max })
     })
         .then(response => response.json())
-        .then(data => { 
+        .then(data => {
             let tableBody = $('#rooms_table tbody');
             tableBody.empty();
-            
+
             data.forEach(room => {
                 console.log(room);
                 let row = $('<tr></tr>');
@@ -93,7 +94,7 @@ function load_rooms() {
                 row.append(`<td></td>`);
                 row.append(`<td>/night</td>`);
                 tableBody.append(row);
-            }); 
+            });
         })
         .catch(error => {
             console.error('Error:', error);
