@@ -81,8 +81,16 @@ function load_rooms() {
         },
         body: JSON.stringify({ checkin_date, checkout_date, person_count, price_min, price_max })
     })
-        .then(response => response.json())
-        .then(data => {
+        .then(
+            function (response) {
+                if (!response.ok) {
+                    return response.json().then(err => {
+                        throw new Error("HTTP status " + response.status + " " + JSON.stringify(err));
+                    });
+                }
+                return response.json();
+            }
+        ).then(data => {
             let tableBody = $('#rooms_table tbody');
             tableBody.empty();
 

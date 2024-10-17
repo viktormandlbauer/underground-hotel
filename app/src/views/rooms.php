@@ -17,8 +17,7 @@
                     <output id="minPriceValue" class="form-label">50€</output>
                     <input type="range" class="form-range" min="50" max="300" value="50" id="price_min" oninput="document.getElementById('minPriceValue').innerText = this.value + '€'">
 
-                    <label for="price_max" class="form-label">
-                        << /label>
+                    <label for="price_max" class="form-label"></label>
                             <output id="maxPriceValue" class="form-label">300€</output>
                             <input type="range" class="form-range" min="50" max="300" value="300" id="price_max" oninput="document.getElementById('maxPriceValue').innerText = this.value + '€'">
 
