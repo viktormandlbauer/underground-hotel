@@ -6,15 +6,6 @@ INSERT INTO users (pronouns, givenname, surname, username, email, role, password
 ('she/her', 'Emily', 'Davis', 'emilydavis', 'emily@example.com', 'user', 'hashedpassword5', 'salt5'),
 ('they/them', 'Taylor', 'Wilson', 'taylorwilson', 'taylor@example.com', 'user', 'hashedpassword6', 'salt6');
 
-
-CREATE TABLE rooms (
-    room_id INT PRIMARY KEY,
-    type VARCHAR(50) NOT NULL,
-    description VARCHAR(500),
-    price_per_night DECIMAL(10, 2) NOT NULL,
-    status ENUM('booked', 'free', 'reserved') NOT NULL
-);
-
 INSERT INTO rooms (room_id, type, description, price_per_night, status) VALUES
 (201, 'Single', 'A single room with a single bed', 50.00, 'free'),
 (202, 'Double', 'A double room with a double bed', 75.00, 'booked'),
