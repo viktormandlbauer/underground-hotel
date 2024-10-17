@@ -2,12 +2,11 @@
 
 error_reporting(E_ALL);
 ini_set('ignore_repeated_errors', TRUE);
-ini_set('display_errors', TRUE); // Should be FALSE in production
+ini_set('display_errors', TRUE);
 ini_set('log_errors', TRUE);
-ini_set('error_log', '/dev/stdout'); // Logging file path
+ini_set('error_log', '/dev/stdout');
 
 $request = $_SERVER['REQUEST_URI'];
-$stage = getenv('STAGE') ?: 'development';
 
 session_start();
 
@@ -79,14 +78,6 @@ switch ($request) {
 
     case '/admin/users/save':
         require 'src/controllers/admin.php';
-        break;
-    
-    case '/test':
-        header('Content-type: text/plain');
-        echo "This is " .  $stage . "!\r\n";
-        if($stage === 'development') {
-            require 'src/controllers/test.php';
-        }
         break;
     
     default:
