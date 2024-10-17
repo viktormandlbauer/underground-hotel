@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($_SERVER['REQUEST_URI'] == '/search/rooms') {
 
         try {
-            $data = process_json_request(['checkin_date', 'checkout_date', 'person_count', 'price_min', 'test']);
+            $data = process_json_request(['checkin_date', 'checkout_date', 'person_count', 'price_min', 'price_max']);
         } catch (Exception $e) {
             error_log("Error: " . $e->getMessage());
             http_response_code(400);
