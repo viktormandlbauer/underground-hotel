@@ -12,7 +12,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $data = process_json_request(['checkin_date', 'checkout_date', 'person_count', 'price_min', 'price_max']);
         } catch (Exception $e) {
             error_log("Error: " . $e->getMessage());
-            http_response_code(400);
             echo json_encode(['error' => $e->getMessage()]);
             exit;
         }

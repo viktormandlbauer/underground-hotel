@@ -1,6 +1,6 @@
 <?php
 
-function process_json_request($args = array())
+function process_json_request($args = []): array
 {
     $data = json_decode(file_get_contents('php://input'), true);
 
