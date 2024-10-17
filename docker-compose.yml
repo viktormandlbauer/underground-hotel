@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   hotel-db:
     image: hotel-db:latest
