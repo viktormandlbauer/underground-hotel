@@ -1,7 +1,5 @@
 <?php
 
-namespace App\Util;
-
 # Create a hashing class
 class Hash {
     # Hash a string

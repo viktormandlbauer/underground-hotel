@@ -1,16 +1,19 @@
 <?php
 
-namespace App\Models;
-
-include 'src/config/dbaccess.php';
+require 'src/config/Database.php';
 
 class Room
 {
+
+    public static function getDBConnection()
+    {
+        return Database::getInstance()->getConnection();
+    }
+
     public static function search_free_rooms($check_in_data, $check_out_date): array
     {
-        global $conn;
-        $stmt = $conn->prepare("SELECT room_number FROM rooms r WHERE r.room_number NOT IN (
-        SELECT room_number FROM rooms r INNER JOIN bookings b ON r.room_id = b.room_id
+        $stmt = self::getDBConnection()->prepare("SELECT r.room_number FROM rooms r WHERE r.room_number NOT IN (
+        SELECT r.room_number FROM rooms r INNER JOIN bookings b ON r.room_number = b.room_number
         WHERE (b.check_in_date BETWEEN ? AND ?) OR 
         (b.check_out_date  BETWEEN ? AND ?) OR 
         (b.check_in_date > ? AND b.check_out_date < ?));");

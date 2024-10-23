@@ -1,20 +1,25 @@
 <?php
 
-$request = $_SERVER['REQUEST_URI'];
-$stage = getenv('STAGE') ?: 'development';
+error_reporting(E_ALL);
+ini_set('ignore_repeated_errors', TRUE);
+ini_set('display_errors', TRUE);
+ini_set('log_errors', TRUE);
+ini_set('error_log', '/dev/stdout');
+
+require_once 'src/util/auth.php';
 
 session_start();
 
-switch ($request) {
+switch ($_SERVER['REQUEST_URI']) {
     case '':
     case '/':
         require 'src/views/welcome.php';
         break;
-    
+
     case '/galerie':
         require 'src/views/galerie.php';
         break;
-    
+
     case '/news':
         require 'src/views/news.php';
         break;
@@ -30,60 +35,78 @@ switch ($request) {
     case '/rooms':
         require 'src/views/rooms.php';
         break;
-    
+
     case '/search/rooms':
-        require 'src/controllers/rooms.php';
+        require 'src/controllers/RoomController.php';
         break;
 
-    case '/profile':
-        require 'src/views/profile.php';
-        break;
-        
     case '/register':
         require 'src/views/auth/register.php';
         break;
-    
+
     case '/auth/submit/registration':
-        require 'src/controllers/auth/register.php';
+        require 'src/controllers/UserController.php';
         break;
-        
+
     case '/login':
         require 'src/views/auth/login.php';
         break;
 
     case '/auth/submit/login':
-        require 'src/controllers/auth/login.php';
+        require 'src/controllers/UserController.php';
         break;
 
     case '/logout':
-        require 'src/controllers/auth/logout.php';
-        break;
-    
-    case '/auth/submit/profile_action':
-        require 'src/controllers/auth/profile.php';
+        require 'src/controllers/UserController.php';
         break;
 
-    case '/admin':
-        require 'src/views/admin.php';
+    case '/profile':
+        if (authenticated()) {
+            require 'src/views/profile.php';
+        } else {
+            header('Location: /login');
+        }
         break;
 
-    case '/admin/users':
-        require 'src/controllers/admin.php';
+    case '/profile/edit':
+        if (authenticated()) {
+            require 'src/controllers/UserController.php';
+        } else {
+            require 'src/error/401.php';
+        }
+        break;
+    case '/profile/load':
+        if (authenticated()) {
+            require 'src/controllers/UserController.php';
+        } else {
+            require 'src/error/401.php';
+        }
+        break;
+
+    case '/admin/dashboard':
+        if (authenticated() && authorized("admin")) {
+            require 'src/views/admin/dashboard.php';
+        } else {
+            require 'src/error/401.php';
+        }
+        break;
+
+    case '/admin/manage/users':
+        if (authenticated() && authorized("admin")) {
+            require 'src/controllers/AdminController.php';
+        } else {
+            require 'src/error/401.php';
+        }
         break;
 
     case '/admin/users/save':
-        require 'src/controllers/admin.php';
-        break;
-    
-    case '/test':
-        header('Content-type: text/plain');
-        echo "This is " .  $stage . "!\r\n";
-        if($stage === 'development') {
-            require 'src/controllers/test.php';
+        if (authenticated() && authorized("admin")) {
+            require 'src/controllers/AdminController.php';
+        } else {
+            require 'src/error/401.php';
         }
         break;
-    
+
     default:
-        http_response_code(404);
-        require 'src/views/404.php';
+        require 'src/error/404.php';
 }
