@@ -8,14 +8,10 @@ switch ($_SERVER['REQUEST_URI']) {
         if (User::login($_POST['username'], $_POST['password'])) {
 
             $_SESSION['username'] = $_POST['username'];
-
-            // Redirect to home page
-            header('Location: /profile');
+            echo json_encode(['status' => 'success']);
         } else {
-
-            // TODO: Set error parameter
-            header('Location: /login');
-            exit();
+            http_response_code(401);
+            echo json_encode(['status' => 'error', 'message' => 'Invalid username or password']);
         }
         break;
 

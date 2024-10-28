@@ -15,6 +15,7 @@ function process_json_request($args = []): array
             http_response_code(400);
             throw new Exception('Missing ' . $arg);
         }
+        
     }
 
     return $data;

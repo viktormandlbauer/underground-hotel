@@ -17,7 +17,9 @@ CREATE TABLE users (
     house_number VARCHAR(10),
     role ENUM('admin', 'employee', 'user') NOT NULL,
     password_hash VARCHAR(100) NOT NULL,
-    salt VARCHAR(100) NOT NULL
+    salt VARCHAR(100) NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    last_login DATETIME
 );
 
 -- Create rooms table
@@ -29,7 +31,6 @@ CREATE TABLE rooms (
     price_per_night DECIMAL(10, 2) NOT NULL
 );
 
-
 -- Create bookings table
 CREATE TABLE bookings (
     booking_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -38,14 +39,19 @@ CREATE TABLE bookings (
     check_in_date DATE NOT NULL,
     check_out_date DATE NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (room_number) REFERENCES rooms(room_number)
+    FOREIGN KEY (room_number) REFERENCES rooms(room_number),
+    booked_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Create news
 CREATE TABLE news (
     news_id INT PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(100) NOT NULL,
-    text VARCHAR(5000) NOT NULL
+    content TEXT NOT NULL,
+    image_path VARCHAR(100),
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_by INT,
+    FOREIGN KEY (created_by) REFERENCES users(user_id)
 );
 
 -- Create a view to join users, bookings, and rooms and group by users
