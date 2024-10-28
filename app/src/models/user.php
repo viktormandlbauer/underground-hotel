@@ -8,7 +8,6 @@ class User
     private $dbconn;
     private $id;
     public $role;
-
     public $username;
     public $givenname;
     public $surname;
@@ -117,7 +116,13 @@ class User
             'surname' => $this->surname,
             'pronouns' => $this->pronouns,
             'email' => $this->email,
-            'role' => $this->role
+            'role' => $this->role,
+            'telephone' => $this->telephone,
+            'country' => $this->country,
+            'postal_code' => $this->postal_code,
+            'city' => $this->city,
+            'street' => $this->street,
+            'house_number' => $this->house_number
         ];
     }
 
