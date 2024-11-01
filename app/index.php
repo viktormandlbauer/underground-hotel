@@ -107,6 +107,30 @@ switch ($_SERVER['REQUEST_URI']) {
         }
         break;
 
+    case '/newssite':
+        require 'src/views/news.php';
+        break;
+
+    case '/news/upload':
+        require 'src/views/newsupload.php';
+        break;
+
+    case '/news/submit':
+        require 'src/controllers/NewsController.php';
+        break;
+
+    case "news/detail":
+        require 'src/views/newsdetail.php';
+        break;
+    case '/get/news':
+        require 'src/models/News.php';
+        break;
+
+    case '/get/totalpages':
+        require 'src/models/News.php';
+        break;
+
+
     default:
         require 'src/error/404.php';
 }
