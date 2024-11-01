@@ -1,17 +1,32 @@
-# Use the official PHP image with Apache
+# Verwende das offizielle PHP-Image mit Apache
 FROM php:8.3-apache
 
-# Install necessary PHP extensions
-RUN docker-php-ext-install mysqli pdo pdo_mysql
+# Installiere Abhängigkeiten und notwendige Bibliotheken
+RUN apt-get update && apt-get install -y \
+    sendmail \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    libwebp-dev \
+    libonig-dev \
+    libzip-dev \
+    zlib1g-dev
 
-# Enable Apache mod_rewrite
+# Installiere PHP-Erweiterungen
+RUN docker-php-ext-install mysql exif zip
+
+# Konfiguriere und installiere die GD-Erweiterung mit Unterstützung für verschiedene Bildformate
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp && \
+    docker-php-ext-install gd
+
+# Aktiviere das Apache-Modul mod_rewrite
 RUN a2enmod rewrite
 
-# Copy the application code to the Apache document root
+# Kopiere den Anwendungscode in das Apache-Stammverzeichnis
 COPY . /var/www/html/
 
-# Set the working directory
+# Setze das Arbeitsverzeichnis
 WORKDIR /var/www/html/
 
-# Expose the default Apache port
+# Exponiere den Standard-Apache-Port
 EXPOSE 80
