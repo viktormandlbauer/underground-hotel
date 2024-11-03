@@ -25,6 +25,7 @@ class Room
         while ($row = $result->fetch_assoc()) {
             $rooms[] = $row;
         }
+
         return $rooms;
     }
 }

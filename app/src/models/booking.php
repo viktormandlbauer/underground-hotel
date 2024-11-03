@@ -1,6 +1,6 @@
 <?php
 
-include 'src/config/dbaccess.php';
+require 'src/config/Database.php';
 
 class Booking
 {

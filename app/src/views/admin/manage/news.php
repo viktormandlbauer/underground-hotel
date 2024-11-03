@@ -86,7 +86,7 @@
 <title>News Upload</title>
 
 <div class="container">
-    <form class="upload-form" action="/news/submit" method="post" enctype="multipart/form-data">
+    <form class="upload-form" action="/news/publish" method="post" enctype="multipart/form-data">
         <h1>Neuen News-Beitrag erstellen</h1>
 
         <div class="form-floating">

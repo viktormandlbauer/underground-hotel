@@ -104,27 +104,27 @@ switch ($_SERVER['REQUEST_URI']) {
         break;
 
     case '/news':
-        require 'src/views/news/news.php';
+        require 'src/views/news.php';
         break;
 
     case '/news/upload':
-        require 'src/views/news/newsupload.php';
+        require 'src/views/newsupload.php';
         break;
 
-    case '/news/submit':
+    case '/news/publish':
         require 'src/controllers/NewsController.php';
         break;
 
     case '/news/detail':
-        require 'src/views/news/newsdetail.php';
+        require 'src/views/newsdetail.php';
         break;
 
     case '/get/news':
-        require 'src/models/News.php';
+        require 'src/controllers/NewsController.php';
         break;
 
     case '/get/totalpages':
-        require 'src/models/News.php';
+        require 'src/controllers/NewsController.php';
         break;
 
 

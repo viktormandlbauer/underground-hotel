@@ -72,7 +72,11 @@ function load_rooms() {
     let price_min = document.getElementById('price_min').value;
     let price_max = document.getElementById('price_max').value;
 
-    console.log(JSON.stringify({ checkin_date, checkout_date, person_count, price_min, price_max }));
+    let tableBody = $('#rooms_table tbody');
+    tableBody.empty();
+
+    // Log the search parameters
+    // console.log(JSON.stringify({ checkin_date, checkout_date, person_count, price_min, price_max }));
 
     fetch('/rooms/search', {
         method: 'POST',
@@ -83,19 +87,24 @@ function load_rooms() {
     })
         .then(
             function (response) {
+                // Handling errors from the server
                 if (!response.ok) {
                     return response.json().then(err => {
                         throw new Error("HTTP status " + response.status + " " + JSON.stringify(err));
                     });
                 }
-                return response.json();
+                return response;
             }
-        ).then(data => {
-            let tableBody = $('#rooms_table tbody');
-            tableBody.empty();
+        ).then(response => {
 
-            data.forEach(room => {
-                console.log(room);
+            // No rooms available
+            if (response.status === 204) {
+                tableBody.append('<tr><td colspan="4">No rooms available</td></tr>');
+                return;
+            }
+            
+            // Display rooms
+            response.json().forEach(room => {
                 let row = $('<tr></tr>');
                 row.append(`<td><img src="" alt="temp" class="img-fluid"></td>`);
                 row.append(`<td>${room.room_number}</td>`);

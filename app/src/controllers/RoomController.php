@@ -3,17 +3,27 @@ require_once 'src/models/Room.php';
 require_once 'src/util/json.php';
 
 switch ($_SERVER['REQUEST_URI']) {
-    case '/search/rooms':
+    case '/rooms/search':
+
+        // Validate the JSON request
         try {
-            $data = process_json_request(['checkin_date', 'checkout_date', 'person_count', 'price_min', 'price_max']);
+            $data = validate_json_request(['checkin_date', 'checkout_date']);
         } catch (Exception $e) {
-            error_log("Error: " . $e->getMessage());
-            echo json_encode(['error' => $e->getMessage()]);
+            http_response_code(400);
+            echo json_encode(['message' => $e->getMessage()]);
             exit;
         }
-        
+
+        // Search for free rooms
         $rooms = Room::search_free_rooms($data['checkin_date'], $data['checkout_date']);
 
-        echo json_encode($rooms);
+        // Return the results
+        if (!empty($rooms)) {
+            echo json_encode($rooms);
+        } else {
+            http_response_code(204);
+            echo json_encode(['message' => 'No rooms available']);
+        }
+
         break;
 }
