@@ -5,25 +5,28 @@ require 'src/models/News.php';
 switch (parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
 
     case '/get/news':
+
+        $data = process_json_request(['page', 'limit']);
+
         $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
         $limit = isset($_GET['limit']) ? intval($_GET['limit']) : 20;
         $offset = ($page - 1) * $limit;
-        News::getNews($limit, $offset);
+        News::getNews($data['limit'], $offset);
         break;
 
     case '/get/totalpages':
         $limit = isset($_GET['limit']) ? intval($_GET['limit']) : 20;
         News::getTotalPages($limit);
         break;
-        
+
     case '/news/all':
         require 'src/models/News.php';
         News::getAllNews();
         break;
 
     default:
-        echo '404';
         break;
+        echo '404';
 }
 
 $uploadDir = 'news/';
@@ -67,12 +70,8 @@ if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
     }
 }
 
-try {
-    $stmt = $conn->prepare("INSERT INTO news (title, content, image_path) VALUES (?, ?, ?)");
-    $stmt->execute([$title, $content, $imagePath]);
-} catch (Exception $e) {
-    die("Fehler beim Speichern des Beitrags: " . $e->getMessage());
-}
+# Saves news in database
+News::saveNews($title, $content, $imagePath, $date);
 
 header('Location: /newssite');
 exit();

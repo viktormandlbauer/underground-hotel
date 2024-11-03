@@ -20,10 +20,6 @@ switch ($_SERVER['REQUEST_URI']) {
         require 'src/views/galerie.php';
         break;
 
-    case '/news':
-        require 'src/views/news.php';
-        break;
-
     case '/impressum':
         require 'src/views/impressum.php';
         break;
@@ -36,7 +32,7 @@ switch ($_SERVER['REQUEST_URI']) {
         require 'src/views/rooms.php';
         break;
 
-    case '/search/rooms':
+    case '/rooms/search':
         require 'src/controllers/RoomController.php';
         break;
 
@@ -84,7 +80,7 @@ switch ($_SERVER['REQUEST_URI']) {
         break;
 
     case '/admin/dashboard':
-        if (authenticated() && authorized("admin")) {
+        if (authenticated() && authorized('admin')) {
             require 'src/views/admin/dashboard.php';
         } else {
             require 'src/error/401.php';
@@ -107,21 +103,22 @@ switch ($_SERVER['REQUEST_URI']) {
         }
         break;
 
-    case '/newssite':
-        require 'src/views/news.php';
+    case '/news':
+        require 'src/views/news/news.php';
         break;
 
     case '/news/upload':
-        require 'src/views/newsupload.php';
+        require 'src/views/news/newsupload.php';
         break;
 
     case '/news/submit':
         require 'src/controllers/NewsController.php';
         break;
 
-    case "news/detail":
-        require 'src/views/newsdetail.php';
+    case '/news/detail':
+        require 'src/views/news/newsdetail.php';
         break;
+
     case '/get/news':
         require 'src/models/News.php';
         break;

@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y \
     zlib1g-dev
 
 # Installiere PHP-Erweiterungen
-RUN docker-php-ext-install mysql exif zip
+RUN docker-php-ext-install mysqli exif zip
 
 # Konfiguriere und installiere die GD-Erweiterung mit Unterstützung für verschiedene Bildformate
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp && \

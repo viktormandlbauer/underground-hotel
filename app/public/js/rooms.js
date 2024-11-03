@@ -74,7 +74,7 @@ function load_rooms() {
 
     console.log(JSON.stringify({ checkin_date, checkout_date, person_count, price_min, price_max }));
 
-    fetch('/search/rooms', {
+    fetch('/rooms/search', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

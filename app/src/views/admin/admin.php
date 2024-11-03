@@ -4,7 +4,7 @@ include 'src/views/includes/navbar.php';
 require 'src/models/user.php';
 ?>
 
-<?php $users = \App\Models\User::getAllUsers() ?>
+<?php $users = User::getAllUsers() ?>
 
     <div class="container mt-5">
         <h1 class="mb-4">Benutzerverwaltung</h1>
