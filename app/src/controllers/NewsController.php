@@ -29,8 +29,8 @@ switch (parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
         echo '404';
 }
 
-$uploadDir = 'news/';
-$thumbDir = 'news/thumbs/';
+$uploadDir = 'public/images';
+$thumbDir = 'public/images/news/thumbs/';
 
 if (!is_dir($uploadDir)) {
     mkdir($uploadDir, 0755, true);
@@ -73,7 +73,7 @@ if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
 # Saves news in database
 News::saveNews($title, $content, $imagePath, $date);
 
-header('Location: /newssite');
+header('Location: /news');
 exit();
 
 function createThumbnail($src, $dest, $desiredWidth, $desiredHeight)

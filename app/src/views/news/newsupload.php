@@ -107,7 +107,7 @@
 
         <div class="button-group">
             <button type="submit" class="button-submit">Beitrag veröffentlichen</button>
-            <button type="button" class="button-cancel" onclick="window.location.href='/newssite'">Abbrechen</button>
+            <button type="button" class="button-cancel" onclick="window.location.href='/news'">Abbrechen</button>
         </div>
     </form>
 </div>
