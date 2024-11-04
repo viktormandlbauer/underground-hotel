@@ -1,13 +1,13 @@
 <?php
 require_once 'src/models/Room.php';
-require_once 'src/util/json.php';
+require_once 'src/util/request.php';
 
 switch ($_SERVER['REQUEST_URI']) {
     case '/rooms/search':
 
         // Validate the JSON request
         try {
-            $data = validate_json_request(['checkin_date', 'checkout_date']);
+            $data = handle_request(['checkin_date', 'checkout_date']);
         } catch (Exception $e) {
             http_response_code(400);
             echo json_encode(['message' => $e->getMessage()]);

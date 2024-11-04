@@ -22,7 +22,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($_SERVER['REQUEST_URI'] === '/admin/users/save') {
         
         // Eingabedaten sichern und validieren
-        $userId = intval($_POST['user_id'] ?? 0);
         $username = trim($_POST['username'] ?? '');
         $givenname = trim($_POST['givenname'] ?? '');
         $surname = trim($_POST['surname'] ?? '');

@@ -63,7 +63,7 @@ switch ($_SERVER['REQUEST_URI']) {
 
     case '/profile/edit':               // Profile Handler
         try {
-            $data = process_json_request();
+            $data = handle_request();
         } catch (Exception $e) {
             error_log("Error: " . $e->getMessage());
             echo json_encode(['error' => $e->getMessage()]);

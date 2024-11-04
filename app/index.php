@@ -1,5 +1,7 @@
 <?php
 
+// phpinfo(); exit;
+
 error_reporting(E_ALL);
 ini_set('ignore_repeated_errors', TRUE);
 ini_set('display_errors', TRUE);
@@ -107,11 +109,11 @@ switch ($_SERVER['REQUEST_URI']) {
         require 'src/views/news.php';
         break;
 
-    case '/news/upload':
-        require 'src/views/newsupload.php';
+    case '/admin/manage/news':
+        require 'src/views/admin/manage/news.php';
         break;
 
-    case '/news/publish':
+    case '/news/submit':
         require 'src/controllers/NewsController.php';
         break;
 

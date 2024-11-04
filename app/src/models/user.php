@@ -99,7 +99,6 @@ class User
         $user = $result->fetch_assoc();
 
         if ($user) {
-            $this->id = $user['user_id'];
             $this->givenname = $user['givenname'];
             $this->surname = $user['surname'];
             $this->pronouns = $user['pronouns'];
@@ -161,7 +160,7 @@ class User
 
     public static function getAllUsers()
     {
-        $stmt = self::getDBConnection()->prepare("SELECT user_id, role, username, givenname, surname, email, pronouns FROM users");
+        $stmt = self::getDBConnection()->prepare("SELECT username, role, givenname, surname, email, pronouns FROM users");
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -179,11 +178,6 @@ class User
         $stmt = $this->dbconn->prepare("DELETE FROM users WHERE username = ?");
         $stmt->bind_param("s", $this->username);
         $stmt->execute();
-    }
-
-    public function getId(): string
-    {
-        return $this->id;
     }
 
     public function getUsername(): string

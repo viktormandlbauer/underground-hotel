@@ -3,11 +3,10 @@ USE hotel;
 
 -- Create users table
 CREATE TABLE users (
-    user_id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(100) PRIMARY KEY UNIQUE,
     pronouns VARCHAR(10) NOT NULL,
     givenname VARCHAR(100) NOT NULL,
     surname VARCHAR(100) NOT NULL,
-    username VARCHAR(100) NOT NULL UNIQUE,
     email VARCHAR(100) NOT NULL UNIQUE,
     telephone VARCHAR(20),
     country VARCHAR(100),
@@ -34,11 +33,11 @@ CREATE TABLE rooms (
 -- Create bookings table
 CREATE TABLE bookings (
     booking_id INT PRIMARY KEY AUTO_INCREMENT,
-    user_id INT,
+    username INT,
     room_number INT,
     check_in_date DATE NOT NULL,
     check_out_date DATE NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (username) REFERENCES users(username),
     FOREIGN KEY (room_number) REFERENCES rooms(room_number),
     booked_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -51,17 +50,16 @@ CREATE TABLE news (
     image_path VARCHAR(100),
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     created_by INT,
-    FOREIGN KEY (created_by) REFERENCES users(user_id)
+    FOREIGN KEY (created_by) REFERENCES users(username)
 );
 
 -- Create a view to join users, bookings, and rooms and group by users
 CREATE VIEW user_bookings AS
 SELECT
-    u.user_id,
+    u.username,
     u.pronouns,
     u.surname,
     u.givenname,
-    u.username,
     u.email,
     COUNT(b.booking_id) AS total_bookings,
     GROUP_CONCAT(
@@ -71,10 +69,10 @@ SELECT
     ) AS booked_rooms
 FROM
     users u
-    INNER JOIN bookings b ON u.user_id = b.user_id
+    INNER JOIN bookings b ON u.username = b.username
     INNER JOIN rooms r ON b.room_number = r.room_number
 GROUP BY
-    u.user_id;
+    u.username;
 
 -- Create initial admin user with password 'underground-hotel'
 INSERT INTO

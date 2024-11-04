@@ -4,15 +4,35 @@ require 'src/config/Database.php';
 
 class News
 {
+    public static $max_title_length = 0;
+    public static $max_content_length = 0;
     public $title;
     public $content;
-    public $imagePath;
+    public $image;
+    public $creator;
+    public $created;
+    public $modified;
+    public $is_published;
 
-    public function __construct($title, $content, $imagePath)
+    private function __construct($title, $content, $image, $user)
     {
+        // Validate title length
+        if (strlen($title) > self::$max_title_length) {
+            throw new Exception("Title exceeds maximum length of " . self::$max_title_length . " characters.");
+        }
+
+        // Validate content length
+        if (strlen($content) > self::$max_content_length) {
+            throw new Exception("Content exceeds maximum length of " . self::$max_content_length . " characters.");
+        }
+
         $this->title = $title;
         $this->content = $content;
-        $this->imagePath = $imagePath;
+        $this->image = $image;
+        $this->creator = $user;
+        $this->created = date('Y-m-d H:i:s');
+        $this->modified = $this->created;
+        $this->is_published = false;
     }
 
     public static function getDBConnection()
@@ -20,38 +40,16 @@ class News
         return Database::getInstance()->getConnection();
     }
 
-    public function saveImage() {
+    public static function newNews($title, $content, $image, $user)
+    {
+        // Creates news object
+        $news = new News($title, $content, $image, $user);
 
-        $uploadDir = 'public/images';
-        $thumbDir = 'public/images/news/thumbs/';
+        // Saves to database
+        $news->saveNews();
 
-        if (!is_dir($uploadDir)) {
-            mkdir($uploadDir, 0755, true);
-        }
-        if (!is_dir($thumbDir)) {
-            mkdir($thumbDir, 0755, true);
-        }
-
-        $imagePath = '';
-        if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-
-            $fileTmpPath = $_FILES['image']['tmp_name'];
-            $imageInfo = getimagesize($fileTmpPath);
-            $fileType = $imageInfo['mime'];
-
-            if (strpos($fileType, 'image/') === 0) {
-
-                $fileName = uniqid() . '_' . basename($_FILES['image']['name']);
-                $destination = $uploadDir . $fileName;
-
-                if (move_uploaded_file($fileTmpPath, $destination)) {
-                    $thumbPath = $thumbDir . $fileName;
-                    $imagePath = $destination;
-                }
-            }
-        }
-
-        return $imagePath;
+        // Returns the news id
+        return $news->getId();
     }
 
     public static function getAllNews()
@@ -98,10 +96,20 @@ class News
         echo json_encode(['totalPages' => $totalPages]);
     }
 
-    public static function saveNews($title, $content, $imagePath)
+    public function saveNews()
     {
         $stmt = self::getDBConnection()->prepare("INSERT INTO news (title, content, image_path) VALUES (?, ?, ?)");
-        $stmt->bind_param("sss", $title, $content, $imagePath);
+        $stmt->bind_param("sss", $this->title, $this->content, $this->image);
         $stmt->execute();
+    }
+
+    public function getId()
+    {
+        $stmt = self::getDBConnection()->prepare("SELECT id FROM news WHERE title = ? AND content = ? AND image_path = ?");
+        $stmt->bind_param("sss", $this->title, $this->content, $this->image);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $id = $result->fetch_assoc();
+        return $id["id"];
     }
 }

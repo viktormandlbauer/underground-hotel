@@ -1,92 +1,93 @@
-<?php include 'src/views/includes/header.php';?>
+<?php include 'src/views/includes/header.php'; ?>
 
 <style>
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-.upload-form {
-    width: 100%;
-    max-width: 600px;
-}
+    .upload-form {
+        width: 100%;
+        max-width: 600px;
+    }
 
-.form-floating {
-    width: 100%;
-    margin-bottom: 1rem;
-}
+    .form-floating {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
 
-#dropzone {
-    border: 2px dashed #007bff;
-    background-color: #f8f9fa;
-    padding: 30px;
-    text-align: center;
-    border-radius: 8px;
-    width: 100%;
-    margin-bottom: 20px;
-    position: relative;
-}
+    #dropzone {
+        border: 2px dashed #007bff;
+        background-color: #f8f9fa;
+        padding: 30px;
+        text-align: center;
+        border-radius: 8px;
+        width: 100%;
+        margin-bottom: 20px;
+        position: relative;
+    }
 
-#fileElem {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;  /* Unsichtbar */
-    cursor: pointer;
-}
+    #fileElem {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        /* Unsichtbar */
+        cursor: pointer;
+    }
 
-#preview {
-    display: none;
-    max-width: 100%;
-    margin-top: 20px;
-    border: 1px solid #ddd;
-    padding: 5px;
-    border-radius: 4px;
-}
+    #preview {
+        display: none;
+        max-width: 100%;
+        margin-top: 20px;
+        border: 1px solid #ddd;
+        padding: 5px;
+        border-radius: 4px;
+    }
 
-.button-submit {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    margin-right: 10px;
-    transition: background-color 0.3s ease;
-}
+    .button-submit {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        margin-right: 10px;
+        transition: background-color 0.3s ease;
+    }
 
-.button-submit:hover {
-    background-color: #0056b3;
-}
+    .button-submit:hover {
+        background-color: #0056b3;
+    }
 
-.button-cancel {
-    background-color: #dc3545;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    transition: background-color 0.3s ease;
-}
+    .button-cancel {
+        background-color: #dc3545;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        transition: background-color 0.3s ease;
+    }
 
-.button-cancel:hover {
-    background-color: #c82333;
-}
+    .button-cancel:hover {
+        background-color: #c82333;
+    }
 
-.button-group {
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
-}
+    .button-group {
+        display: flex;
+        justify-content: flex-end;
+        width: 100%;
+    }
 </style>
 
 <title>News Upload</title>
 
 <div class="container">
-    <form class="upload-form" action="/news/publish" method="post" enctype="multipart/form-data">
+    <form id="submitNewsForm" class="upload-form" action="/news/submit" method="post" enctype="multipart/form-data">
         <h1>Neuen News-Beitrag erstellen</h1>
 
         <div class="form-floating">
@@ -100,7 +101,7 @@
         </div>
         <div id="dropzone">
             <p class="dropper">Bild hierhin ziehen oder mit dem Button laden</p>
-            <input type="file" id="fileElem" name="image" multiple accept="image/*" onchange="handleFiles(this.files)">
+            <input type="file" id="fileElem" name="imageFile" multiple accept="image/*" onchange="handleFiles(this.files)">
         </div>
 
         <img id="preview" alt="Bildvorschau">
@@ -112,7 +113,34 @@
     </form>
 </div>
 
+
+<script>
+    function submit_news(formData) {
+
+        fetch('/news/submit', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('submitNewsForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const formData = new FormData(event.target);
+
+            submit_news(formData);
+        });
+    });
+</script>
+
 <script src="/public/js/dropzone.js"></script>
 
 <?php include 'src/views/includes/footer.php'; ?>
-
