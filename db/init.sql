@@ -33,7 +33,7 @@ CREATE TABLE rooms (
 -- Create bookings table
 CREATE TABLE bookings (
     booking_id INT PRIMARY KEY AUTO_INCREMENT,
-    username INT,
+    username VARCHAR(100),
     room_number INT,
     check_in_date DATE NOT NULL,
     check_out_date DATE NOT NULL,
@@ -49,7 +49,7 @@ CREATE TABLE news (
     content TEXT NOT NULL,
     image_path VARCHAR(100),
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    created_by INT,
+    created_by VARCHAR(100),
     FOREIGN KEY (created_by) REFERENCES users(username)
 );
 

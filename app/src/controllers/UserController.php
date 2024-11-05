@@ -1,6 +1,6 @@
 <?php
 require_once 'src/models/User.php';
-require_once 'src/util/json.php';
+require_once 'src/util/request.php';
 
 switch ($_SERVER['REQUEST_URI']) {
     case '/auth/submit/login':          // Login Handler

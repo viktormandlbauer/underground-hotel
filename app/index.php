@@ -91,7 +91,31 @@ switch ($_SERVER['REQUEST_URI']) {
 
     case '/admin/manage/users':
         if (authenticated() && authorized("admin")) {
-            require 'src/controllers/AdminController.php';
+            require 'src/views/admin/manage/users.php';
+        } else {
+            require 'src/error/401.php';
+        }
+        break;
+
+    case '/admin/manage/rooms':
+        if (authenticated() && authorized("admin")) {
+            require 'src/views/admin/manage/rooms.php';
+        } else {
+            require 'src/error/401.php';
+        }
+        break;
+
+    case '/admin/manage/news':
+        if (authenticated() && authorized("admin")) {
+            require 'src/views/admin/manage/news.php';
+        } else {
+            require 'src/error/401.php';
+        }
+        break;
+
+    case '/admin/manage/bookings':
+        if (authenticated() && authorized("admin")) {
+            require 'src/views/admin/manage/bookings.php';
         } else {
             require 'src/error/401.php';
         }
@@ -107,10 +131,6 @@ switch ($_SERVER['REQUEST_URI']) {
 
     case '/news':
         require 'src/views/news.php';
-        break;
-
-    case '/admin/manage/news':
-        require 'src/views/admin/manage/news.php';
         break;
 
     case '/news/submit':

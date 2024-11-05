@@ -8,16 +8,16 @@ switch ($_SERVER['REQUEST_URI']) {
 
     case '/news/submit':
 
-        $data = handle_request(['title', 'content']);        
-        
-        $image = Image::handleImageUpload();
-        
-        if(!$image->uploaded){
-            echo json_encode(['message' => 'Image upload failed']);
+        $data = handle_request(['title', 'content']);
+
+        $image = Image::handleImageUpload('news', true, 500, 500);
+
+        if ($image->uploaded) {
+            $id = News::newNews($data['title'], $data['content'], $image->getPath(), $_SESSION['username']);
+        } else {
+            $id = News::newNews($data['title'], $data['content'], null, $_SESSION['username']);
         }
-
-        $id = News::newNews($data['title'], $data['content'], $image->name, $_SESSION['username']);   
-
+        
         echo json_encode(['message' => 'New news submitted with id ' . $id]);
 
         break;

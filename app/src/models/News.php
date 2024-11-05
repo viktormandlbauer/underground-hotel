@@ -4,12 +4,12 @@ require 'src/config/Database.php';
 
 class News
 {
-    public static $max_title_length = 0;
+    public static $max_title_length = 100;
     public static $max_content_length = 0;
     public $title;
     public $content;
     public $image;
-    public $creator;
+    public $created_by;
     public $created;
     public $modified;
     public $is_published;
@@ -22,14 +22,14 @@ class News
         }
 
         // Validate content length
-        if (strlen($content) > self::$max_content_length) {
+        if (strlen($content) > self::$max_content_length && self::$max_content_length != 0) {
             throw new Exception("Content exceeds maximum length of " . self::$max_content_length . " characters.");
         }
 
         $this->title = $title;
         $this->content = $content;
         $this->image = $image;
-        $this->creator = $user;
+        $this->created_by = $user;
         $this->created = date('Y-m-d H:i:s');
         $this->modified = $this->created;
         $this->is_published = false;
@@ -98,18 +98,18 @@ class News
 
     public function saveNews()
     {
-        $stmt = self::getDBConnection()->prepare("INSERT INTO news (title, content, image_path) VALUES (?, ?, ?)");
-        $stmt->bind_param("sss", $this->title, $this->content, $this->image);
+        $stmt = self::getDBConnection()->prepare("INSERT INTO news (title, content, image_path, created_by) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("ssss", $this->title, $this->content, $this->image, $this->created_by);
         $stmt->execute();
     }
 
     public function getId()
     {
-        $stmt = self::getDBConnection()->prepare("SELECT id FROM news WHERE title = ? AND content = ? AND image_path = ?");
+        $stmt = self::getDBConnection()->prepare("SELECT news_id FROM news WHERE title = ? AND content = ? AND image_path = ?");
         $stmt->bind_param("sss", $this->title, $this->content, $this->image);
         $stmt->execute();
         $result = $stmt->get_result();
         $id = $result->fetch_assoc();
-        return $id["id"];
+        return $id["news_id"];
     }
 }
