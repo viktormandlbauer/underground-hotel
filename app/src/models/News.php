@@ -85,7 +85,6 @@ class News
 
     public static function getTotalPages($limit)
     {
-        header('Content-Type: application/json');
 
         $totalResult = self::getDBConnection()->query("SELECT COUNT(*) AS total FROM news");
         $totalRow = $totalResult->fetch_assoc();

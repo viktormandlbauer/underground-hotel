@@ -4,7 +4,7 @@ require_once 'src/models/News.php';
 require_once 'src/util/Image.php';
 require_once 'src/util/request.php';
 
-switch ($_SERVER['REQUEST_URI']) {
+switch (parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
 
     case '/news/submit':
 
@@ -17,9 +17,17 @@ switch ($_SERVER['REQUEST_URI']) {
         } else {
             $id = News::newNews($data['title'], $data['content'], null, $_SESSION['username']);
         }
-        
+
         echo json_encode(['message' => 'New news submitted with id ' . $id]);
 
+        break;
+
+
+    case '/news/get/count':
+        
+        $limit = isset($_GET['limit']) ? intval($_GET['limit']) : 20;
+        News::getTotalPages($limit);
+        
         break;
 
     case '/news/get':

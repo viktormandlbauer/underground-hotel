@@ -141,11 +141,11 @@ switch ($_SERVER['REQUEST_URI']) {
         require 'src/views/newsdetail.php';
         break;
 
-    case '/get/news':
+    case '/news/get':
         require 'src/controllers/NewsController.php';
         break;
 
-    case '/get/totalpages':
+    case '/news/get/count':
         require 'src/controllers/NewsController.php';
         break;
 

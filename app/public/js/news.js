@@ -5,7 +5,7 @@ let limit = 20;
 let totalPages;
 
 function fetchTotalPages() {
-    fetch(`/get/totalpages?limit=${limit}`)
+    fetch(`/news/get/count`)
         .then(response => response.json())
         .then(data => {
             totalPages = data.totalPages;
