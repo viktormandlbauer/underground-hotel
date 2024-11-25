@@ -10,9 +10,12 @@ ini_set('error_log', '/dev/stdout');
 
 require_once 'src/util/auth.php';
 
+global $request;
+$request = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
 session_start();
 
-switch ($_SERVER['REQUEST_URI']) {
+switch ($request) {
     case '':
     case '/':
         require 'src/views/welcome.php';
