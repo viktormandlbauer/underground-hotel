@@ -7,14 +7,20 @@ global $request;
 switch ($request) {
     case '/rooms':
 
-        // Get the request data
-        $checkin = isset($_GET['checkin']) ? $_GET['checkin'] : '1900-01-01';
-        $checkout = isset($_GET['checkout']) ? $_GET['checkout'] : '1900-01-01';        
-        $price_min = isset($_GET['price_min']) ? $_GET['price_min'] : '0';
-        $price_max = isset($_GET['price_max']) ? $_GET['price_max'] : '300';
-        $person_count = isset($_GET['person_count']) ? $_GET['person_count'] : '1';
+        // Get all request data
+        $params = filter_input_array(INPUT_GET, [
+            'checkin' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
+            'checkout' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
+            'price_min' => FILTER_SANITIZE_NUMBER_INT,
+            'price_max' => FILTER_SANITIZE_NUMBER_INT,
+            'person_count' => FILTER_SANITIZE_NUMBER_INT
+        ]);
 
-        error_log("Checkin: $checkin, Checkout: $checkout, Price min: $price_min, Price max: $price_max");
+        $checkin = $params['checkin'] ?? '1900-01-01';
+        $checkout = $params['checkout'] ?? '1900-01-01';
+        $price_min = $params['price_min'] ?? '0';
+        $price_max = $params['price_max'] ?? '300';
+        $person_count = $params['person_count'] ?? '1';
 
         // Search for free rooms
         $rooms = Room::search_free_rooms($checkin, $checkout, $price_min, $price_max);

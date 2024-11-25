@@ -75,19 +75,19 @@
         const day = String(date.getDate()).padStart(2, '0');
         const month = String(date.getMonth() + 1).padStart(2, '0');
         const year = date.getFullYear();
-        return `${day}-${month}-${year}`;
+        return `${year}-${month}-${day}`;
     }
 
     // selected dates from datepicker
     let checkin_date, checkout_date;
-    let checkin_date_set, checkout_date_set = false;
 
     // create checkin datepicker
     datepicker_div = $('.datepicker').datepicker({
-        autoclose: false,
         startDate: new Date(),
+        format: "yyyy-mm-dd",
         startView: 0,
         weekStart: 1,
+        clearBtn: true,
         beforeShowDay: function(date) {
 
             // display checkin date
@@ -131,6 +131,8 @@
     // Handle change event on datepicker
     datepicker_div.on('changeDate', (event) => {
 
+        datepicker.update();
+
         if (checkin_date === undefined) {
             checkin_date = event.date;
         } else if (checkin_date > event.date && checkout_date === undefined) {
@@ -141,6 +143,7 @@
         } else {
             checkout_date = event.date;
         }
+
         datepicker.update();
 
         console.log(checkin_date, checkout_date);

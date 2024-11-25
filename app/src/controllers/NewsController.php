@@ -4,7 +4,9 @@ require_once 'src/models/News.php';
 require_once 'src/util/Image.php';
 require_once 'src/util/request.php';
 
-switch (parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
+global $request;
+
+switch ($request) {
 
     case '/news/submit':
 
