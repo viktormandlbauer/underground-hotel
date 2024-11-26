@@ -14,8 +14,6 @@ switch ($request) {
         $price_max = isset($_GET['price_max']) ? $_GET['price_max'] : '300';
         $person_count = isset($_GET['person_count']) ? $_GET['person_count'] : '1';
 
-
-
         error_log("Checkin: $checkin, Checkout: $checkout, Price min: $price_min, Price max: $price_max");
 
         // Search for free rooms
