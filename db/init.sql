@@ -3,7 +3,8 @@ USE hotel;
 
 -- Create users table
 CREATE TABLE users (
-    username VARCHAR(100) PRIMARY KEY UNIQUE,
+    user_id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(100) UNIQUE,
     pronouns VARCHAR(10) NOT NULL,
     givenname VARCHAR(100) NOT NULL,
     surname VARCHAR(100) NOT NULL,
@@ -33,11 +34,11 @@ CREATE TABLE rooms (
 -- Create bookings table
 CREATE TABLE bookings (
     booking_id INT PRIMARY KEY AUTO_INCREMENT,
-    username VARCHAR(100),
+    user_id INT,
     room_number INT,
     check_in_date DATE NOT NULL,
     check_out_date DATE NOT NULL,
-    FOREIGN KEY (username) REFERENCES users(username),
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
     FOREIGN KEY (room_number) REFERENCES rooms(room_number),
     booked_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -49,8 +50,8 @@ CREATE TABLE news (
     content TEXT NOT NULL,
     image_path VARCHAR(100),
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    created_by VARCHAR(100),
-    FOREIGN KEY (created_by) REFERENCES users(username)
+    created_by INT,
+    FOREIGN KEY (created_by) REFERENCES users(user_id)
 );
 
 -- Create a view to join users, bookings, and rooms and group by users
@@ -69,7 +70,7 @@ SELECT
     ) AS booked_rooms
 FROM
     users u
-    INNER JOIN bookings b ON u.username = b.username
+    INNER JOIN bookings b ON u.user_id = b.user_id
     INNER JOIN rooms r ON b.room_number = r.room_number
 GROUP BY
     u.username;

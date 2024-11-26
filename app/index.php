@@ -11,6 +11,9 @@ ini_set('error_log', '/dev/stdout');
 require_once 'src/util/auth.php';
 
 global $request;
+global $method;
+
+$method = $_SERVER['REQUEST_METHOD'];
 $request = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 session_start();

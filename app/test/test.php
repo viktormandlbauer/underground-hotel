@@ -20,7 +20,7 @@ mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 # Registration
 
 $logger->log('Testing registration');
-include 'src/models/user.php';
+include 'src/models/User.php';
 
 $url = 'http://127.0.0.1/auth/submit/registration';
 
