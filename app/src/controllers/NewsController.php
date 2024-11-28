@@ -1,35 +1,51 @@
 <?php
 
 require_once 'src/models/News.php';
+require_once 'src/models/User.php';
 require_once 'src/util/Image.php';
 require_once 'src/util/request.php';
+
 
 global $request;
 
 switch ($request) {
 
+    case '/news':
+        $limit = 20;
+        $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+
+        if ($page < 1)
+            $page = 1;
+
+        $offset = ($page - 1) * $limit;
+        $news = News::getPaginatedNews($limit, $offset);
+        $totalPages = News::getTotalPages($limit);
+
+        break;
+
     case '/news/submit':
 
         $data = handle_request(['title', 'content']);
 
-        $image = Image::handleImageUpload('news', true, 500, 500);
+        $image = Image::handleImageUpload('news', true, 720, 480);
+
+        $user_id = User::getUseridByUsername($_SESSION['username']);
 
         if ($image->uploaded) {
-            $id = News::newNews($data['title'], $data['content'], $image->getPath(), $_SESSION['username']);
+            $id = News::newNews($_POST['title'], $_POST['content'], $image->getPath(), $user_id);
         } else {
-            $id = News::newNews($data['title'], $data['content'], null, $_SESSION['username']);
+            $id = News::newNews($_POST['title'], $_POST['content'], null, $user_id);
         }
 
-        echo json_encode(['message' => 'New news submitted with id ' . $id]);
-
+        header('Location: /news');
         break;
 
 
     case '/news/get/count':
-        
+
         $limit = isset($_GET['limit']) ? intval($_GET['limit']) : 20;
         News::getTotalPages($limit);
-        
+
         break;
 
     case '/news/get':

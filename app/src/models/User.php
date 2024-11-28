@@ -133,7 +133,7 @@ class User
         $stmt->bind_param("ssss", $this->givenname, $this->surname, $this->email, $this->username);
         $stmt->execute();
     }
-    
+
 
     public function changePassword($password): void
     {
@@ -176,6 +176,15 @@ class User
     }
 
 
+    public static function getUseridByUsername($username)
+    {
+        $stmt = self::getDBConnection()->prepare("SELECT user_id FROM users WHERE username = ?");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc()['user_id'];
+
+    }
     public function delete()
     {
         $stmt = $this->getDBConnection()->prepare("DELETE FROM users WHERE user_id = ?");

@@ -113,34 +113,6 @@
     </form>
 </div>
 
-
-<script>
-    function submit_news(formData) {
-
-        fetch('/news/submit', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById('submitNewsForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            const formData = new FormData(event.target);
-
-            submit_news(formData);
-        });
-    });
-</script>
-
 <script src="/public/js/dropzone.js"></script>
 
 <?php include 'src/views/includes/footer.php'; ?>

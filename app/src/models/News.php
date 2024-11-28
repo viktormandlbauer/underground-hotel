@@ -92,8 +92,24 @@ class News
 
         $totalPages = ceil($totalNews / $limit);
 
-        echo json_encode(['totalPages' => $totalPages]);
+        return $totalPages;
     }
+
+    public static function getPaginatedNews($limit, $offset)
+    {
+        $stmt = self::getDBConnection()->prepare("SELECT * FROM news ORDER BY created_at DESC LIMIT ? OFFSET ?");
+        $stmt->bind_param("ii", $limit, $offset);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $news = [];
+        while ($row = $result->fetch_assoc()) {
+            $news[] = $row;
+        }
+
+        return $news;
+    }
+
 
     public function saveNews()
     {

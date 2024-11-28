@@ -3,18 +3,31 @@ require_once 'src/models/User.php';
 require_once 'src/util/request.php';
 
 global $request;
+global $method;
 
-switch ($request) {
-    case '/auth/submit/login':          // Login Handler
+switch ([$request, $method]) {
+    case ['/auth/submit/login', 'POST']:          // Login Handler
 
         if (User::login($_POST['username'], $_POST['password'])) {
 
             $_SESSION['username'] = $_POST['username'];
-            echo json_encode(['status' => 'success']);
+
+            // generate user-object
+            $user = new User($_SESSION['username']);
+            $user->load();
+
+            $_SESSION['user_data'] = serialize($user);
+
+            header('Location: /');
+            exit();
+
         } else {
-            http_response_code(401);
-            echo json_encode(['status' => 'error', 'message' => 'Invalid username or password']);
+
+            $_SESSION['flash_message'] = 'Login fehlgeschlagen';
+            header('Location: /login');
+            exit();
         }
+
         break;
 
     case '/auth/submit/registration':       // Registration Handler
@@ -30,14 +43,16 @@ switch ($request) {
 
             header('Location: /register');
         } else {
-            if (User::register(
-                $_POST['pronouns'],
-                $_POST['givenname'],
-                $_POST['surname'],
-                $_POST['email'],
-                $_POST['username'],
-                $_POST['password']
-            )) {
+            if (
+                User::register(
+                    $_POST['pronouns'],
+                    $_POST['givenname'],
+                    $_POST['surname'],
+                    $_POST['email'],
+                    $_POST['username'],
+                    $_POST['password']
+                )
+            ) {
 
                 // TODO: Handle session
                 $_SESSION['username'] = $_POST['username'];
@@ -51,7 +66,7 @@ switch ($request) {
         }
 
         break;
-    case '/logout':                     // Logout Handler
+    case ['/logout','GET']:                     // Logout Handler
         $_SESSION = [];
         session_destroy();
         header('Location: /');

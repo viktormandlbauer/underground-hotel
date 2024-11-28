@@ -4,7 +4,7 @@ require_once 'src/util/Hash.php';
 
 class Image
 {
-    public static int $max_upload_size = 500000;
+    public static int $max_upload_size = 500000000;
     public static array $allowed_types = ['jpg', 'png', 'gif'];
     public static array $allowed_categories = ['news', 'user', 'rooms'];
     public static string $image_store_path = 'public/images/';
@@ -110,6 +110,7 @@ class Image
         imagejpeg($virtualImage, $this->getPath());
         imagedestroy($sourceImage);
         imagedestroy($virtualImage);
+        unlink($image_path);
 
         return true;
     }
