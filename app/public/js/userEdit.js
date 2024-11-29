@@ -50,6 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (data.success) {
           alert('Benutzerdaten erfolgreich aktualisiert.');
+          $_SESSION['flash-message'] = 
           location.reload();
         } else {
           alert('Fehler beim Aktualisieren der Benutzerdaten.');

@@ -32,6 +32,39 @@ switch ([$request, $method]) {
         $_SESSION['flash_message'] = 'Benutzerdaten erfolgreich aktualisiert.';
         header('Location: /admin/manage/users');
         break;
+
+        case ['/admin/users/add', 'POST']:
+            // Neuen Benutzer erstellen
+            $user = new User();
+        
+            if (isset($_POST['username'])) {
+                $user->setUsername($_POST['username']);
+            }
+            if (isset($_POST['givenname'])) {
+                $user->setGivenname($_POST['givenname']);
+            }
+            if (isset($_POST['surname'])) {
+                $user->setSurname($_POST['surname']);
+            }
+            if (isset($_POST['email'])) {
+                $user->setEmail($_POST['email']);
+            }
+            if (isset($_POST['pronouns'])) {
+                $user->setPronouns($_POST['pronouns']);
+            }
+            if (isset($_POST['role'])) {
+                $user->setRole($_POST['role']);
+            }
+            if (isset($_POST['password'])) {
+                $user->setPassword($_POST['password']);
+            }
+        
+            $user->save();
+        
+            $_SESSION['flash_message'] = 'Neuer Benutzer erfolgreich angelegt.';
+            header('Location: /admin/manage/users');
+            break;
+            
     case ['/admin/users/delete', 'POST']:
 
         if (isset($_POST['deleteUserId'])) {
