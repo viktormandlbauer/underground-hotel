@@ -103,6 +103,7 @@ class Image
         $width = imagesx($sourceImage);
         $height = imagesy($sourceImage);
 
+
         $virtualImage = imagecreatetruecolor($desiredWidth, $desiredHeight);
         imagecopyresampled($virtualImage, $sourceImage, 0, 0, 0, 0, $desiredWidth, $desiredHeight, $width, $height);
 

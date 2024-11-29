@@ -40,7 +40,7 @@
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user_dropdown">
             <li><a class="dropdown-item" href="/profile">Profil</a></li>
-            <li><a class="dropdown-item" href="/admin/manage/dashboard">Dashboard</a></li>
+            <li><a class="dropdown-item" href="/admin/dashboard">Dashboard</a></li>
             <li>
               <hr class="dropdown-divider">
             </li>
