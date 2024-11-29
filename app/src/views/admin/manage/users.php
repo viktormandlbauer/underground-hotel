@@ -141,7 +141,7 @@ require 'src/controllers/AdminController.php';
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Schließen"></button>
                 </div>
                 <div class="modal-body">
-                    <input type="hidden" name="user_id" id="editUserId" value="" />
+                    <input type="hidden" name="editUserId" id="editUserId" value="" />
                     <div class="mb-3">
                         <label for="editPronouns" class="form-label">Anrede/Pronomen</label>
                         <select class="form-select" id="editPronouns" name="pronouns">
@@ -199,7 +199,7 @@ require 'src/controllers/AdminController.php';
                 </div>
                 <div class="modal-body">
                     <p id="deleteUserMessage">Sind Sie sich sicher, dass Sie den Benutzer löschen möchten?</p>
-                    <input type="hidden" name="user_id" id="deleteUserId" value="" />
+                    <input type="hidden" name="deleteUserId" id="deleteUserId" value="" />
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abbrechen</button>

@@ -7,4 +7,6 @@ global $request;
 switch ($request) {
     case '/profile/update':
         break;
+    default:
+        break;
 }

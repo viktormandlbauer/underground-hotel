@@ -68,6 +68,6 @@ switch ($request) {
         break;
 
     default:
+        include 'src/views/includes/404.php';
         break;
-        echo '404';
 }

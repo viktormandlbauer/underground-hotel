@@ -10,7 +10,8 @@ RUN apt-get update && apt-get install -y \
     libwebp-dev \
     libonig-dev \
     libzip-dev \
-    zlib1g-dev
+    zlib1g-dev \
+    && apt-get clean
 
 # Installiere PHP-Erweiterungen
 RUN docker-php-ext-install mysqli exif zip
@@ -19,8 +20,14 @@ RUN docker-php-ext-install mysqli exif zip
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp && \
     docker-php-ext-install gd
 
+# Installiere Xdebug
+RUN pecl install xdebug && docker-php-ext-enable xdebug
+
 # Aktiviere das Apache-Modul mod_rewrite
 RUN a2enmod rewrite
+
+# @TODO: Create different configurations for development and production
+COPY ./php.ini /usr/local/etc/php/
 
 # Kopiere den Anwendungscode in das Apache-Stammverzeichnis
 COPY . /var/www/html/

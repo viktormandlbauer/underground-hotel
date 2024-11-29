@@ -32,31 +32,15 @@ switch ([$request, $method]) {
         $_SESSION['flash_message'] = 'Benutzerdaten erfolgreich aktualisiert.';
         header('Location: /admin/manage/users');
         break;
-}
+    case ['/admin/users/delete', 'POST']:
 
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-    if ($_SERVER['REQUEST_URI'] === '/admin/users/save') {
-
-
-    }
-
-    if ($_SERVER['REQUEST_URI'] === '/admin/users/delete') {
-
-        $userId = intval($_POST['user_id'] ?? 0);
-
-        if ($userId > 0) {
-            $user = new User('');
-            $user->deleteById($userId);
-
-            $_SESSION['flash_message'] = 'Benutzer erfolgreich gelöscht.';
-        } else {
-            $_SESSION['flash_message'] = 'Ungültige Benutzer-ID.';
+        if (isset($_POST['deleteUserId'])) {
+            $userId = intval($_POST['deleteUserId']);
+            $user = new User($userId);
+            $user->delete();
+            $_SESSION['flash_message'] = 'Benutzer ' . $user->username . ' erfolgreich gelöscht.';
+            $users = User::getAllUsersSanitized();
         }
-
-        header('Location: /admin');
-        exit;
-    }
-
+        header('Location: /admin/manage/users');
+        break;
 }

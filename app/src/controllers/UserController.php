@@ -6,7 +6,7 @@ global $request;
 global $method;
 
 switch ([$request, $method]) {
-    case ['/auth/submit/login', 'POST']:          // Login Handler
+    case ['/auth/submit/login', 'POST']:
 
         if (User::login($_POST['username'], $_POST['password'])) {
 
@@ -19,18 +19,16 @@ switch ([$request, $method]) {
             $_SESSION['user_data'] = serialize($user);
 
             header('Location: /');
-            exit();
 
         } else {
 
             $_SESSION['flash_message'] = 'Login fehlgeschlagen';
             header('Location: /login');
-            exit();
         }
 
         break;
 
-    case '/auth/submit/registration':       // Registration Handler
+    case ['/auth/submit/registration', 'POST']:
 
         if (User::exists_username($_POST['username'])) {
 
@@ -66,7 +64,7 @@ switch ([$request, $method]) {
         }
 
         break;
-    case ['/logout','GET']:                     // Logout Handler
+    case ['/logout', 'GET']:                     // Logout Handler
         $_SESSION = [];
         session_destroy();
         header('Location: /');

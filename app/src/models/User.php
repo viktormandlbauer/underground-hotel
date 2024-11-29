@@ -19,15 +19,34 @@ class User
     public $street;
     public $house_number;
 
-    public function __construct($username)
+    public function __construct($identifier)
     {
-        $this->username = $username;
+        if (is_int($identifier)) {
+            $this->id = $identifier;
+            $stmt = self::getDBConnection()->prepare("SELECT username FROM users WHERE user_id = ?");
+            $stmt->bind_param("i", $this->id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $this->username = $result->fetch_assoc()["username"] ?? null;
+
+        } else if (is_string($identifier)) {
+            $this->username = $identifier;
+            $stmt = self::getDBConnection()->prepare("SELECT user_id FROM users WHERE username = ?");
+            $stmt->bind_param("s", $this->username);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $this->id = $result->fetch_assoc()["user_id"] ?? null;
+        }
+        if (!isset($this->givenname) && !isset($this->id)) {
+            throw new Exception("User not found");
+        }
     }
 
     public static function getDBConnection()
     {
         return Database::getInstance()->getConnection();
     }
+
 
     public static function exists_username($username)
     {
@@ -182,7 +201,7 @@ class User
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
-        return $result->fetch_assoc()['user_id'];
+        return $result->fetch_assoc()['user_id'] ?? null;
 
     }
     public function delete()

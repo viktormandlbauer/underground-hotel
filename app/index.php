@@ -2,12 +2,6 @@
 
 // phpinfo(); exit;
 
-error_reporting(E_ALL);
-ini_set('ignore_repeated_errors', TRUE);
-ini_set('display_errors', value: TRUE); // Change to FALSE in production
-ini_set('log_errors', TRUE);
-ini_set('error_log', '/dev/stdout');
-
 require_once 'src/util/auth.php';
 
 global $request;
@@ -128,6 +122,14 @@ switch ($request) {
         break;
 
     case '/admin/users/save':
+        if (authenticated() && authorized("admin")) {
+            require 'src/controllers/AdminController.php';
+        } else {
+            require 'src/error/401.php';
+        }
+        break;
+
+    case '/admin/users/delete':
         if (authenticated() && authorized("admin")) {
             require 'src/controllers/AdminController.php';
         } else {
