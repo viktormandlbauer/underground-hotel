@@ -156,7 +156,7 @@ switch ($request) {
         }
         break;
 
-    case '/admin/users/save':
+    case '/admin/users/edit':
         if (authenticated() && authorized("admin")) {
             require 'src/controllers/AdminController.php';
         } else {

@@ -57,7 +57,7 @@ require 'src/controllers/AdminController.php';
             </thead>
             <tbody id="userTableBody">
                 <?php foreach ($users as $user): ?>
-                    <tr class="user-row" data-user-id="<?= $user['user_id']; ?>"
+                    <tr class="user-row" data-user-id="<?= $user['user_id']; ?> " style="cursor: pointer"
                         data-pronouns="<?= $user['pronouns']; ?>" data-username="<?= $user['username']; ?>"
                         data-givenname="<?= $user['givenname']; ?>" data-surname="<?= $user['surname']; ?>"
                         data-email="<?= $user['email']; ?>" data-role="<?= $user['role']; ?>">

@@ -15,7 +15,6 @@
 </style>
 
 <body>
-
     <div class="container mt-5">
         <?php foreach ($news as $item): ?>
             <div class="card mb-4">
