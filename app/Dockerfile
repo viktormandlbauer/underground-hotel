@@ -32,6 +32,15 @@ COPY ./php.ini /usr/local/etc/php/
 # Kopiere den Anwendungscode in das Apache-Stammverzeichnis
 COPY . /var/www/html/
 
+# Erstelle die Upload-Verzeichnisse
+RUN mkdir -p /data/uploads/{news,rooms,users}
+
+# Set permissions for the upload directories
+RUN chmod -R 777 /data/uploads
+
+# Erstelle einen symbolischen Link für die Upload-Verzeichnisse
+RUN ln -s /data/uploads /var/www/html/public/uploads
+
 # Setze das Arbeitsverzeichnis
 WORKDIR /var/www/html/
 

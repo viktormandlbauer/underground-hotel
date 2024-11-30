@@ -9,6 +9,8 @@
                 <div class="p-3">
                     <form method="GET" action="/rooms">
                         <div class="mx-4">
+                            <link rel="stylesheet"
+                                href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
                             <link rel="stylesheet" href="/public/css/datepicker.css">
                             <div class="datepicker"></div>
 
@@ -21,13 +23,13 @@
                                 id="person_count" name="person_count"
                                 oninput="document.getElementById('personCountValue').innerText = this.value">
 
-                            <label for="price_min" class="form-label">></label>
+                            <label for="price_min" class="form-label">min </label>
                             <output id="minPriceValue" class="form-label"><?= $price_min ?>€</output>
                             <input type="range" class="form-range" min="0" max="300" value="<?= $price_min ?>"
                                 id="price_min" name="price_min"
                                 oninput="document.getElementById('minPriceValue').innerText = this.value + '€'">
 
-                            <label for="price_max" class="form-label"><</label>
+                            <label for="price_max" class="form-label">max </label>
                             <output id="maxPriceValue" class="form-label"><?= $price_max ?>€</output>
                             <input type="range" class="form-range" min="0" max="300" value="<?= $price_max ?>"
                                 id="price_max" name="price_max"
@@ -77,6 +79,7 @@
     </div>
 </body>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 <script>
     function formatDateToDDMMYYYY(date) {
         const day = String(date.getDate()).padStart(2, '0');

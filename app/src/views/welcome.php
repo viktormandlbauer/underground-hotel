@@ -45,7 +45,6 @@
             <span class="visually-hidden">Next</span>
         </button>
     </div>
-
 </body>
 
 <?php include 'src/views/includes/footer.php'; ?>

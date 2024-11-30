@@ -7,7 +7,7 @@ class Image
     public static int $max_upload_size = 500000000;
     public static array $allowed_types = ['jpg', 'png', 'gif'];
     public static array $allowed_categories = ['news', 'user', 'rooms'];
-    public static string $image_store_path = 'public/images/';
+    public static string $image_store_path = 'uploads/';
 
     private string $name;
     public string $category;
@@ -27,6 +27,12 @@ class Image
     {
 
         $image = new Image();
+
+        // Check if upload directory exists
+        if (!is_dir(self::$image_store_path . $category)) {
+
+            mkdir(self::$image_store_path . $category, 0777, true);
+        }
 
         // Check if image file is an actual image
         if (!getimagesize($_FILES["imageFile"]["tmp_name"])) {
