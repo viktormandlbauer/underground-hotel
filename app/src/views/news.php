@@ -1,6 +1,19 @@
 <?php include 'src/views/includes/header.php'; ?>
 <?php require 'src/controllers/NewsController.php'; ?>
 
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital@0;1&family=Roboto:ital,wght@0,500;0,700;1,400;1,500&display=swap');
+    .card {
+        font-family: "Protest Revolution", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+        }
+
+    .card-title {
+        font: 700 1.5rem/1.2 "Protest Revolution", sans-serif;
+        }
+</style>
+
 <body>
 
     <div class="container mt-5">

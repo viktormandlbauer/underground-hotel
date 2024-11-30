@@ -25,6 +25,12 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/public/css/style.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Protest+Revolution&display=swap" rel="stylesheet">
+    
 </head>
 
 <?php include 'src/views/includes/navbar.php'; ?>
