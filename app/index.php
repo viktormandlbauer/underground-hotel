@@ -129,6 +129,14 @@ switch ($request) {
         }
         break;
 
+    case '/admin/users/add':
+        if (authenticated() && authorized("admin")) {
+            require 'src/controllers/AdminController.php';
+        } else {
+            require 'src/error/401.php';
+        }
+        break;
+
     case '/admin/users/delete':
         if (authenticated() && authorized("admin")) {
             require 'src/controllers/AdminController.php';

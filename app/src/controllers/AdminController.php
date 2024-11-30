@@ -33,38 +33,41 @@ switch ([$request, $method]) {
         header('Location: /admin/manage/users');
         break;
 
-        case ['/admin/users/add', 'POST']:
-            // Neuen Benutzer erstellen
-            $user = new User();
+    case ['/admin/users/add', 'POST']:
         
-            if (isset($_POST['username'])) {
-                $user->setUsername($_POST['username']);
-            }
-            if (isset($_POST['givenname'])) {
-                $user->setGivenname($_POST['givenname']);
-            }
-            if (isset($_POST['surname'])) {
-                $user->setSurname($_POST['surname']);
-            }
-            if (isset($_POST['email'])) {
-                $user->setEmail($_POST['email']);
-            }
-            if (isset($_POST['pronouns'])) {
-                $user->setPronouns($_POST['pronouns']);
-            }
-            if (isset($_POST['role'])) {
-                $user->setRole($_POST['role']);
-            }
-            if (isset($_POST['password'])) {
-                $user->setPassword($_POST['password']);
-            }
-        
-            $user->save();
-        
-            $_SESSION['flash_message'] = 'Neuer Benutzer erfolgreich angelegt.';
+        if (User::exists_username($_POST['username'])) {
+            $_SESSION['flash_message'] = 'Benutzername existiert bereits.';
             header('Location: /admin/manage/users');
-            break;
-            
+            exit;
+    
+        } elseif (User::exists_email($_POST['email'])) {
+            $_SESSION['flash_message'] = 'E-Mail-Adresse existiert bereits.';
+            header('Location: /admin/manage/users');
+            exit;
+    
+        } else {
+            if (
+                User::register(
+                    $_POST['pronouns'],
+                    $_POST['givenname'],
+                    $_POST['surname'],
+                    $_POST['email'],
+                    $_POST['username'],
+                    $_POST['password'],
+                    $_POST['role']
+                )
+            ) {
+                $_SESSION['flash_message'] = 'Neuer Benutzer erfolgreich angelegt.';
+                
+            }
+            else{
+                $_SESSION['flash_message'] = 'Benutzer konnte nicht angelegt werden.';
+            }
+            header('Location: /admin/manage/users');
+            exit;
+        }
+        break;
+
     case ['/admin/users/delete', 'POST']:
 
         if (isset($_POST['deleteUserId'])) {

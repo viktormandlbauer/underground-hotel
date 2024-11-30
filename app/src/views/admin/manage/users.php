@@ -81,7 +81,7 @@ require 'src/controllers/AdminController.php';
     <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <form action="/admin/users/save" method="POST">
+                <form action="/admin/users/add" method="POST">
                     <div class="modal-header custom-modal-header">
                         <h5 class="modal-title" id="editUserModalLabel">Benutzer bearbeiten</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Schließen"></button>

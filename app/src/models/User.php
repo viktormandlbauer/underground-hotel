@@ -66,22 +66,31 @@ class User
         return $result->num_rows > 0;
     }
 
-    public static function register($pronouns, $givenname, $surname, $email, $username, $password)
+    public static function register($pronouns, $givenname, $surname, $email, $username, $password, $role = 'user')
     {
 
         if (!isset($pronouns, $givenname, $surname, $email, $username, $password)) {
             return false;
         }
 
-        $stmt = self::getDBConnection()->prepare("INSERT INTO users ( pronouns, givenname, surname, username, email, password_hash, salt) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $validRoles = ['user', 'admin', 'employee'];
+        if (!in_array($role, $validRoles)) {
+            $role = 'user';
+        }
+
+        $stmt = self::getDBConnection()->prepare("INSERT INTO users ( pronouns, givenname, surname, username, email, password_hash, salt, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
         $salt = Hash::salt(16);
         $password_hash = Hash::make($password, $salt);
 
-        $stmt->bind_param("sssssss", $pronouns, $givenname, $surname, $username, $email, $password_hash, $salt);
-        $stmt->execute();
-
-        return true;
+        $stmt->bind_param("ssssssss", $pronouns, $givenname, $surname, $username, $email, $password_hash, $salt, $role);
+        
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            error_log("Fehler beim Ausführen des Statements: " . $stmt->error);
+            return false;
+        }
     }
 
     public static function login($username, $password)
