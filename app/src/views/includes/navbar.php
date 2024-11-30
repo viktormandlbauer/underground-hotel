@@ -1,11 +1,3 @@
-<style>
-  .protest-revolution-regular {
-  font-family: "Protest Revolution", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-</style>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark floating-navbar">
   <a class="navbar-brand" href="/">Underground Hotel</a>
