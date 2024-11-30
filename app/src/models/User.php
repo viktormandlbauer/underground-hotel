@@ -213,6 +213,15 @@ class User
         return $result->fetch_assoc()['user_id'] ?? null;
 
     }
+
+    public static function getUsernameByID($id)
+    {
+        $stmt = self::getDBConnection()->prepare("SELECT username FROM users WHERE user_id = ?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc()['username'] ?? null;
+    }
     public function delete()
     {
         $stmt = $this->getDBConnection()->prepare("DELETE FROM users WHERE user_id = ?");

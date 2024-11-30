@@ -63,11 +63,78 @@ switch ($request) {
         break;
 
     case '/news/all':
-        require 'src/models/News.php';
         News::getAllNews();
         break;
 
+    case '/admin/manage/news':
+        if (authenticated() && authorized("admin")) {
+
+            $news = News::getAllNews();
+
+        } else {
+            require 'src/error/401.php';
+        }
+        break;
+
+    case '/admin/news/edit':
+        if (authenticated() && authorized("admin")) {
+            if (isset($_POST['news_id'], $_POST['title'], $_POST['content'])) {
+                $newsId = intval($_POST['news_id']);
+                $title = trim($_POST['title']);
+                $content = trim($_POST['content']);
+
+                if (isset($_FILES['imageFile']) && $_FILES['imageFile']['error'] === UPLOAD_ERR_OK) {
+                    $image = Image::handleImageUpload('news', true, 720, 480);
+                    if ($image->uploaded) {
+                        $imagePath = $image->getPath();
+                    } else {
+                        $imagePath = null;
+                    }
+                } else {
+                    $imagePath = null;
+                }
+
+                News::updateNews($newsId, $title, $content, $imagePath);
+
+                $_SESSION['flash_message'] = 'News-Beitrag erfolgreich aktualisiert.';
+                header('Location: /admin/manage/news');
+                exit;
+            } else {
+                $_SESSION['flash_message'] = 'Ungültige Anfrage.';
+                header('Location: /admin/manage/news');
+                exit;
+            }
+        } else {
+            require 'src/error/401.php';
+            
+        }
+        break;
+
+
+
+    case '/admin/news/delete':
+        if (authenticated() && authorized("admin")) {
+            if (isset($_POST['news_id'])) {
+                $newsId = intval($_POST['news_id']);
+
+                News::deleteNews($newsId);
+
+                $_SESSION['flash_message'] = 'News-Beitrag erfolgreich gelöscht.';
+                header('Location: /admin/manage/news');
+                exit;
+            } else {
+                $_SESSION['flash_message'] = 'Ungültige Anfrage.';
+                header('Location: /admin/manage/news');
+                exit;
+            }
+        } else {
+            require 'src/error/401.php';
+            
+        }
+        break;
+
+
     default:
-        include 'src/views/includes/404.php';
+        include 'src/error/404.php';
         break;
 }

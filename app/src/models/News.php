@@ -68,7 +68,6 @@ class News
 
     public static function getNews($limit, $offset)
     {
-        header('Content-Type: application/json');
 
         $stmt = self::getDBConnection()->prepare("SELECT * FROM news ORDER BY date DESC LIMIT ? OFFSET ?");
         $stmt->bind_param("ii", $limit, $offset);
@@ -79,9 +78,8 @@ class News
         while ($row = $result->fetch_assoc()) {
             $newsPosts[] = $row;
         }
-
-        echo json_encode(['news' => $newsPosts]);
-    }
+        return $newsPosts;
+        }
 
     public static function getTotalPages($limit)
     {
@@ -127,4 +125,36 @@ class News
         $id = $result->fetch_assoc();
         return $id["news_id"];
     }
+
+    public static function getNewsById($id)
+    {
+        $stmt = self::getDBConnection()->prepare("SELECT * FROM news WHERE news_id = ?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $news = $result->fetch_assoc();
+        return $news;
+    }
+
+    public static function deleteNews($id)
+    {
+        $stmt = self::getDBConnection()->prepare("DELETE FROM news WHERE news_id = ?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+    }
+
+    public static function updateNews($newsId, $title, $content, $imagePath = null)
+{
+    if ($imagePath) {
+        $stmt = self::getDBConnection()->prepare("UPDATE news SET title = ?, content = ?, image_path = ? WHERE news_id = ?");
+        $stmt->bind_param("sssi", $title, $content, $imagePath, $newsId);
+    } else {
+        $stmt = self::getDBConnection()->prepare("UPDATE news SET title = ?, content = ?, modified = NOW() WHERE news_id = ?");
+        $stmt->bind_param("ssi", $title, $content, $newsId);
+    }
+    $stmt->execute();
+    $stmt->close();
+}
+
+
 }

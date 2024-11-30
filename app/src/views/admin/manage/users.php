@@ -25,7 +25,7 @@ require 'src/controllers/AdminController.php';
 
 .modal-footer {
     justify-content: space-between;
-    }
+}
 
 </style>
 
@@ -41,9 +41,10 @@ require 'src/controllers/AdminController.php';
             </div>
             <script src='/public/js/flashMessage.js'></script>
         <?php endif; ?>
-        
-        <table class="table table-hover">
-            <thead class="table-light">
+
+        <div class="table-responsive">
+            <table class="table table-bordered align-middle table-hover">
+                <thead class="table-light">
                 <tr>
                     <th>ID</th>
                     <th>Anrede</th>
@@ -79,11 +80,12 @@ require 'src/controllers/AdminController.php';
             </tbody>
         </table>
     </div>
+</div>
 
     <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <form action="/admin/users/add" method="POST">
+                <form action="/admin/users/edit" method="POST">
                     <div class="modal-header custom-modal-header">
                         <h5 class="modal-title" id="editUserModalLabel">Benutzer bearbeiten</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Schließen"></button>

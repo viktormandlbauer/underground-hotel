@@ -115,11 +115,38 @@ switch ($request) {
 
     case '/admin/manage/news':
         if (authenticated() && authorized("admin")) {
-            require 'src/views/admin/manage/news.php';
+            require 'src/controllers/NewsController.php';
+            require 'src/views/admin/manage/news.php';        
         } else {
             require 'src/error/401.php';
         }
         break;
+
+    case '/admin/manage/uploadnews':
+        if (authenticated() && authorized("admin")) {
+            require 'src/controllers/NewsController.php';
+            require 'src/views/admin/manage/newsupload.php';
+        } else {
+            require 'src/error/401.php';
+        }
+        break;
+        
+    case '/admin/news/edit':
+        if (authenticated() && authorized("admin")) {
+            require 'src/controllers/NewsController.php';
+        } else {
+            require 'src/error/401.php';
+        }
+        break;
+        
+    case '/admin/news/delete':
+        if (authenticated() && authorized("admin")) {
+            require 'src/controllers/NewsController.php';
+        } else {
+            require 'src/error/401.php';
+        }
+        break;
+        
 
     case '/admin/manage/bookings':
         if (authenticated() && authorized("admin")) {
