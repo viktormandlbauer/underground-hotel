@@ -38,6 +38,14 @@ switch ($request) {
         require 'src/controllers/RoomController.php';
         break;
 
+    case '/rooms/create':
+        if (authenticated() && authorized('admin')) {
+            require 'src/controllers/RoomController.php';
+        } else {
+            require 'src/error/401.php';
+        }
+        break;
+
     case '/register':
         require 'src/views/auth/register.php';
         break;

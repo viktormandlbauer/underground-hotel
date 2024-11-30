@@ -24,8 +24,9 @@ CREATE TABLE users (
 
 -- Create rooms table
 CREATE TABLE rooms (
-    room_number INT PRIMARY KEY,
-    type VARCHAR(50) NOT NULL,
+    number INT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    type ENUM('single', 'double', 'suite') NOT NULL,
     description VARCHAR(500),
     image_path VARCHAR(100),
     price_per_night DECIMAL(10, 2) NOT NULL
@@ -39,7 +40,7 @@ CREATE TABLE bookings (
     check_in_date DATE NOT NULL,
     check_out_date DATE NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (room_number) REFERENCES rooms(room_number),
+    FOREIGN KEY (room_number) REFERENCES rooms(number),
     booked_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -64,14 +65,14 @@ SELECT
     u.email,
     COUNT(b.booking_id) AS total_bookings,
     GROUP_CONCAT(
-        r.room_number
+        r.number
         ORDER BY
             b.check_in_date
     ) AS booked_rooms
 FROM
     users u
     INNER JOIN bookings b ON u.user_id = b.user_id
-    INNER JOIN rooms r ON b.room_number = r.room_number
+    INNER JOIN rooms r ON b.room_number = r.number
 GROUP BY
     u.username;
 
