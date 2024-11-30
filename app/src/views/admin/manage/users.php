@@ -3,8 +3,7 @@ include 'src/views/includes/header.php';
 require 'src/controllers/AdminController.php';
 ?>
 
-<script src="/public/js/admin_modal.js"></script>
-
+<script src='/public/js/admin_modal.js'></script>
 <title>Benutzerverwaltung</title>
 
 <style>
@@ -33,11 +32,14 @@ require 'src/controllers/AdminController.php';
 <body>
     <div class="container mt-5">
         <h1 class="mb-4">Benutzerverwaltung</h1>
+
         <?php if (isset($_SESSION['flash_message'])): ?>
-            <div class="alert alert-info">
+            <div class="alert alert-info alert-dismissible fade show" id="flashMessage">
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 <?= $_SESSION['flash_message'];
                 unset($_SESSION['flash_message']); ?>
             </div>
+            <script src='/public/js/flashMessage.js'></script>
         <?php endif; ?>
         
         <table class="table table-hover">
@@ -216,5 +218,4 @@ require 'src/controllers/AdminController.php';
     </div>
 
 </body>
-
 <?php include 'src/views/includes/footer.php'; ?>

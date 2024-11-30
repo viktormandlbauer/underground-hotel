@@ -58,10 +58,11 @@ switch ([$request, $method]) {
                 )
             ) {
                 $_SESSION['flash_message'] = 'Neuer Benutzer erfolgreich angelegt.';
+
                 
             }
             else{
-                $_SESSION['flash_message'] = 'Benutzer konnte nicht angelegt werden.';
+                $_SESSION['flash_message'] ='Benutzer konnte nicht angelegt werden.';
             }
             header('Location: /admin/manage/users');
             exit;
