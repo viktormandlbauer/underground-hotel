@@ -27,17 +27,17 @@
       <ul class="navbar-nav ms-auto d-flex flex-row justify-content-end" id="navProfile">
         <?php if (!isset($_SESSION['username'])): ?>
           <li class="nav-item mx-2">
-            <a class="btn btn-light fs-4" href="/login">Login</a>
+            <a class="btn btn-outline-light fs-4" href="/login">Login</a>
           </li>
           <li class="nav-item">
-            <a class="btn btn-light fs-4" href="/register">Registrieren</a>
+            <a class="btn btn-outline-light fs-4" href="/register">Registrieren</a>
           </li>
         <?php else: ?>
           <li class="nav-item me-2">
-            <a class="btn btn-light fs-4" href="/dashboard">Dashboard</a>
+            <a class="btn btn-outline-light fs-4" href="/dashboard">Dashboard</a>
           </li>
           <li class="nav-item">
-            <a class="btn btn-light fs-4" href="/logout">Logout</a>
+            <a class="btn btn-outline-light fs-4" href="/logout">Logout</a>
           </li>
         <?php endif; ?>
       </ul>

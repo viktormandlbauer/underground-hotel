@@ -41,7 +41,7 @@
 
         <div class="table-responsive">
             <table class="table table-bordered align-middle table-hover">
-                <thead class="table-light">
+                <thead class="table-dark">
                     <tr>
                         <th>ID</th>
                         <th>Anrede</th>
