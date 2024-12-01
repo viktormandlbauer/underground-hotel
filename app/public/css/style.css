@@ -1,9 +1,9 @@
 .carousel-item {
-    height: 800px; 
+    height: 800px;
 }
 
 .carousel-item img {
-    object-fit: cover; 
+    object-fit: cover;
     height: 100%;
     width: 100%;
 }
@@ -17,7 +17,8 @@
 }
 
 body {
-    margin-top: 85px;}
+    margin-top: 85px;
+}
 
 .navbar-brand {
     margin-left: 1em;
@@ -30,27 +31,26 @@ body {
 .floating-navbar {
     position: fixed;
     top: 20px;
-    left: 20px; 
-    right: 20px; 
-    border-radius: 15px; 
+    left: 20px;
+    right: 20px;
+    border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     z-index: 1000;
 }
 
 .footer {
-    background-color: #3b2f2f; 
-    color: #f5f5f5; 
+    background-color: #3b2f2f;
+    color: #f5f5f5;
     padding: 20px;
     display: flex;
     justify-content: center;
-    align-items: center; 
-    text-align: center; 
-    height: 100px; 
-    position: relative; 
+    align-items: center;
+    text-align: center;
+    height: 100px;
+    position: relative;
     bottom: 0;
-    width: 100%; 
+    width: 100%;
 }
-
 
 #flash-message {
     width: 100%;
@@ -74,12 +74,11 @@ body {
 }
 
 .carousel-item {
-    height: 800px; 
+    height: 800px;
 }
 
 .carousel-item img {
-    object-fit: cover; 
+    object-fit: cover;
     height: 100%;
     width: 100%;
 }
-

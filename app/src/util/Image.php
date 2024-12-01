@@ -28,6 +28,11 @@ class Image
 
         $image = new Image();
 
+        if (!isset($_FILES["imageFile"]) || $_FILES["imageFile"]["error"] != UPLOAD_ERR_OK) {
+            $image->uploaded = false;
+            return $image;
+        }
+
         // Check if upload directory exists
         if (!is_dir(self::$image_store_path . $category)) {
 

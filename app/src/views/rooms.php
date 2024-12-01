@@ -1,5 +1,4 @@
 <?php include 'src/views/includes/header.php'; ?>
-<?php include 'src/controllers/RoomController.php' ?>
 
 <body>
     <div class="container mt-5">
@@ -18,6 +17,7 @@
                             <input type="hidden" id="checkout" name="checkout">
 
                             <label for="person_count" class="form-label">Personen</label>
+
                             <output id="personCountValue" class="form-label"><?= $person_count ?></output>
                             <input type="range" class="form-range" min="1" max="5" value="<?= $person_count ?>"
                                 id="person_count" name="person_count"
@@ -42,24 +42,26 @@
                 </div>
             </div>
             <div class="col-9">
-                <h2 class="text-center">Verfügbare Räume</h2>
+                <h2 class="text-center">Verfügbare Zimmer</h2>
                 <div class="p-3">
                     <table id="rooms_table" class="table table-striped">
                         <thead>
                             <tr>
-                                <th scope="col">Image</th>
-                                <th scope="col">Room Type</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">Price</th>
+                                <th scope="col">Bezeichnung</th>
+                                <th scope="col">Beschreibung</th>
+                                <th scope="col">Typ</th>
+                                <th scope="col">Preis pro Nacht</th>
+                                <th scope="col">Bild</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach ($rooms as $room): ?>
                                 <tr>
-                                    <td><img src="<?= $room['image_path'] ?>" alt="No Image" width="100"></td>
-                                    <td><?= $room['type'] ?></td>
+                                    <td><?= $room['name'] ?></td>
                                     <td><?= $room['description'] ?></td>
+                                    <td><?= $room['type'] ?></td>
                                     <td><?= $room['price_per_night'] ?>€</td>
+                                    <td><img src="<?= $room['image_path'] ?>" alt="No Image" width="100"></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -78,7 +80,7 @@
         </div>
     </div>
 </body>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 <script>
     function formatDateToDDMMYYYY(date) {

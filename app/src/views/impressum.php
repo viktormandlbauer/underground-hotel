@@ -25,6 +25,10 @@
                         Musterstraße 123 | Deutschland<br>
                         Tel.: +49 12345678<br>
                         E-Mail: <a href="mailto:email@underground-hotel.de">email@underground-hotel.de</a><br>
+
+                        E-Mail.: <a href="office@underground-hotel.de">
+                            office@underground-hotel.de</a>
+                        <br>
                     </p>
                 </div>
 

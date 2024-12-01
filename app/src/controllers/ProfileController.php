@@ -1,11 +1,11 @@
 <?php
 require_once 'src/models/Room.php';
-require_once 'src/util/request.php';
 
 global $request;
+global $method;
 
-switch ($request) {
-    case '/profile/update':
+switch ([$request, $method]) {
+    case ['/profile/update', 'POST']:
         break;
     default:
         break;
