@@ -23,6 +23,9 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+    <script type="text/javascript" src="/public/js/validation.js"></script>
+
+
     <div class="container text-secondary">
         <p>&copy; Undergroud-Hotel 2024</p>
     </div>

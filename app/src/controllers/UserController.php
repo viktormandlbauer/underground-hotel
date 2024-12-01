@@ -31,8 +31,8 @@ switch ([$request, $method]) {
 
         if (User::exists_username($_POST['username'])) {
 
-            // TODO : Set error parameter
-
+            $_SESSION['flash_message'] = 'Username existiert bereits';
+            
             header('Location: /register');
         } elseif (User::exists_email($_POST['email'])) {
 
