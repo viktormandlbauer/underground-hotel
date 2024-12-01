@@ -1,41 +1,5 @@
-.carousel-item {
-    height: 800px;
-}
-
-.carousel-item img {
-    object-fit: cover;
-    height: 100%;
-    width: 100%;
-}
-
-.navbar-brand {
-    margin-left: 1em;
-}
-
-.navbar-items-right {
-    margin-right: 1em;
-}
-
 body {
     margin-top: 85px;
-}
-
-.navbar-brand {
-    margin-left: 1em;
-}
-
-.navbar-items-right {
-    margin-right: 1em;
-}
-
-.floating-navbar {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    right: 20px;
-    border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
 }
 
 .footer {
@@ -71,14 +35,4 @@ body {
     right: 1rem;
     top: 50%;
     transform: translateY(-50%);
-}
-
-.carousel-item {
-    height: 800px;
-}
-
-.carousel-item img {
-    object-fit: cover;
-    height: 100%;
-    width: 100%;
 }

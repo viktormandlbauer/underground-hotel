@@ -34,6 +34,17 @@ switch ($request) {
         require 'src/views/auth/register.php';
         break;
 
+    case '/dashboard':
+        if (authenticated()) {
+            if (authorized('admin')) {
+                require 'src/views/admin/dashboard.php';
+            } else {
+                require 'src/views/dashboard.php';
+            }
+        } else {
+            header('Location: /login');
+        }
+        break;
 
     case '/login':
         require 'src/views/auth/login.php';
@@ -52,7 +63,11 @@ switch ($request) {
         require 'src/controllers/RoomController.php';
         require 'src/views/rooms.php';
         break;
-        
+
+    case '/rooms/search':
+        require 'src/controllers/RoomController.php';
+        break;
+
     case '/admin/rooms/create':
     case '/admin/rooms/delete':
     case '/admin/rooms/edit':
@@ -202,7 +217,7 @@ switch ($request) {
 
     case '/datepicker':
         require 'src/views/includes/datepicker.php';
-        break;   
+        break;
     default:
         require 'src/error/404.php';
 }

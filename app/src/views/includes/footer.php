@@ -21,8 +21,6 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
     <div class="container text-secondary">
         <p>&copy; Undergroud-Hotel 2024</p>
     </div>
