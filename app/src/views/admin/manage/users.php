@@ -24,6 +24,18 @@
     .modal-footer {
         justify-content: space-between;
     }
+
+    th.asc::after {
+        content: " ▲";
+        font-size: 0.8em;
+        color: #0d6efd;
+    }
+
+    th.desc::after {
+        content: " ▼";
+        font-size: 0.8em;
+        color: #0d6efd;
+    }
 </style>
 
 <body>
@@ -43,13 +55,13 @@
             <table class="table table-bordered align-middle table-hover">
                 <thead class="table-light">
                     <tr>
-                        <th>ID</th>
-                        <th>Anrede</th>
-                        <th>Benutzername</th>
-                        <th>Vorname</th>
-                        <th>Nachname</th>
-                        <th>E-Mail</th>
-                        <th>Rolle</th>
+                        <th data-sort="number">ID</th>
+                        <th data-sort="text">Anrede</th>
+                        <th data-sort="text">Benutzername</th>
+                        <th data-sort="text">Vorname</th>
+                        <th data-sort="text">Nachname</th>
+                        <th data-sort="text">E-Mail</th>
+                        <th data-sort="text">Rolle</th>
                     </tr>
                 </thead>
                 <tbody id="userTableBody">

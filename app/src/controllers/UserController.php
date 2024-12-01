@@ -32,12 +32,11 @@ switch ([$request, $method]) {
         if (User::exists_username($_POST['username'])) {
 
             $_SESSION['flash_message'] = 'Username existiert bereits';
-            
+
             header('Location: /register');
         } elseif (User::exists_email($_POST['email'])) {
 
-            // TODO : Set error parameter
-
+            $_SESSION['flash_message'] = 'E-Mail existiert bereits';
             header('Location: /register');
         } else {
             if (
@@ -52,12 +51,13 @@ switch ([$request, $method]) {
             ) {
 
                 // TODO: Handle session
+
                 $_SESSION['username'] = $_POST['username'];
 
                 header('Location: /');
             } else {
 
-                // TODO: Set error parameter
+                $_SESSION['flash_message'] = 'Registrierung fehlgeschlagen';
                 header('Location: /register');
             }
         }
