@@ -38,10 +38,24 @@ class Room
         return $room;
     }
 
-    public static function search_free_rooms($check_in_data, $check_out_date, $price_min, $price_max): array
+    public static function updateRoom($number, $name, $description, $type, $price_per_night, $image_path)
+    {
+        $stmt = self::getDBConnection()->prepare('UPDATE rooms SET number = ?, name = ?, description = ?, type = ?, price_per_night = ?, image_path = ? WHERE number = ?');
+        $stmt->bind_param('isssdsi', $number, $name, $description, $type, $price_per_night, $image_path, $number);
+        $stmt->execute();
+    }
+
+    public static function deleteRoom($number)
+    {
+        $stmt = self::getDBConnection()->prepare("DELETE FROM rooms WHERE number = ?");
+        $stmt->bind_param("i", $number);
+        $stmt->execute();
+    }
+
+    public static function searchFreeRooms($check_in_data, $check_out_date, $price_min, $price_max): array
     {
 
-        $stmt = self::getDBConnection()->prepare("SELECT r.number, r.type, r.description, r.image_path, r.price_per_night FROM rooms r 
+        $stmt = self::getDBConnection()->prepare("SELECT r.number, r.name, r.type, r.description, r.image_path, r.price_per_night FROM rooms r 
         WHERE r.number NOT IN (
         SELECT r.number FROM rooms r INNER JOIN bookings b ON r.number = b.room_number
         WHERE (b.check_in_date BETWEEN ? AND ?) OR 
@@ -59,7 +73,7 @@ class Room
         return $rooms;
     }
 
-    public static function get_all_rooms(): array
+    public static function getAllRooms(): array
     {
         $stmt = self::getDBConnection()->prepare("SELECT * FROM rooms");
         $stmt->execute();

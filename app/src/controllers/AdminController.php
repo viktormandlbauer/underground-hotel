@@ -28,23 +28,22 @@ switch ([$request, $method]) {
             $user->setRole($_POST['role']);
         }
 
-
         $_SESSION['flash_message'] = 'Benutzerdaten erfolgreich aktualisiert.';
         header('Location: /admin/manage/users');
         break;
 
     case ['/admin/users/add', 'POST']:
-        
+
         if (User::exists_username($_POST['username'])) {
             $_SESSION['flash_message'] = 'Benutzername existiert bereits.';
             header('Location: /admin/manage/users');
             exit;
-    
+
         } elseif (User::exists_email($_POST['email'])) {
             $_SESSION['flash_message'] = 'E-Mail-Adresse existiert bereits.';
             header('Location: /admin/manage/users');
             exit;
-    
+
         } else {
             if (
                 User::register(
@@ -59,10 +58,9 @@ switch ([$request, $method]) {
             ) {
                 $_SESSION['flash_message'] = 'Neuer Benutzer erfolgreich angelegt.';
 
-                
-            }
-            else{
-                $_SESSION['flash_message'] ='Benutzer konnte nicht angelegt werden.';
+
+            } else {
+                $_SESSION['flash_message'] = 'Benutzer konnte nicht angelegt werden.';
             }
             header('Location: /admin/manage/users');
             exit;

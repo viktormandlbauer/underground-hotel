@@ -3,14 +3,13 @@
 require_once 'src/models/News.php';
 require_once 'src/models/User.php';
 require_once 'src/util/Image.php';
-require_once 'src/util/request.php';
-
 
 global $request;
+global $method;
 
-switch ($request) {
+switch ([$request, $method]) {
 
-    case '/news':
+    case ['/news', 'GET']:
         $limit = 20;
         $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 
@@ -23,9 +22,7 @@ switch ($request) {
 
         break;
 
-    case '/news/submit':
-
-        $data = handle_request(['title', 'content']);
+    case ['/news/submit', 'POST']:
 
         $image = Image::handleImageUpload('news', true, 720, 480);
 
@@ -40,17 +37,14 @@ switch ($request) {
         header('Location: /news');
         break;
 
-
-    case '/news/get/count':
+    case ['/news/get/count', 'GET']:
 
         $limit = isset($_GET['limit']) ? intval($_GET['limit']) : 20;
         News::getTotalPages($limit);
 
         break;
 
-    case '/news/get':
-
-        $data = handle_request(['page', 'limit']);
+    case ['/news/get', 'GET']:
 
         $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
         $limit = isset($_GET['limit']) ? intval($_GET['limit']) : 20;
@@ -62,21 +56,20 @@ switch ($request) {
         News::getNews($data['limit'], $offset);
         break;
 
-    case '/news/all':
+    case ['/news/all', 'GET']:
         News::getAllNews();
         break;
 
-    case '/admin/manage/news':
+    case ['/admin/manage/news', 'GET']:
+
         if (authenticated() && authorized("admin")) {
-
             $news = News::getAllNews();
-
         } else {
             require 'src/error/401.php';
         }
         break;
 
-    case '/admin/news/edit':
+    case ['/admin/news/edit', 'POST']:
         if (authenticated() && authorized("admin")) {
             if (isset($_POST['news_id'], $_POST['title'], $_POST['content'])) {
                 $newsId = intval($_POST['news_id']);
@@ -106,13 +99,12 @@ switch ($request) {
             }
         } else {
             require 'src/error/401.php';
-            
+
         }
         break;
 
+    case ['/admin/news/delete', 'POST']:
 
-
-    case '/admin/news/delete':
         if (authenticated() && authorized("admin")) {
             if (isset($_POST['news_id'])) {
                 $newsId = intval($_POST['news_id']);
@@ -129,7 +121,7 @@ switch ($request) {
             }
         } else {
             require 'src/error/401.php';
-            
+
         }
         break;
 

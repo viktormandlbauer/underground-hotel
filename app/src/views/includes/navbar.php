@@ -1,4 +1,3 @@
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark floating-navbar">
   <a class="navbar-brand" href="/">Underground Hotel</a>
   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -15,6 +14,9 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" aria-current="page" href="/news">News</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" aria-current="page" href="/rooms">Zimmer</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/impressum">Impressum</a>

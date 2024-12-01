@@ -1,6 +1,5 @@
 <?php
 require_once 'src/models/User.php';
-require_once 'src/util/request.php';
 
 global $request;
 global $method;
@@ -12,7 +11,6 @@ switch ([$request, $method]) {
 
             $_SESSION['username'] = $_POST['username'];
 
-            // generate user-object
             $user = new User($_SESSION['username']);
             $user->load();
 
@@ -24,6 +22,7 @@ switch ([$request, $method]) {
 
             $_SESSION['flash_message'] = 'Login fehlgeschlagen';
             header('Location: /login');
+
         }
 
         break;
@@ -58,7 +57,7 @@ switch ([$request, $method]) {
                 header('Location: /');
             } else {
 
-                // TODO: Set error parameter 
+                // TODO: Set error parameter
                 header('Location: /register');
             }
         }

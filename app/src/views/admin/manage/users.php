@@ -1,32 +1,29 @@
-<?php
-include 'src/views/includes/header.php';
-require 'src/controllers/AdminController.php';
-?>
+<?php include 'src/views/includes/header.php'; ?>
 
 <script src='/public/js/admin_modal.js'></script>
 <title>Benutzerverwaltung</title>
 
 <style>
-.modal-content {
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
+    .modal-content {
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
 
-.modal-header {
-    background-color: #007bff;;
-    color:#fff;
-}
+    .modal-header {
+        background-color: #007bff;
+        ;
+        color: #fff;
+    }
 
-.delete-header {
-    background-color: #dc3545;
-    color: #fff;
-}
+    .delete-header {
+        background-color: #dc3545;
+        color: #fff;
+    }
 
-.modal-footer {
-    justify-content: space-between;
-}
-
+    .modal-footer {
+        justify-content: space-between;
+    }
 </style>
 
 <body>
@@ -35,7 +32,7 @@ require 'src/controllers/AdminController.php';
 
         <?php if (isset($_SESSION['flash_message'])): ?>
             <div class="alert alert-info alert-dismissible fade show" id="flashMessage">
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 <?= $_SESSION['flash_message'];
                 unset($_SESSION['flash_message']); ?>
             </div>
@@ -45,42 +42,43 @@ require 'src/controllers/AdminController.php';
         <div class="table-responsive">
             <table class="table table-bordered align-middle table-hover">
                 <thead class="table-light">
-                <tr>
-                    <th>ID</th>
-                    <th>Anrede</th>
-                    <th>Benutzername</th>
-                    <th>Vorname</th>
-                    <th>Nachname</th>
-                    <th>E-Mail</th>
-                    <th>Rolle</th>
-                </tr>
-            </thead>
-            <tbody id="userTableBody">
-                <?php foreach ($users as $user): ?>
-                    <tr class="user-row" data-user-id="<?= $user['user_id']; ?> " style="cursor: pointer"
-                        data-pronouns="<?= $user['pronouns']; ?>" data-username="<?= $user['username']; ?>"
-                        data-givenname="<?= $user['givenname']; ?>" data-surname="<?= $user['surname']; ?>"
-                        data-email="<?= $user['email']; ?>" data-role="<?= $user['role']; ?>">
-                        <td><?= $user['user_id']; ?></td>
-                        <td><?= $user['pronouns']; ?></td>
-                        <td><?= $user['username']; ?></td>
-                        <td><?= $user['givenname']; ?></td>
-                        <td><?= $user['surname']; ?></td>
-                        <td><?= $user['email']; ?></td>
-                        <td><?= $user['role']; ?></td>
+                    <tr>
+                        <th>ID</th>
+                        <th>Anrede</th>
+                        <th>Benutzername</th>
+                        <th>Vorname</th>
+                        <th>Nachname</th>
+                        <th>E-Mail</th>
+                        <th>Rolle</th>
                     </tr>
-                <?php endforeach; ?>
-                <tr>
-                    <td colspan="7" class="text-center">
-                        <a href="#" id="addUserRow" class="d-block py-3 text-primary" style="border: 2px dashed #0d6efd; border-radius: 5px;">
-                            <i class="fas fa-plus fa-2x"></i>
-                        </a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                </thead>
+                <tbody id="userTableBody">
+                    <?php foreach ($users as $user): ?>
+                        <tr class="user-row" data-user-id="<?= $user['user_id']; ?> " style="cursor: pointer"
+                            data-pronouns="<?= $user['pronouns']; ?>" data-username="<?= $user['username']; ?>"
+                            data-givenname="<?= $user['givenname']; ?>" data-surname="<?= $user['surname']; ?>"
+                            data-email="<?= $user['email']; ?>" data-role="<?= $user['role']; ?>">
+                            <td><?= $user['user_id']; ?></td>
+                            <td><?= $user['pronouns']; ?></td>
+                            <td><?= $user['username']; ?></td>
+                            <td><?= $user['givenname']; ?></td>
+                            <td><?= $user['surname']; ?></td>
+                            <td><?= $user['email']; ?></td>
+                            <td><?= $user['role']; ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                    <tr>
+                        <td colspan="7" class="text-center">
+                            <a href="#" id="addUserRow" class="d-block py-3 text-primary"
+                                style="border: 2px dashed #0d6efd; border-radius: 5px;">
+                                <i class="fas fa-plus fa-2x"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
 
     <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -141,7 +139,7 @@ require 'src/controllers/AdminController.php';
             </div>
         </div>
     </div>
-    
+
     <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -198,7 +196,8 @@ require 'src/controllers/AdminController.php';
         </div>
     </div>
 
-    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <form action="/admin/users/delete" method="POST">

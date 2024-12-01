@@ -69,26 +69,25 @@
                     </tr>
                 </thead>
                 <tbody id="newsTableBody">
-                    <?php foreach ($news as $article): ?>
-                        <tr class="news-row" data-news-id="<?= $article['news_id']; ?>"
-                            data-title="<?= htmlspecialchars($article['title'], ENT_QUOTES, 'UTF-8'); ?>"
-                            data-image-path="<?= htmlspecialchars($article['image_path'], ENT_QUOTES, 'UTF-8'); ?>"
-                            data-content="<?= htmlspecialchars($article['content'], ENT_QUOTES, 'UTF-8'); ?>"
-                            data-created-at="<?= $article['created_at']; ?>"
-                            data-created-by="<?= $article['created_by']; ?>">
-                            <td><?= htmlspecialchars($article['news_id'], ENT_QUOTES, 'UTF-8'); ?></td>
-                            <td><?= htmlspecialchars($article['title'], ENT_QUOTES, 'UTF-8'); ?></td>
+                    <?php foreach ($news as $room): ?>
+                        <tr class="news-row" data-news-id="<?= $room['news_id']; ?>"
+                            data-title="<?= htmlspecialchars($room['title'], ENT_QUOTES, 'UTF-8'); ?>"
+                            data-image-path="<?= htmlspecialchars($room['image_path'], ENT_QUOTES, 'UTF-8'); ?>"
+                            data-content="<?= htmlspecialchars($room['content'], ENT_QUOTES, 'UTF-8'); ?>"
+                            data-created-at="<?= $room['created_at']; ?>" data-created-by="<?= $room['created_by']; ?>">
+                            <td><?= htmlspecialchars($room['news_id'], ENT_QUOTES, 'UTF-8'); ?></td>
+                            <td><?= htmlspecialchars($room['title'], ENT_QUOTES, 'UTF-8'); ?></td>
                             <td class="text-center">
-                                <?php if (!empty($article['image_path'])): ?>
-                                    <img src="/<?= htmlspecialchars($article['image_path'], ENT_QUOTES, 'UTF-8'); ?>"
+                                <?php if (!empty($room['image_path'])): ?>
+                                    <img src="/<?= htmlspecialchars($room['image_path'], ENT_QUOTES, 'UTF-8'); ?>"
                                         alt="News Bild" class="img-thumbnail" style="max-width: 100px; max-height: 100px;">
                                 <?php else: ?>
                                     <span class="text-muted">Kein Bild</span>
                                 <?php endif; ?>
                             </td>
-                            <td><?= nl2br(htmlspecialchars($article['content'], ENT_QUOTES, 'UTF-8')); ?></td>
-                            <td><?= date('d.m.Y H:i', strtotime($article['created_at'])); ?></td>
-                            <td><?= htmlspecialchars(User::getUsernameByID($article['created_by']), ENT_QUOTES, 'UTF-8'); ?>
+                            <td><?= nl2br(htmlspecialchars($room['content'], ENT_QUOTES, 'UTF-8')); ?></td>
+                            <td><?= date('d.m.Y H:i', strtotime($room['created_at'])); ?></td>
+                            <td><?= htmlspecialchars(User::getUsernameByID($room['created_by']), ENT_QUOTES, 'UTF-8'); ?>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -180,7 +179,8 @@
                 </div>
                 <div class="modal-footer">
                     <form id="deleteNewsForm" action="/news/delete" method="post">
-                        <button type="button" class="btn btn-danger" id="deleteButton" data-bs-toggle="modal" data-bs-target="#deleteNewsModal">
+                        <button type="button" class="btn btn-danger" id="deleteButton" data-bs-toggle="modal"
+                            data-bs-target="#deleteNewsModal">
                             <i class="fas fa-trash-alt"></i> Löschen
                         </button>
                     </form>
@@ -192,7 +192,8 @@
 
 
     <!-- delete news modal -->
-    <div class="modal fade" id="deleteNewsModal" tabindex="-1" aria-labelledby="deleteNewsModalLabel" aria-hidden="true">
+    <div class="modal fade" id="deleteNewsModal" tabindex="-1" aria-labelledby="deleteNewsModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <form id="deleteNewsForm" action="/admin/news/delete" method="post">
