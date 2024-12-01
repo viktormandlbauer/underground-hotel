@@ -1,11 +1,12 @@
 <?php include 'src/views/includes/header.php'; ?>
 
 <body>
+    <?php include 'src/views/includes/navbar.php'; ?>
     <div class="container my-5">
-        <div class="row">
-            <div class="col-lg-8 mx-auto">
-                <h1 class="text-center mb-5">Impressum</h1>
+        <div class="bg-dark pt-5 rounded">
 
+            <div class="col-lg-8 text-white mx-auto">
+                <h1 class="text-center mb-5">Impressum</h1>
                 <div class="mb-4">
                     <h2>Firmenwortlaut</h2>
                     <p>
@@ -59,18 +60,26 @@
                 <div class="mb-4">
                     <h3>Haftung für Links</h3>
                     <p>
-                        Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben.
-                        Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der
-                        verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.
+                        Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen
+                        Einfluss
+                        haben.
+                        Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die
+                        Inhalte der
+                        verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten
+                        verantwortlich.
                     </p>
                 </div>
 
                 <div class="mb-4">
                     <h3>Urheberrecht</h3>
                     <p>
-                        Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem
-                        deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung
-                        außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors
+                        Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen
+                        dem
+                        deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der
+                        Verwertung
+                        außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des
+                        jeweiligen
+                        Autors
                         bzw. Erstellers.
                     </p>
                 </div>
@@ -78,7 +87,8 @@
                 <div class="mb-4">
                     <h2>Online-Streitbeilegung</h2>
                     <p>
-                        Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:<br>
+                        Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS)
+                        bereit:<br>
                         <a href="https://ec.europa.eu/consumers/odr" target="_blank">
                             https://ec.europa.eu/consumers/odr
                         </a>.<br>
@@ -88,6 +98,5 @@
             </div>
         </div>
     </div>
+    <?php include 'src/views/includes/footer.php'; ?>
 </body>
-
-<?php include 'src/views/includes/footer.php'; ?>

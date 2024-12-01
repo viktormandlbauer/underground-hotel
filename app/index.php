@@ -215,9 +215,6 @@ switch ($request) {
         require 'src/controllers/NewsController.php';
         break;
 
-    case '/datepicker':
-        require 'src/views/includes/datepicker.php';
-        break;
     default:
         require 'src/error/404.php';
 }

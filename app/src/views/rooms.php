@@ -1,7 +1,8 @@
 <?php include 'src/views/includes/header.php'; ?>
 
 <body>
-    <div class="container mt-5">
+    <?php include 'src/views/includes/navbar.php'; ?>
+    <div class="container mt-5 vh-100">
         <div class="row">
             <div class="col-3">
                 <h2 class="text-center">Filter</h2>
@@ -73,6 +74,5 @@
             </div>
         </div>
     </div>
+    <?php include 'src/views/includes/footer.php'; ?>
 </body>
-
-<?php include 'src/views/includes/footer.php'; ?>

@@ -20,6 +20,17 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Protest+Revolution&display=swap" rel="stylesheet">
 
-    
-    <?php include 'src/views/includes/navbar.php'; ?>
+
 </head>
+
+<style>
+    body {
+        background: url('/public/images/welcome.jpg') no-repeat center center fixed;
+        background-size: cover;
+        position: relative;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        opacity: 0.9;
+    }
+</style>

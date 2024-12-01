@@ -1,7 +1,8 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark floating-navbar">
   <div class="container-fluid">
     <a class="navbar-brand fs-1" id="navBrand" href="/">Underground Hotel</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
@@ -32,7 +33,7 @@
             <a class="btn btn-light fs-4" href="/register">Registrieren</a>
           </li>
         <?php else: ?>
-          <li class="nav-item mx-2">
+          <li class="nav-item me-2">
             <a class="btn btn-light fs-4" href="/dashboard">Dashboard</a>
           </li>
           <li class="nav-item">
@@ -43,6 +44,13 @@
     </div>
   </div>
 </nav>
+
+<!-- Some offset afer navbar -->
+<div class="mb-5">
+  <div class="mb-4">
+
+  </div>
+</div>
 
 <style>
   @font-face {
@@ -82,7 +90,7 @@
   }
 </style>
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     const currentPath = window.location.pathname;
     const navLinks = document.querySelectorAll('#navPages .nav-link');
 
