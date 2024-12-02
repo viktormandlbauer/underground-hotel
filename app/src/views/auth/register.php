@@ -45,7 +45,7 @@
 
                     <!-- E-Mail -->
                     <div class="form-floating mb-3">
-                        <input type="email" id="email" name="email" class="form-control" placeholder="E-Mail Adresse">
+                        <input type="email" id="email" name="email" class="form-control" placeholder="E-Mail Adresse"
                         required>
                         <label for="email" class="text-black-50">E-Mail-Adresse</label>
                         <div class="invalid-feedback">
@@ -68,10 +68,10 @@
                         <input type="password" id="password" name="password" class="form-control" minlength="8"
                             placeholder="Passwort" required>
                         <label for="password" class="text-black-50">Passwort</label>
-                                <i class="fa fa-eye-slash toggle-password" id="togglePassword"></i>
-                                <div class="invalid-feedback">
-                                    Bitte geben Sie ein Passwort mit mindestens 8 Zeichen ein.
-                                </div>
+                        <i class="fa fa-eye-slash toggle-password" id="togglePassword"></i>
+                        <div class="invalid-feedback">
+                            Bitte geben Sie ein Passwort mit mindestens 8 Zeichen ein.
+                        </div>
                     </div>
 
                     <!-- Passwort bestätigen -->
