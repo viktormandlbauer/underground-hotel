@@ -67,7 +67,7 @@
                     <div class="form-floating mb-3">
                         <input type="password" id="password" name="password" class="form-control" minlength="8"
                             placeholder="Passwort" required>
-                        <label for="password" class="text-black-50">Passwort<label>
+                        <label for="password" class="text-black-50">Passwort</label>
                                 <i class="fa fa-eye-slash toggle-password" id="togglePassword"></i>
                                 <div class="invalid-feedback">
                                     Bitte geben Sie ein Passwort mit mindestens 8 Zeichen ein.
