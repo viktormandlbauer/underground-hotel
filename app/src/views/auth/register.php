@@ -46,7 +46,7 @@
                     <!-- E-Mail -->
                     <div class="form-floating mb-3">
                         <input type="email" id="email" name="email" class="form-control" placeholder="E-Mail Adresse"
-                        required>
+                            required>
                         <label for="email" class="text-black-50">E-Mail-Adresse</label>
                         <div class="invalid-feedback">
                             Bitte geben Sie eine gültige E-Mail-Adresse ein.

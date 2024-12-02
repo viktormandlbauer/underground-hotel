@@ -1,7 +1,7 @@
 <?php include 'src/views/includes/header.php'; ?>
 
 <body>
-
+    <?php include 'src/views/includes/navbar.php'; ?>
     <div class="container mt-5">
         <h1 class="text-center mb-5">Admin Dashboard</h1>
         <div class="row">

@@ -44,6 +44,7 @@
 </style>
 
 <body>
+    <?php include 'src/views/includes/navbar.php'; ?>
     <div class="container mt-5">
         <h1 class="mb-4">Newsverwaltung</h1>
 

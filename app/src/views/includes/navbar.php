@@ -6,7 +6,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ps-2 fs-2" id="navPages">
+      <ul class="navbar-nav ps-2 fs-2" id="Pages">
         <li class="nav-item">
           <a class="nav-link" aria-current="page" href="/news">News</a>
         </li>
@@ -46,40 +46,10 @@
 </nav>
 
 <!-- Some offset afer navbar -->
-<div class="mb-5">
-  <div class="mb-4">
-
-  </div>
-</div>
+<div class="mb-5"></div>
+<div class="mb-4"></div>
 
 <style>
-  @font-face {
-    font-family: 'UNDERGROUND-HOTEL-BRAND';
-    src: url('/public/fonts/DOCALLISME_ON_STREET.ttf');
-  }
-
-  @font-face {
-    font-family: 'UNDERGROUND-HOTEL-PAGES';
-    src: url('/public/fonts/adrip1.ttf');
-  }
-
-  @font-face {
-    font-family: 'UNDERGROUND-HOTEL-PROFILE';
-    src: url('/public/fonts/Gemstone.ttf');
-  }
-
-  #navBrand {
-    font-family: 'UNDERGROUND-HOTEL-BRAND';
-  }
-
-  #navPages {
-    font-family: 'UNDERGROUND-HOTEL-PAGES';
-  }
-
-  #navProfile {
-    font-family: 'UNDERGROUND-HOTEL-PROFILE';
-  }
-
   .floating-navbar {
     position: fixed;
     top: 0px;
@@ -92,7 +62,7 @@
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const currentPath = window.location.pathname;
-    const navLinks = document.querySelectorAll('#navPages .nav-link');
+    const navLinks = document.querySelectorAll('#Pages .nav-link');
 
     navLinks.forEach(link => {
       if (link.getAttribute('href') === currentPath) {

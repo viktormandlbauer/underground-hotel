@@ -33,10 +33,10 @@ COPY ./php.ini /usr/local/etc/php/
 COPY . /var/www/html/
 
 # Erstelle die Upload-Verzeichnisse
-RUN mkdir -p /data/uploads/{news,rooms,users}
+RUN mkdir -p "/data/uploads/{news,rooms,users}"
 
 # Set permissions for the upload directories
-RUN chmod -R 777 /data/uploads
+RUN chmod -R 777 /data
 
 # Erstelle einen symbolischen Link für die Upload-Verzeichnisse
 RUN ln -s /data/uploads /var/www/html/public/uploads

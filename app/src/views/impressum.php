@@ -4,9 +4,8 @@
     <?php include 'src/views/includes/navbar.php'; ?>
     <div class="container my-5">
         <div class="bg-dark pt-5 rounded">
-
             <div class="col-lg-8 text-white mx-auto">
-                <h1 class="text-center mb-5">Impressum</h1>
+                <h1 class="display-3 text-center mb-5" id="Pages">Impressum</h1>
                 <div class="mb-4">
                     <h2>Firmenwortlaut</h2>
                     <p>

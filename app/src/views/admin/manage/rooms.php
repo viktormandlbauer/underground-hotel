@@ -44,8 +44,7 @@
 </style>
 
 <body>
-
-
+    <?php include 'src/views/includes/navbar.php'; ?>
     <div class="container mt-5">
         <h1 class="mb-4">Raumverwaltung</h1>
 
@@ -205,8 +204,8 @@
 
                         <div class="mb-3">
                             <label for="editPricePerNight" class="form-label">Preis pro Nacht</label>
-                            <input type="number" id="editPricePerNight" name="price_per_night" placeholder="Preis pro Nacht"
-                                class="form-control" required>
+                            <input type="number" id="editPricePerNight" name="price_per_night"
+                                placeholder="Preis pro Nacht" class="form-control" required>
                         </div>
 
                         <div id="editDropzone">

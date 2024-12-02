@@ -2,6 +2,7 @@
 <?php include 'src/controllers/ProfileController.php' ?>
 
 <body>
+    <?php include 'src/views/includes/navbar.php'; ?>
     <div class="container mt-5">
         <h1 class="mb-4">Profilverwaltung</h1>
 

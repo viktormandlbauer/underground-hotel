@@ -1,4 +1,4 @@
-<div id="date"></div>
+<!-- <div id="date"></div> -->
 <input type="hidden" name="start_date" id="start_date">
 <input type="hidden" name="end_date" id="end_date">
 

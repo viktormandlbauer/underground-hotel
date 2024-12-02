@@ -2,14 +2,15 @@
 
 <body>
     <?php include 'src/views/includes/navbar.php'; ?>
-    <div class="container mt-5 vh-100">
-        <div class="row">
+    <div class="container my-5">
+        <div class="row bg-dark text-white py-4 rounded">
             <div class="col-3">
-                <h2 class="text-center">Filter</h2>
                 <div class="p-3">
                     <form method="GET" action="/rooms">
-                        <div class="mx-4">
+                        <div class="d-flex align-items-center flex-column">
 
+                            <h2 class="text-center">Filter</h2>
+                            <div id="date" style="left: 50% !important; margin-left: 1.2em !important;"></div>
                             <?php include 'src/views/includes/datepicker.php'; ?>
 
                             <label for="person_count" class="form-label">Personen</label>
@@ -39,7 +40,8 @@
             <div class="col-9">
                 <h2 class="text-center">Verfügbare Zimmer</h2>
                 <div class="p-3">
-                    <table id="rooms_table" class="table table-striped">
+                    <table id="sortedTable"
+                        class="table table-dark table-bordered table-striped align-middle table-hover tablesorter">
                         <thead>
                             <tr>
                                 <th scope="col">Bezeichnung</th>
