@@ -12,6 +12,10 @@
     <!-- loading img for showPassword.js -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
+    <!-- Tablesorter CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/css/theme.bootstrap_4.min.css">
+
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/public/css/style.css">
 

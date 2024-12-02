@@ -52,8 +52,8 @@
         <?php endif; ?>
 
         <div class="table-responsive">
-            <table class="table table-bordered align-middle table-hover">
-                <thead class="table-dark">
+            <table id="userTable" class="table table-dark table-bordered align-middle table-hover tablesorter">
+                <thead>
                     <tr>
                         <th data-sort="number">ID</th>
                         <th data-sort="text">Anrede</th>
@@ -66,18 +66,22 @@
                 </thead>
                 <tbody id="userTableBody">
                     <?php foreach ($users as $user): ?>
-                        <tr class="user-row" data-user-id="<?= $user['user_id']; ?> " style="cursor: pointer"
-                            data-pronouns="<?= $user['pronouns']; ?>" data-username="<?= $user['username']; ?>"
-                            data-givenname="<?= $user['givenname']; ?>" data-surname="<?= $user['surname']; ?>"
-                            data-email="<?= $user['email']; ?>" data-role="<?= $user['role']; ?>">
-                            <td><?= $user['user_id']; ?></td>
-                            <td><?= $user['pronouns']; ?></td>
-                            <td><?= $user['username']; ?></td>
-                            <td><?= $user['givenname']; ?></td>
-                            <td><?= $user['surname']; ?></td>
-                            <td><?= $user['email']; ?></td>
-                            <td><?= $user['role']; ?></td>
-                        </tr>
+                        <tr class="user-row" style="cursor: pointer" 
+                        data-user-id="<?= htmlspecialchars($user['user_id'], ENT_QUOTES, 'UTF-8'); ?>"
+                        data-pronouns="<?= htmlspecialchars($user['pronouns'], ENT_QUOTES, 'UTF-8'); ?>" 
+                        data-username="<?= htmlspecialchars($user['username'], ENT_QUOTES, 'UTF-8'); ?>"
+                        data-givenname="<?= htmlspecialchars($user['givenname'], ENT_QUOTES, 'UTF-8'); ?>" 
+                        data-surname="<?= htmlspecialchars($user['surname'], ENT_QUOTES, 'UTF-8'); ?>"
+                        data-email="<?= htmlspecialchars($user['email'], ENT_QUOTES, 'UTF-8'); ?>" 
+                        data-role="<?= htmlspecialchars($user['role'], ENT_QUOTES, 'UTF-8'); ?>">
+                        <td><?= htmlspecialchars($user['user_id'], ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td><?= htmlspecialchars($user['pronouns'], ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td><?= htmlspecialchars($user['username'], ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td><?= htmlspecialchars($user['givenname'], ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td><?= htmlspecialchars($user['surname'], ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td><?= htmlspecialchars($user['email'], ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td><?= htmlspecialchars($user['role'], ENT_QUOTES, 'UTF-8'); ?></td>
+                    </tr>
                     <?php endforeach; ?>
                     <tr>
                         <td colspan="7" class="text-center">
