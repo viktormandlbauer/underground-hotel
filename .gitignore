@@ -1,6 +1,4 @@
-.vscode
-.archive
-.DS_Store
-*.jpg
+.*
 logs
 uploads
+data

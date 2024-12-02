@@ -53,7 +53,7 @@
 
         <div class="table-responsive">
             <table class="table table-bordered align-middle table-hover">
-                <thead class="table-light">
+                <thead class="table-dark">
                     <tr>
                         <th data-sort="number">ID</th>
                         <th data-sort="text">Anrede</th>

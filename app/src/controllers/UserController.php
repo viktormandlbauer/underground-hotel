@@ -14,8 +14,6 @@ switch ([$request, $method]) {
             $user = new User($_SESSION['username']);
             $user->load();
 
-            $_SESSION['user_data'] = serialize($user);
-
             header('Location: /');
 
         } else {

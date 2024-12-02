@@ -5,59 +5,33 @@ require_once 'src/util/Image.php';
 global $request;
 global $method;
 
+
 switch ([$request, $method]) {
+
+    case ['/rooms', 'GET']:
+
+        if (isset($_GET['start_date'], $_GET['end_date'], $_GET['price_min'], $_GET['price_max'], $_GET['person_count'])) {
+
+            $start_date = $_GET['start_date'];
+            $end_date = $_GET['end_date'];
+            $price_min = $_GET['price_min'];
+            $price_max = $_GET['price_max'];
+            $person_count = $_GET['person_count'];
+
+            $rooms = Room::searchFreeRooms($start_date, $end_date, $price_min, $price_max);
+        } else {
+            $rooms = Room::getAllRooms();
+        }
+
+        break;
 
     case ['/admin/manage/rooms', 'GET']:
 
         // Get all rooms
         $rooms = Room::getAllRooms();
 
-
         break;
 
-    case ['/rooms', 'GET']:
-
-        // Get all request data
-        $params = filter_input_array(INPUT_GET, [
-            'checkin' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
-            'checkout' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
-            'price_min' => FILTER_SANITIZE_NUMBER_INT,
-            'price_max' => FILTER_SANITIZE_NUMBER_INT,
-            'person_count' => FILTER_SANITIZE_NUMBER_INT
-        ]);
-
-        $checkin = $params['checkin'] ?? '1900-01-01';
-        $checkout = $params['checkout'] ?? '1900-01-01';
-        $price_min = $params['price_min'] ?? '0';
-        $price_max = $params['price_max'] ?? '300';
-        $person_count = $params['person_count'] ?? '1';
-
-        // Search for free rooms
-        $rooms = Room::searchFreeRooms($checkin, $checkout, $price_min, $price_max);
-
-        break;
-
-    case ['/rooms/search', 'GET']:
-
-        // Get all request data
-        $params = filter_input_array(INPUT_GET, [
-            'checkin' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
-            'checkout' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
-            'price_min' => FILTER_SANITIZE_NUMBER_INT,
-            'price_max' => FILTER_SANITIZE_NUMBER_INT,
-            'person_count' => FILTER_SANITIZE_NUMBER_INT
-        ]);
-
-        $checkin = $params['checkin'] ?? '1900-01-01';
-        $checkout = $params['checkout'] ?? '1900-01-01';
-        $price_min = $params['price_min'] ?? '0';
-        $price_max = $params['price_max'] ?? '300';
-        $person_count = $params['person_count'] ?? '1';
-
-        // Search for free rooms
-        $rooms = Room::search_free_rooms($checkin, $checkout, $price_min, $price_max);
-
-        break;
     case ['/admin/rooms/create', 'POST']:
         if (isset($_POST['room_number']) && isset($_POST['room_name']) && isset($_POST['room_type']) && isset($_POST['room_description']) && isset($_POST['price_per_night'])) {
 
@@ -103,7 +77,6 @@ switch ([$request, $method]) {
             Room::deleteRoom(intval($_POST['number']));
 
             $_SESSION['flash_message'] = 'Zimmer erfolgreich gelöscht.';
-
         } else {
             $_SESSION['flash_message'] = 'Fehler beim Löschen.';
         }

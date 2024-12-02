@@ -1,41 +1,58 @@
 <div id="date"></div>
+<input type="hidden" name="start_date" id="start_date">
+<input type="hidden" name="end_date" id="end_date">
 
-<link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css" rel="stylesheet" />
+<script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+
 <script>
     $('#date').datepicker({
-        startDate: new Date(),
+        starteDate: new Date(),
         format: "yyyy-mm-dd",
+        startView: 0,
+        minViewMode: 0,
+        maxViewMode: 2,
         multidate: true,
         multidateSeparator: "-",
         autoClose: true,
-        startView: 0,
-        weekStart: 1,
-        clearBtn: true,
-    }).on("changeDate", function (event) {
-        var dates = event.dates, elem = $('#date');
+        beforeShowDay: highlightRange,
+    }).on("changeDate", function(event) {
+        var dates = event.dates,
+            elem = $('#date');
         if (elem.data("selecteddates") == dates.join(",")) return;
         if (dates.length > 2) dates = dates.splice(dates.length - 1);
-        dates.sort(function (a, b) { return new Date(a).getTime() - new Date(b).getTime() });
+        dates.sort(function(a, b) {
+            return new Date(a).getTime() - new Date(b).getTime()
+        });
         elem.data("selecteddates", dates.join(",")).datepicker('setDates', dates);
+        $('#start_date').val(formatDate(dates[0]));
+        $('#end_date').val(formatDate(dates[1]));
     });
 
-    function getDates() {
-        console.log($("#date").datepicker("getDates"));
-        console.log($("#date").datepicker("getUTCDates"));
-        console.log($("#date").data('datepicker').getFormattedDate('yyyy/mm'));
-    } $(document).ready(function () {
-        $('.input-daterange').datepicker({
-            format: 'yyyy-mm-dd',
-            autoclose: true,
-            todayHighlight: true
-        });
-    });
+    function highlightRange(date) {
+        var selectedDates = $('#date').datepicker('getDates');
+        if (selectedDates.length === 2 && date >= selectedDates[0] && date <= selectedDates[1]) {
+            return 'highlighted';
+        }
+        return '';
+    }
+
+    function formatDate(date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+
+        return [year, month, day].join('-');
+    }
 </script>
 
-
-
+<style>
+    .highlighted {
+        background-color: #99ccff;
+    }
+</style>
