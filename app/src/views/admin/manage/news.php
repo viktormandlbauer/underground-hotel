@@ -1,51 +1,10 @@
 <?php include 'src/views/includes/header.php'; ?>
-
-<style>
-    #dropzone,
-    #editDropzone {
-        border: 2px dashed #007bff;
-        background-color: #f8f9fa;
-        padding: 30px;
-        text-align: center;
-        border-radius: 8px;
-        width: 100%;
-        margin-bottom: 20px;
-        position: relative;
-    }
-
-    #fileElem,
-    #editFileElem {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        cursor: pointer;
-    }
-
-    #preview,
-    #editPreview {
-        display: none;
-        max-width: 100%;
-        max-height: 300px;
-        margin-top: 20px;
-        border: 1px solid #ddd;
-        padding: 5px;
-        border-radius: 4px;
-    }
-
-    .news-row:hover {
-        background-color: #f1f1f1;
-        cursor: pointer;
-    }
-</style>
-
+<link rel="stylesheet" href="/public/css/modal.css">
 <body>
-    <div class="container mt-5">
-        <h1 class="mb-4">Newsverwaltung</h1>
+    <?php include 'src/views/includes/navbar.php'; ?>
+    <div class="container mt-5 vh-100 mt-5">
+    <div class="row bg-dark text-white py-4 rounded">
+        <h1 id="Pages" class="mb-4 text-center display-3">Newsverwaltung</h1>
 
         <?php if (isset($_SESSION['flash_message'])): ?>
             <div class="alert alert-info alert-dismissible fade show" id="flashMessage">
@@ -57,50 +16,52 @@
         <?php endif; ?>
 
         <div class="table-responsive">
-            <table class="table table-striped table-bordered align-middle table-hover">
-                <thead class="table-light">
+            <table id="sortedTable" class="table table-dark table-bordered table-bordered align-middle table-hover tablesorter">
+                <thead>
                     <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Titel</th>
-                        <th scope="col">Bild</th>
-                        <th scope="col">Inhalt</th>
-                        <th scope="col">Erstellt am</th>
-                        <th scope="col">Erstellt von</th>
+                        <th scope="col" data-sort="number">ID</th>
+                        <th scope="col" data-sort="text">Titel</th>
+                        <th scope="col" data-sort="text">Bild</th>
+                        <th scope="col" data-sort="text">Inhalt</th>
+                        <th scope="col" data-sort="date">Erstellt am</th>
+                        <th scope="col" data-sort="text">Erstellt von</th>
                     </tr>
                 </thead>
                 <tbody id="newsTableBody">
-                    <?php foreach ($news as $room): ?>
-                        <tr class="news-row" data-news-id="<?= $room['news_id']; ?>"
-                            data-title="<?= htmlspecialchars($room['title'], ENT_QUOTES, 'UTF-8'); ?>"
-                            data-image-path="<?= htmlspecialchars($room['image_path'], ENT_QUOTES, 'UTF-8'); ?>"
-                            data-content="<?= htmlspecialchars($room['content'], ENT_QUOTES, 'UTF-8'); ?>"
-                            data-created-at="<?= $room['created_at']; ?>" data-created-by="<?= $room['created_by']; ?>">
-                            <td><?= htmlspecialchars($room['news_id'], ENT_QUOTES, 'UTF-8'); ?></td>
-                            <td><?= htmlspecialchars($room['title'], ENT_QUOTES, 'UTF-8'); ?></td>
+                    <?php foreach ($news as $article): ?>
+                        <tr class="news-row" style="cursor-pointer"
+                            data-news-id="<?= $article['news_id']; ?>"
+                            data-title="<?= htmlspecialchars($article['title'], ENT_QUOTES, 'UTF-8'); ?>"
+                            data-image-path="<?= htmlspecialchars($article['image_path'], ENT_QUOTES, 'UTF-8'); ?>"
+                            data-content="<?= htmlspecialchars($article['content'], ENT_QUOTES, 'UTF-8'); ?>"
+                            data-created-at="<?= $article['created_at']; ?>" 
+                            data-created-by="<?= $article['created_by']; ?>">
+                            <td><?= htmlspecialchars($article['news_id'], ENT_QUOTES, 'UTF-8'); ?></td>
+                            <td><?= htmlspecialchars($article['title'], ENT_QUOTES, 'UTF-8'); ?></td>
                             <td class="text-center">
-                                <?php if (!empty($room['image_path'])): ?>
-                                    <img src="/<?= htmlspecialchars($room['image_path'], ENT_QUOTES, 'UTF-8'); ?>"
+                                <?php if (!empty($article['image_path'])): ?>
+                                    <img src="/<?= htmlspecialchars($article['image_path'], ENT_QUOTES, 'UTF-8'); ?>"
                                         alt="News Bild" class="img-thumbnail" style="max-width: 100px; max-height: 100px;">
                                 <?php else: ?>
                                     <span class="text-muted">Kein Bild</span>
                                 <?php endif; ?>
                             </td>
-                            <td><?= nl2br(htmlspecialchars($room['content'], ENT_QUOTES, 'UTF-8')); ?></td>
-                            <td><?= date('d.m.Y H:i', strtotime($room['created_at'])); ?></td>
-                            <td><?= htmlspecialchars(User::getUsernameByID($room['created_by']), ENT_QUOTES, 'UTF-8'); ?>
+                            <td><?= nl2br(htmlspecialchars($article['content'], ENT_QUOTES, 'UTF-8')); ?></td>
+                            <td><?= date('d.m.Y H:i', strtotime($article['created_at'])); ?></td>
+                            <td><?= htmlspecialchars(User::getUsernameByID($article['created_by']), ENT_QUOTES, 'UTF-8'); ?>
                             </td>
                         </tr>
                     <?php endforeach; ?>
                     <tr>
-                        <td colspan="6" class="text-center">
-                            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
-                                data-bs-target="#newsUploadModal">
-                                <i class="fas fa-plus"></i> Neue News hinzufügen
+                        <td colspan="7" class="text-center">
+                             <button type="button" id="addRow" class="add-row" data-bs-toggle="modal" data-bs-target="#newsUploadModal">
+                                <i class="fas fa-plus plus-icon"></i>
                             </button>
                         </td>
                     </tr>
                 </tbody>
             </table>
+        </div>
         </div>
     </div>
 
@@ -133,12 +94,14 @@
                                 onchange="handleFiles(this.files)">
                         </div>
 
-                        <img id="preview" alt="Bildvorschau">
+                        <div class="d-flex justify-content-center align-items-center" style="height: 300px;">
+                            <img id="uploadPreview" class="img-fluid" alt="Bildvorschau">
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abbrechen</button>
-                    <button type="submit" class="btn btn-primary" form="submitNewsForm">Beitrag veröffentlichen</button>
+                    <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Abbrechen</button>
+                    <button type="submit" class="btn btn-light" form="submitNewsForm">Beitrag veröffentlichen</button>
                 </div>
             </div>
         </div>
@@ -173,8 +136,9 @@
                             <input type="file" id="editFileElem" name="imageFile" accept="image/*"
                                 onchange="handleEditFiles(this.files)">
                         </div>
-
-                        <img id="editPreview" alt="Bildvorschau">
+                        <div class="d-flex justify-content-center align-items-center" style="height: 300px;">
+                            <img id="editPreview" class="img-fluid" alt="Bildvorschau">
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -184,7 +148,8 @@
                             <i class="fas fa-trash-alt"></i> Löschen
                         </button>
                     </form>
-                    <button type="submit" class="btn btn-primary" form="editNewsForm">Änderungen speichern</button>
+                    <button type="submit" class="btn btn-light" form="editNewsForm">Änderungen speichern</button>
+                    <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Abbrechen</button>
                 </div>
             </div>
         </div>
@@ -206,7 +171,7 @@
                         <p>Bist du sicher, dass du diesen News-Beitrag löschen möchtest?</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abbrechen</button>
+                        <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Abbrechen</button>
                         <button type="submit" class="btn btn-danger">Löschen</button>
                     </div>
                 </form>

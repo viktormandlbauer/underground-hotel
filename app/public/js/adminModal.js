@@ -27,22 +27,19 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    document.getElementById('addUserRow').addEventListener('click', function (e) {
-        e.preventDefault();
-        var addModal = new bootstrap.Modal(document.getElementById('addUserModal'));
-        addModal.show();
-    });
+    //document.getElementById('addUserRow').addEventListener('click', function (e) {
+    //    e.preventDefault();
+    //    var addModal = new bootstrap.Modal(document.getElementById('addUserModal'));
+    //    addModal.show();
+    //});
 
-    
     document.querySelector('#editUserModal .delete-button').addEventListener('click', function () {
         var userId = document.getElementById('editUserId').value;
         var username = document.getElementById('editUsername').value; 
         document.getElementById('deleteUserMessage').textContent = 'Sind Sie sich sicher, dass Sie den Benutzer "' + username + '" löschen möchten?';
         document.getElementById('deleteUserId').value = userId;
 
-    
         var deleteModal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
         deleteModal.show();
-    //});
-     });
+    });
 });

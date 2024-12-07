@@ -1,6 +1,7 @@
 <?php
 
 require_once 'src/config/Database.php';
+require_once 'src/util/validation.php';
 
 class News
 {
@@ -63,11 +64,13 @@ class News
         while ($row = $result->fetch_assoc()) {
             $news[] = $row;
         }
-        return $news;
+        return sanitizeArray($news);
     }
 
     public static function getNews($limit, $offset)
     {
+
+        isValidArray([$limit, $offset], ['integer', 'integer']);
 
         $stmt = self::getDBConnection()->prepare("SELECT * FROM news ORDER BY date DESC LIMIT ? OFFSET ?");
         $stmt->bind_param("ii", $limit, $offset);
@@ -78,11 +81,13 @@ class News
         while ($row = $result->fetch_assoc()) {
             $newsPosts[] = $row;
         }
-        return $newsPosts;
+        return sanitizeArray($newsPosts);
         }
 
     public static function getTotalPages($limit)
     {
+
+        isValidArray([$limit], ['integer']);
 
         $totalResult = self::getDBConnection()->query("SELECT COUNT(*) AS total FROM news");
         $totalRow = $totalResult->fetch_assoc();
@@ -90,11 +95,13 @@ class News
 
         $totalPages = ceil($totalNews / $limit);
 
-        return $totalPages;
+        return sanitize($totalPages);
     }
 
     public static function getPaginatedNews($limit, $offset)
     {
+
+        isValidArray([$limit, $offset], ['integer', 'integer']);
         $stmt = self::getDBConnection()->prepare("SELECT * FROM news ORDER BY created_at DESC LIMIT ? OFFSET ?");
         $stmt->bind_param("ii", $limit, $offset);
         $stmt->execute();
@@ -105,7 +112,7 @@ class News
             $news[] = $row;
         }
 
-        return $news;
+        return sanitizeArray($news);
     }
 
 
@@ -123,7 +130,7 @@ class News
         $stmt->execute();
         $result = $stmt->get_result();
         $id = $result->fetch_assoc();
-        return $id["news_id"];
+        return sanitize($id["news_id"]);
     }
 
     public static function getNewsById($id)
@@ -133,7 +140,7 @@ class News
         $stmt->execute();
         $result = $stmt->get_result();
         $news = $result->fetch_assoc();
-        return $news;
+        return sanitizeArray($news);
     }
 
     public static function deleteNews($id)
@@ -145,11 +152,12 @@ class News
 
     public static function updateNews($newsId, $title, $content, $imagePath = null)
 {
+    isValidArray([$newsId, $title, $content, $imagePath], ['integer', 'open_string', 'open_string', 'url']);
     if ($imagePath) {
         $stmt = self::getDBConnection()->prepare("UPDATE news SET title = ?, content = ?, image_path = ? WHERE news_id = ?");
         $stmt->bind_param("sssi", $title, $content, $imagePath, $newsId);
     } else {
-        $stmt = self::getDBConnection()->prepare("UPDATE news SET title = ?, content = ?, modified = NOW() WHERE news_id = ?");
+        $stmt = self::getDBConnection()->prepare("UPDATE news SET title = ?, content = ? WHERE news_id = ?");
         $stmt->bind_param("ssi", $title, $content, $newsId);
     }
     $stmt->execute();

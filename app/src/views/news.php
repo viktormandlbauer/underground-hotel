@@ -11,9 +11,7 @@
                     <h2 class="card-title text-center"><?= htmlspecialchars($item['title']) ?></h2>
                     <?php if (!empty($item['image_path'])): ?>
                         <img src="/<?= htmlspecialchars($item['image_path']) ?>" alt="News Bild" class="rounded mr-3 mb-2"
-                            style="max-width: 250px; max-height: 500px; float: left; border-radius: 5px;
-        margin-right: 15px; /* Abstand rechts */
-        margin-bottom: 15px;">
+                            style="max-width: 250px; max-height: 500px; float: left; border-radius: 5px; margin-right: 15px; margin-bottom: 15px;">
                     <?php endif; ?>
                     <p class="card-text text-justify"><?= nl2br(htmlspecialchars($item['content'])) ?></p>
                     <div class="text-right text-muted mt-3">Veröffentlicht am <?= htmlspecialchars($item['created_at']) ?>

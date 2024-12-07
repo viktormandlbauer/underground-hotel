@@ -71,23 +71,23 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($rooms as $room): ?>
-                        <tr class="room-row" data-number="<?= $room['number']; ?>"
-                            data-name="<?= htmlspecialchars($room['name'], ENT_QUOTES, 'UTF-8'); ?>"
-                            data-description="<?= htmlspecialchars($room['description'], ENT_QUOTES, 'UTF-8'); ?>"
-                            data-type="<?= htmlspecialchars($room['type'], ENT_QUOTES, 'UTF-8'); ?>"
-                            data-price_per_night="<?= $room['price_per_night']; ?>"
-                            data-image_path="<?= $room['image_path']; ?>">
+                    <?php foreach ($rooms as $article): ?>
+                        <tr class="room-row" data-number="<?= $article['number']; ?>"
+                            data-name="<?= htmlspecialchars($article['name'], ENT_QUOTES, 'UTF-8'); ?>"
+                            data-description="<?= htmlspecialchars($article['description'], ENT_QUOTES, 'UTF-8'); ?>"
+                            data-type="<?= htmlspecialchars($article['type'], ENT_QUOTES, 'UTF-8'); ?>"
+                            data-price_per_night="<?= $article['price_per_night']; ?>"
+                            data-image_path="<?= $article['image_path']; ?>">
 
-                            <td><?= htmlspecialchars($room['number'], ENT_QUOTES, 'UTF-8'); ?></td>
-                            <td><?= htmlspecialchars($room['name'], ENT_QUOTES, 'UTF-8'); ?></td>
+                            <td><?= htmlspecialchars($article['number'], ENT_QUOTES, 'UTF-8'); ?></td>
+                            <td><?= htmlspecialchars($article['name'], ENT_QUOTES, 'UTF-8'); ?></td>
 
-                            <td><?= nl2br(htmlspecialchars($room['description'], ENT_QUOTES, 'UTF-8')); ?></td>
-                            <td><?= htmlspecialchars($room['type'], ENT_QUOTES, 'UTF-8'); ?></td>
-                            <td><?= htmlspecialchars($room['price_per_night']); ?> €</td>
+                            <td><?= nl2br(htmlspecialchars($article['description'], ENT_QUOTES, 'UTF-8')); ?></td>
+                            <td><?= htmlspecialchars($article['type'], ENT_QUOTES, 'UTF-8'); ?></td>
+                            <td><?= htmlspecialchars($article['price_per_night']); ?> €</td>
                             <td class="text-center">
-                                <?php if (!empty($room['image_path'])): ?>
-                                    <img src="/<?= htmlspecialchars($room['image_path'], ENT_QUOTES, 'UTF-8'); ?>"
+                                <?php if (!empty($article['image_path'])): ?>
+                                    <img src="/<?= htmlspecialchars($article['image_path'], ENT_QUOTES, 'UTF-8'); ?>"
                                         alt="Raumbild" class="img-thumbnail" style="max-width: 100px; max-height: 100px;">
                                 <?php else: ?>
                                     <span class="text-muted">Kein Bild</span>

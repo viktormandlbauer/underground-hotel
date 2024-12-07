@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $("#userTable").tablesorter({
+    $("#sortedTable").tablesorter({
         theme : 'bootstrap',
         widgets : ['uitheme'],
         headerTemplate : '{content} {icon}',

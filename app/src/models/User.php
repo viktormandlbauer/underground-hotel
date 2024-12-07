@@ -2,6 +2,7 @@
 
 require_once 'src/config/Database.php';
 require_once 'src/util/Hash.php';
+require_once 'src/util/validation.php';
 
 class User
 {
@@ -66,31 +67,48 @@ class User
         return $result->num_rows > 0;
     }
 
-    public static function register($pronouns, $givenname, $surname, $email, $username, $password, $role = 'user')
+
+    public static function addUser($data)
     {
 
-        if (!isset($pronouns, $givenname, $surname, $email, $username, $password)) {
+        $rules = ['strict_string','strict_string','strict_string','email','open_string','open_string','password_confirm'];
+        $registerData = [$data['pronouns'], $data['givenname'], $data['surname'], $data['email'], $data['username'], $data['password'], $data['password_confirm']];
+
+        $validationResult = isValidArray($registerData, $rules);
+
+        if(!$validationResult){
+            $_SESSION['flash_message'] = 'Ungültige Eingabe.';
             return false;
         }
+        
+        $salt = Hash::salt(16);
+        $password_hash = Hash::make($data['password'], $salt);
 
-        $validRoles = ['user', 'admin', 'employee'];
-        if (!in_array($role, $validRoles)) {
-            $role = 'user';
-        }
+        $sanitizedData = sanitizeArray($data);
 
         $stmt = self::getDBConnection()->prepare("INSERT INTO users ( pronouns, givenname, surname, username, email, password_hash, salt, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
-        $salt = Hash::salt(16);
-        $password_hash = Hash::make($password, $salt);
+        $role = isset($sanitizedData['role']) && in_array($sanitizedData['role'], ['user', 'admin', 'employee']) ? $sanitizedData['role'] : 'user';
 
-        $stmt->bind_param("ssssssss", $pronouns, $givenname, $surname, $username, $email, $password_hash, $salt, $role);
-        
+        $stmt->bind_param(
+            "ssssssss", 
+        $sanitizedData['pronouns'], 
+        $sanitizedData['givenname'], 
+        $sanitizedData['surname'], 
+        $sanitizedData['username'], 
+        $sanitizedData['email'], 
+        $password_hash, 
+        $salt, 
+        $role);
+
         if ($stmt->execute()) {
+            $_SESSION['flash_message'] ='Benutzer erfolgreich angelegt.';
             return true;
         } else {
-            error_log("Fehler beim Ausführen des Statements: " . $stmt->error);
+            $_SESSION['flash_message'] = 'Benutzer konnte nicht angelegt werden.' ;
+            $stmt->close();
             return false;
-        }
+        }        
     }
 
     public static function login($username, $password)
@@ -99,6 +117,10 @@ class User
         if (!isset($username, $password)) {
             return false;
         }
+
+        isValidArray([$username, $password], ['open_string', 'open_string']);
+
+        sanitizeArray([$username, $password]);
 
         $stmt = self::getDBConnection()->prepare("SELECT * FROM users WHERE username = ?");
         $stmt->bind_param("s", $username);
@@ -117,6 +139,8 @@ class User
 
     public function load()
     {
+
+        
         $stmt = $this->getDBConnection()->prepare("SELECT * FROM users WHERE user_id = ?");
         $stmt->bind_param("i", $this->id);
         $stmt->execute();
@@ -153,6 +177,9 @@ class User
 
     public function save($givenname, $surname, $email)
     {
+        isValidArray([$givenname, $surname, $email], ['strict_string', 'strict_string', 'email']);
+        sanitizeArray([$givenname, $surname, $email]);
+
         $this->givenname = $givenname;
         $this->surname = $surname;
         $this->email = $email;
@@ -165,6 +192,8 @@ class User
 
     public function changePassword($password): void
     {
+        isValidArray([$password], ['open_string']);
+
         $salt = Hash::salt(16);
         $password_hash = Hash::make($password, $salt);
         $stmt = $this->getDBConnection()->prepare("UPDATE users SET password_hash = ?, salt = ? WHERE username = ?");
@@ -184,12 +213,12 @@ class User
         }
 
         $stmt->close();
-        return $users;
+        return sanitizeArray($users);
     }
 
     public static function getAllUsersSanitized()
     {
-        $users = self::getAllUsers(); // Vorhandene Methode, die alle Benutzer abruft
+        $users = self::getAllUsers();
         foreach ($users as &$user) {
             $user['user_id'] = intval($user['user_id']);
             $user['pronouns'] = htmlspecialchars($user['pronouns'], ENT_QUOTES, 'UTF-8');
@@ -200,12 +229,14 @@ class User
             $user['role'] = htmlspecialchars($user['role'], ENT_QUOTES, 'UTF-8');
         }
         unset($user);
-        return $users;
+        return sanitizeArray($users);
     }
 
 
     public static function getUseridByUsername($username)
     {
+        isValidArray([$username], ['open_string']);
+
         $stmt = self::getDBConnection()->prepare("SELECT user_id FROM users WHERE username = ?");
         $stmt->bind_param("s", $username);
         $stmt->execute();
@@ -216,11 +247,13 @@ class User
 
     public static function getUsernameByID($id)
     {
+        isValidArray([$id], ['integer']);
+
         $stmt = self::getDBConnection()->prepare("SELECT username FROM users WHERE user_id = ?");
         $stmt->bind_param("i", $id);
         $stmt->execute();
         $result = $stmt->get_result();
-        return $result->fetch_assoc()['username'] ?? null;
+        return sanitize($result->fetch_assoc()['username'] ?? null);
     }
     public function delete()
     {

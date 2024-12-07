@@ -1,0 +1,25 @@
+.custom-card{
+    background-color: #343a40;
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    transition: background-color 0.5s, color 0.5s;
+}
+
+.custom-card:hover{
+    background-color: #ffffff;
+    color: #000000;
+    border-color: #ffffff;
+}
+
+.custom-card:hover .card-icon{
+    color: #000000;
+}
+
+.card-icon{
+    color: #ffffff;
+    transition: color 0.3s;
+}
+
+.custom-card{
+    cursor: pointer;
+}

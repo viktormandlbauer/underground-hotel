@@ -50,13 +50,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($rooms as $room): ?>
+                            <?php foreach ($rooms as $article): ?>
                                 <tr>
-                                    <td><?= $room['name'] ?></td>
-                                    <td><?= $room['description'] ?></td>
-                                    <td><?= $room['type'] ?></td>
-                                    <td><?= $room['price_per_night'] ?>€</td>
-                                    <td><img src="<?= $room['image_path'] ?>" alt="No Image" width="100"></td>
+                                    <td><?= $article['name'] ?></td>
+                                    <td><?= $article['description'] ?></td>
+                                    <td><?= $article['type'] ?></td>
+                                    <td><?= $article['price_per_night'] ?>€</td>
+                                    <td><img src="<?= $article['image_path'] ?>" alt="No Image" width="100"></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>

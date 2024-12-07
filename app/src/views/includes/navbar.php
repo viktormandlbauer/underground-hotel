@@ -6,7 +6,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ps-2 fs-2" id="navPages">
+      <ul class="navbar-nav ps-2 fs-2" id="Pages">
         <li class="nav-item">
           <a class="nav-link" aria-current="page" href="/news">News</a>
         </li>
@@ -72,12 +72,16 @@
     font-family: 'UNDERGROUND-HOTEL-BRAND';
   }
 
-  #navPages {
+  #Pages {
     font-family: 'UNDERGROUND-HOTEL-PAGES';
   }
 
   #navProfile {
     font-family: 'UNDERGROUND-HOTEL-PROFILE';
+  }
+
+  #adminUserHeader{
+    font-family: 'UNDERGROUND-HOTEL-PAGES';
   }
 
   .floating-navbar {

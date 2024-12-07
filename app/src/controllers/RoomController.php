@@ -38,9 +38,9 @@ switch ([$request, $method]) {
             $image = Image::handleImageUpload('rooms', true, 720, 480);
 
             if ($image->uploaded) {
-                $room = Room::createRoom($_POST['room_number'], $_POST['room_name'], $_POST['room_description'], $_POST['room_type'], $_POST['price_per_night'], $image->getPath());
+                $article = Room::createRoom($_POST['room_number'], $_POST['room_name'], $_POST['room_description'], $_POST['room_type'], $_POST['price_per_night'], $image->getPath());
             } else {
-                $room = Room::createRoom($_POST['room_number'], $_POST['room_name'], $_POST['room_description'], $_POST['room_type'], $_POST['price_per_night'], null);
+                $article = Room::createRoom($_POST['room_number'], $_POST['room_name'], $_POST['room_description'], $_POST['room_type'], $_POST['price_per_night'], null);
             }
 
             $_SESSION['flash_message'] = 'Room created successfully.';

@@ -1,5 +1,6 @@
 <?php
 require_once 'src/models/User.php';
+require_once 'src/util/validation.php';
 
 global $request;
 global $method;
@@ -7,6 +8,7 @@ global $method;
 switch ([$request, $method]) {
     case ['/auth/submit/login', 'POST']:
 
+      
         if (User::login($_POST['username'], $_POST['password'])) {
 
             $_SESSION['username'] = $_POST['username'];
@@ -32,35 +34,41 @@ switch ([$request, $method]) {
             $_SESSION['flash_message'] = 'Username existiert bereits';
 
             header('Location: /register');
+            exit();
+
         } elseif (User::exists_email($_POST['email'])) {
 
             $_SESSION['flash_message'] = 'E-Mail existiert bereits';
             header('Location: /register');
-        } else {
-            if (
-                User::register(
-                    $_POST['pronouns'],
-                    $_POST['givenname'],
-                    $_POST['surname'],
-                    $_POST['email'],
-                    $_POST['username'],
-                    $_POST['password']
-                )
-            ) {
+            exit();
+        } 
 
-                // TODO: Handle session
+            $data = [
+                'pronouns' =>$_POST['pronouns'] ?? '', 
+                'givenname' => $_POST['givenname'] ?? '',
+                'surname' => $_POST['surname'] ?? '',
+                'email' => $_POST['email'] ?? '',
+                'username' => $_POST['username'] ?? '',
+                'password' => $_POST['password'] ?? '',
+                'password_confirm' => $_POST['password_confirm'] ?? '',
+                'role' => $_POST['role'] ?? 'user'
+            ];
 
-                $_SESSION['username'] = $_POST['username'];
+            $registerSuccess = User::addUser($data);
 
+            if($registerSuccess){
+                $_SESSION['username'] = $data['username'];
                 header('Location: /');
-            } else {
+                exit();
+            }
 
-                $_SESSION['flash_message'] = 'Registrierung fehlgeschlagen';
+            else{
                 header('Location: /register');
             }
-        }
 
         break;
+
+
     case ['/logout', 'GET']:                     // Logout Handler
         $_SESSION = [];
         session_destroy();
