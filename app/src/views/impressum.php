@@ -2,7 +2,7 @@
 
 <body>
     <?php include 'src/views/includes/navbar.php'; ?>
-    <div class="container my-5">
+    <div class="container my-5 content-wrapper">
         <div class="bg-dark pt-5 rounded">
 
             <div class="col-lg-8 text-white mx-auto">

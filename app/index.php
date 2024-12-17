@@ -80,16 +80,18 @@ switch ($request) {
 
     case '/profile':
         if (authenticated()) {
-            # @TODO: Use UserController here
+            require 'src/controllers/ProfileController.php';
             require 'src/views/profile.php';
         } else {
             header('Location: /login');
         }
         break;
 
-    case '/profile/edit':
+    case '/profile/update':
+    case '/profile/changePassword':
         if (authenticated()) {
-            require 'src/controllers/UserController.php';
+            require 'src/controllers/ProfileController.php';
+            require 'src/views/profile.php';
         } else {
             require 'src/error/401.php';
         }

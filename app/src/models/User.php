@@ -118,9 +118,6 @@ class User
             return false;
         }
 
-        isValidArray([$username, $password], ['open_string', 'open_string']);
-
-        sanitizeArray([$username, $password]);
 
         $stmt = self::getDBConnection()->prepare("SELECT * FROM users WHERE username = ?");
         $stmt->bind_param("s", $username);
@@ -155,6 +152,54 @@ class User
             $this->pronouns = $user['pronouns'];
             $this->email = $user['email'];
         }
+        return $user;
+    }
+
+    public function loadProfile(){
+        $stmt = self::getDBConnection()->prepare("SELECT * FROM users WHERE username = ?");
+        $stmt->bind_param("s", $this->username);
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+        $user = $result->fetch_assoc();
+
+        if ($user) {
+            $this->id = $user['user_id'];
+            $this->pronouns = $user['pronouns'];
+            $this->givenname = $user['givenname'];
+            $this->surname = $user['surname'];
+            $this->email = $user['email'];
+            $this->telephone = $user['telephone'];
+            $this->country = $user['country'];
+            $this->postal_code = $user['postal_code'];
+            $this->city = $user['city'];
+            $this->street = $user['street'];
+            $this->house_number = $user['house_number'];
+            $this->role = $user['role'];
+        }
+        return $user;
+    }
+
+    public function saveProfile($pronouns, $givenname, $surname, $email, $telephone, $country, $postal_code, $city, $street, $house_number)
+    {
+        isValidArray([$pronouns, $givenname, $surname, $email, $telephone, $country, $postal_code, $city, $street, $house_number], ['strict_string', 'strict_string', 'strict_string', 'email', 'open_string', 'open_string', 'open_string', 'open_string', 'open_string', 'open_string']);
+        sanitizeArray([$pronouns, $givenname, $surname, $email, $telephone, $country, $postal_code, $city, $street, $house_number]);
+
+        $this->pronouns = $pronouns;
+        $this->givenname = $givenname;
+        $this->surname = $surname;
+        $this->email = $email;
+        $this->telephone = $telephone;
+        $this->country = $country;
+        $this->postal_code = $postal_code;
+        $this->city = $city;
+        $this->street = $street;
+        $this->house_number = $house_number;
+
+        $stmt = $this->getDBConnection()->prepare("UPDATE users SET pronouns = ?, givenname = ?, surname = ?, email = ?, telephone = ?, country = ?, postal_code = ?, city = ?, street = ?, house_number = ? WHERE username = ?");
+        $stmt->bind_param("sssssssssss", $this->pronouns, $this->givenname, $this->surname, $this->email, $this->telephone, $this->country, $this->postal_code, $this->city, $this->street, $this->house_number, $this->username);
+        $stmt->execute();
+
     }
 
     public function toArray()
@@ -177,7 +222,7 @@ class User
 
     public function save($givenname, $surname, $email)
     {
-        isValidArray([$givenname, $surname, $email], ['strict_string', 'strict_string', 'email']);
+        isValidArray([ $givenname, $surname, $email], ['strict_string', 'strict_string', 'email']);
         sanitizeArray([$givenname, $surname, $email]);
 
         $this->givenname = $givenname;
@@ -190,16 +235,49 @@ class User
     }
 
 
-    public function changePassword($password): void
+    public function changePassword(string $oldPassword,string $newPassword,string $confirmPassword ): bool
     {
-        isValidArray([$password], ['open_string']);
+        $stmt = self::getDBConnection()->prepare("SELECT password_hash, salt FROM users WHERE username = ?");
+        $stmt->bind_param("s", $this->username);
+        $stmt->execute();
+    
+        $result = $stmt->get_result();
+        $user   = $result->fetch_assoc();
+
+        if(!$user) {
+            throw new Exception("Benutzer nicht gefunden oder Passwort konnte nicht überprüft werden.");
+        }
+
+        $oldHash = Hash::make($oldPassword, $user['salt']);
+        if ($oldHash !== $user['password_hash']) {
+            throw new Exception("Das eingegebene alte Passwort ist nicht korrekt.");
+        }
+
+        if ($newPassword !== $confirmPassword) {
+            throw new Exception("Die neuen Passwörter stimmen nicht überein.");
+        }
+
+        $stmt->close();
+        
+        $validResult = isValidArray([$oldPassword, $newPassword, $confirmPassword], ['password_pattern', 'password_pattern', 'password_confirm']);
+
+        if(!$validResult){
+            throw new Exception("Ungültige Eingaben.");
+        }
 
         $salt = Hash::salt(16);
-        $password_hash = Hash::make($password, $salt);
+        $password_hash = Hash::make($newPassword, $salt);
         $stmt = $this->getDBConnection()->prepare("UPDATE users SET password_hash = ?, salt = ? WHERE username = ?");
         $stmt->bind_param("sss", $password_hash, $salt, $this->username);
-        $stmt->execute();
+        $success = $stmt->execute();
+
+        if (!$success) {
+            throw new Exception("Fehler beim Speichern des neuen Passworts.");
+        }
+
+        return true;
     }
+    
 
     public static function getAllUsers()
     {

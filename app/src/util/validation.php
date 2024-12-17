@@ -35,10 +35,14 @@ function isValidArray(array $values, array $rule)
                 }
                 break;
 
-            case "open_string":
-                // Verbot der Zeichen: - + * # ' \ } { ] [ ( ) / & % $ § " !
-                $forbiddenCharsPattern = '/[-+\*#\'{}\]\[()\&%$§"!]/';
-                if (!is_string($value) || preg_match($forbiddenCharsPattern, $values[$i])) {
+            case "password_pattern":
+                if (!is_string($value) || !preg_match('/[^\x20-\x7e]/', $value)) { // pregmatch ASCII 32-126
+                    return false;
+                } 
+                break;
+
+            case "username_pattern":
+                if (!is_string($value) || !preg_match('/[^A-Za-z0-9.\-_]/', $value)) { 
                     return false;
                 } 
                 break;

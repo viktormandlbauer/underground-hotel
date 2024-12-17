@@ -5,7 +5,7 @@
     
     <?php include 'src/views/includes/navbar.php'; ?>
 
-    <div class="container vh-100 align-items-center d-flex">
+    <div class="container align-items-center d-flex content-wrapper">
         <div class="row container mt-5 content">
             <div class="col-md-3 mb-4">
                 <div class="card h-100 text-center custom-card" onclick="location.href='/admin/manage/bookings'"

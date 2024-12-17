@@ -2,7 +2,7 @@
 
 <body>
     <?php include 'src/views/includes/navbar.php'; ?>
-    <div class="container mt-5 vh-100">
+    <div class="container mt-5 content-wrapper">
         <div class="row">
             <div class="col-3">
                 <h2 class="text-center">Filter</h2>

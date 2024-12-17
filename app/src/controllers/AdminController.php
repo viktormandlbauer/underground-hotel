@@ -45,25 +45,17 @@ switch ([$request, $method]) {
             exit;
 
         } else {
-            if (
-                User::register(
-                    $_POST['pronouns'],
-                    $_POST['givenname'],
-                    $_POST['surname'],
-                    $_POST['email'],
-                    $_POST['username'],
-                    $_POST['password'],
-                    $_POST['role']
-                )
-            ) {
-                $_SESSION['flash_message'] = 'Neuer Benutzer erfolgreich angelegt.';
 
+            $data =  [$_POST['pronouns'], $_POST['givenname'], $_POST['surname'], $_POST['email'], $_POST['username'], $_POST['password'], $_POST['role']];
+
+            if (User::addUser($data)) {
+                $_SESSION['flash_message'] = 'Neuer Benutzer erfolgreich angelegt.';
+                exit();
 
             } else {
                 $_SESSION['flash_message'] = 'Benutzer konnte nicht angelegt werden.';
             }
             header('Location: /admin/manage/users');
-            exit;
         }
         break;
 

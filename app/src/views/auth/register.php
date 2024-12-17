@@ -4,7 +4,7 @@
 <body>
     <?php include 'src/views/includes/navbar.php'; ?>
 
-    <div class="container d-flex vh-100 align-items-center justify-content-center">
+    <div class="container d-flex content-wrapper align-items-center justify-content-center">
         <div class="row justify-content-center w-100">
             <div class="bg-dark text-white rounded p-5 col-md-6 col-lg-4">
                 <h1 class="text-center mt-5">Registrierung</h1>

@@ -5,7 +5,7 @@
 
     <?php include 'src/views/includes/navbar.php'; ?>
 
-    <div class="container mt-5 vh-100">
+    <div class="container mt-5 content-wrapper">
         <div class="row bg-dark text-white py-4 rounded">
             <h1 id="Pages" class="mb-4 text-center display-3">Benutzerverwaltung</h1>
 

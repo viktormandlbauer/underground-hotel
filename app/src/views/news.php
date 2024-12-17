@@ -4,10 +4,10 @@
 <body>
     <?php include 'src/views/includes/navbar.php'; ?>
 
-    <div class="container mt-5 vh-100">
+    <div class="container mt-5 content-wrapper">
         <?php foreach ($news as $item): ?>
             <div class="card mb-4">
-                <div class="card-body clearfix">
+                <div class="card-body bg-dark text-white rounded clearfix">
                     <h2 class="card-title text-center"><?= htmlspecialchars($item['title']) ?></h2>
                     <?php if (!empty($item['image_path'])): ?>
                         <img src="/<?= htmlspecialchars($item['image_path']) ?>" alt="News Bild" class="rounded mr-3 mb-2"
