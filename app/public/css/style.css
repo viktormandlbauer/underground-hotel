@@ -14,10 +14,12 @@ body {
     position: relative;
     bottom: 0;
     width: 100%;
+    /* eliminate negative space between footer and content */
     flex-shrink: 0;
 }
 
 .content-wrapper {
+    /* wrap content */
     flex: 1 0 auto; 
   }
   
