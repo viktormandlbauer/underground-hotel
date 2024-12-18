@@ -27,12 +27,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    //document.getElementById('addUserRow').addEventListener('click', function (e) {
-    //    e.preventDefault();
-    //    var addModal = new bootstrap.Modal(document.getElementById('addUserModal'));
-    //    addModal.show();
-    //});
-
     document.querySelector('#editUserModal .delete-button').addEventListener('click', function () {
         var userId = document.getElementById('editUserId').value;
         var username = document.getElementById('editUsername').value; 

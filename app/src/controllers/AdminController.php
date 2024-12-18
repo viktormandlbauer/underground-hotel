@@ -9,7 +9,7 @@ switch ([$request, $method]) {
         $users = User::getAllUsersSanitized();
         break;
 
-    case ['/admin/users/save', 'POST']:
+    case ['/admin/users/edit', 'POST']:
         $user = new User($_POST['username']);
 
         if (isset($_POST['givenname'])) {
