@@ -27,6 +27,9 @@ switch ([$request, $method]) {
         if (isset($_POST['role'])) {
             $user->setRole($_POST['role']);
         }
+        if (isset($_POST['password'])){
+            $user->setPassword($_POST['password']);
+        }
 
         $_SESSION['flash_message'] = 'Benutzerdaten erfolgreich aktualisiert.';
         header('Location: /admin/manage/users');
@@ -46,7 +49,13 @@ switch ([$request, $method]) {
 
         } else {
 
-            $data =  [$_POST['pronouns'], $_POST['givenname'], $_POST['surname'], $_POST['email'], $_POST['username'], $_POST['password'], $_POST['role']];
+            $data =  ['pronouns' => $_POST['pronouns'], 
+                    'givenname' => $_POST['givenname'], 
+                    'surname' => $_POST['surname'], 
+                    'email' => $_POST['email'], 
+                    'username' => $_POST['username'], 
+                    'password' => $_POST['password'], 
+                    'role' => $_POST['role']];
 
             if (User::addUser($data)) {
                 $_SESSION['flash_message'] = 'Neuer Benutzer erfolgreich angelegt.';

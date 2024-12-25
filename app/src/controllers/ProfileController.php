@@ -17,34 +17,51 @@ switch ([$request, $method]) {
         break;
 
     
-
-    case ['/profile/update', 'POST']:
-
+    case (['/profile/update', 'POST']):
 
         $username = $_SESSION['username'];
         $user = new User($username);
-        $user->loadProfile();
-         // Sammeln der POST-Daten mit Fallback auf aktuelle Werte
-         $pronouns = $_POST['pronouns'] ?? $user->pronouns;
-         $givenname = $_POST['givenname'] ?? $user->givenname;
-         $surname = $_POST['surname'] ?? $user->surname;
-         $email = $_POST['email'] ?? $user->email;
-         $telephone = $_POST['telephone'] ?? $user->telephone;
-         $country = $_POST['country'] ?? $user->country;
-         $postal_code = $_POST['postal_code'] ?? $user->postal_code;
-         $city = $_POST['city'] ?? $user->city;
-         $street = $_POST['street'] ?? $user->street;
-         $house_number = $_POST['house_number'] ?? $user->house_number;
 
-         // Aufrufen der saveProfile-Methode mit den gesammelten Daten
-         $user->saveProfile($pronouns, $givenname, $surname, $email, $telephone, $country, $postal_code, $city, $street, $house_number);
+        if(isset($_POST['pronouns'])){
+            $user->setPronouns($_POST['pronouns']);
+        }
 
-         $_SESSION['flash_message'] = 'Profil erfolgreich aktualisiert.';
+        if (isset($_POST['givenname'])) {
+            $user->setGivenname($_POST['givenname']);
+        }
+        if (isset($_POST['surname'])) {
+            $user->setSurname($_POST['surname']);
+        }
+        if (isset($_POST['email'])) {
+            $user->setEmail($_POST['email']);
+        }
+        if (isset($_POST['telephone'])) {
+            $user->setTelephone($_POST['telephone']);
+        }
+        if (isset($_POST['country'])) {
+            $user->setCountry($_POST['country']);
+        }
+        if (isset($_POST['postal_code'])) {
+            $user->setPostalCode($_POST['postal_code']);
+        }
+        if (isset($_POST['city'])) {
+            $user->setCity($_POST['city']);
+        }
+        if (isset($_POST['street'])) {
+            $user->setStreet($_POST['street']);
+        }
+        if (isset($_POST['house_number'])) {
+            $user->setHouseNumber($_POST['house_number']);
+        }
+
+        $_SESSION['flash_message'] = 'Profil erfolgreich aktualisiert.';
 
         header('Location: /profile');
         break;
+        
 
-    case ['/profile/changePassword', 'POST']:
+
+    case (['/profile/changePassword', 'POST']):
         $oldPassword      = $_POST['old_password']      ?? '';
         $newPassword      = $_POST['new_password']      ?? '';
         $confirmPassword  = $_POST['confirm_password']  ?? '';
@@ -68,8 +85,21 @@ switch ([$request, $method]) {
 
         break;
 
-    case ['/profile/delete', 'POST']:
-        //@TODO delete user
+    case (['/profile/delete', 'POST']):
+        $username = $_SESSION['username'];
+        $user = new User($username);
+        if (User::login($username, $_POST['password'])) {
+            $user->deleteUser();
+            session_destroy();
+            $_SESSION['flash_message'] = 'Löschen des Profils erfolgreich.';
+            header('Location: /');
+
+        } else {
+
+            $_SESSION['flash_message'] = 'Falsches Passwort';
+            header('Location: /profile');
+
+        }
         break;
 
     default:

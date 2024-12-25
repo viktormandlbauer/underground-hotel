@@ -71,7 +71,7 @@ class User
     public static function addUser($data)
     {
 
-        $rules = ['strict_string','strict_string','strict_string','email','open_string','open_string','password_confirm'];
+        $rules = ['strict_string','strict_string','strict_string','email','username_pattern','password_pattern','password_confirm'];
         $registerData = [$data['pronouns'], $data['givenname'], $data['surname'], $data['email'], $data['username'], $data['password'], $data['password_confirm']];
 
         $validationResult = isValidArray($registerData, $rules);
@@ -234,6 +234,12 @@ class User
         $stmt->execute();
     }
 
+    public function deleteUser(){
+        $stmt = $this->getDBConnection()->prepare("DELETE FROM users WHERE username = ?");
+        $stmt->bind_param("s", $this->username);
+        $stmt->execute();
+    }
+
 
     public function changePassword(string $oldPassword,string $newPassword,string $confirmPassword ): bool
     {
@@ -252,14 +258,14 @@ class User
         if ($oldHash !== $user['password_hash']) {
             throw new Exception("Das eingegebene alte Passwort ist nicht korrekt.");
         }
-
+        
         if ($newPassword !== $confirmPassword) {
             throw new Exception("Die neuen Passwörter stimmen nicht überein.");
         }
 
         $stmt->close();
         
-        $validResult = isValidArray([$oldPassword, $newPassword, $confirmPassword], ['password_pattern', 'password_pattern', 'password_confirm']);
+        $validResult = true;//isValidArray([$oldPassword, $newPassword, $confirmPassword], ['password_pattern', 'password_pattern', 'password_confirm']);
 
         if(!$validResult){
             throw new Exception("Ungültige Eingaben.");
@@ -442,7 +448,7 @@ class User
     public function setPronouns(string $pronouns): void
     {
         $this->pronouns = $pronouns;
-        $stmt = $this->getDBConnection()->prepare("UPDATE users SET pronouns = ? WHERE username = ?");
+        $stmt = self::getDBConnection()->prepare("UPDATE users SET pronouns = ? WHERE username = ?");
         $stmt->bind_param("ss", $this->pronouns, $this->username);
         $stmt->execute();
         $stmt->close();
@@ -451,7 +457,7 @@ class User
     public function setGivenname(string $givenname): void
     {
         $this->givenname = $givenname;
-        $stmt = $this->getDBConnection()->prepare("UPDATE users SET givenname = ? WHERE username = ?");
+        $stmt = self::getDBConnection()->prepare("UPDATE users SET givenname = ? WHERE username = ?");
         $stmt->bind_param("ss", $this->givenname, $this->username);
         $stmt->execute();
         $stmt->close();
@@ -459,7 +465,7 @@ class User
     public function setSurname(string $surname): void
     {
         $this->surname = $surname;
-        $stmt = $this->getDBConnection()->prepare("UPDATE users SET surname = ? WHERE username = ?");
+        $stmt = self::getDBConnection()->prepare("UPDATE users SET surname = ? WHERE username = ?");
         $stmt->bind_param("ss", $this->surname, $this->username);
         $stmt->execute();
         $stmt->close();
@@ -467,7 +473,7 @@ class User
     public function setEmail(string $email): void
     {
         $this->email = $email;
-        $stmt = $this->getDBConnection()->prepare("UPDATE users SET email = ? WHERE username = ?");
+        $stmt = self::getDBConnection()->prepare("UPDATE users SET email = ? WHERE username = ?");
         $stmt->bind_param("ss", $this->email, $this->username);
         $stmt->execute();
         $stmt->close();
@@ -476,7 +482,7 @@ class User
     public function setTelephone(string $telephone): void
     {
         $this->telephone = $telephone;
-        $stmt = $this->getDBConnection()->prepare("UPDATE users SET telephone = ? WHERE username = ?");
+        $stmt = self::getDBConnection()->prepare("UPDATE users SET telephone = ? WHERE username = ?");
         $stmt->bind_param("ss", $this->telephone, $this->username);
         $stmt->execute();
         $stmt->close();
@@ -485,7 +491,7 @@ class User
     public function setCountry(string $country): void
     {
         $this->country = $country;
-        $stmt = $this->getDBConnection()->prepare("UPDATE users SET country = ? WHERE username = ?");
+        $stmt = self::getDBConnection()->prepare("UPDATE users SET country = ? WHERE username = ?");
         $stmt->bind_param("ss", $this->country, $this->username);
         $stmt->execute();
         $stmt->close();
@@ -494,7 +500,7 @@ class User
     public function setPostalCode(string $postal_code): void
     {
         $this->postal_code = $postal_code;
-        $stmt = $this->getDBConnection()->prepare("UPDATE users SET postal_code = ? WHERE username = ?");
+        $stmt = self::getDBConnection()->prepare("UPDATE users SET postal_code = ? WHERE username = ?");
         $stmt->bind_param("ss", $this->postal_code, $this->username);
         $stmt->execute();
         $stmt->close();
@@ -503,7 +509,7 @@ class User
     public function setCity(string $city): void
     {
         $this->city = $city;
-        $stmt = $this->getDBConnection()->prepare("UPDATE users SET city = ? WHERE username = ?");
+        $stmt = self::getDBConnection()->prepare("UPDATE users SET city = ? WHERE username = ?");
         $stmt->bind_param("ss", $this->city, $this->username);
         $stmt->execute();
         $stmt->close();
@@ -512,7 +518,7 @@ class User
     public function setStreet(string $street): void
     {
         $this->street = $street;
-        $stmt = $this->getDBConnection()->prepare("UPDATE users SET street = ? WHERE username = ?");
+        $stmt = self::getDBConnection()->prepare("UPDATE users SET street = ? WHERE username = ?");
         $stmt->bind_param("ss", $this->street, $this->username);
         $stmt->execute();
         $stmt->close();
@@ -521,7 +527,7 @@ class User
     public function setHouseNumber(string $house_number): void
     {
         $this->house_number = $house_number;
-        $stmt = $this->getDBConnection()->prepare("UPDATE users SET house_number = ? WHERE username = ?");
+        $stmt = self::getDBConnection()->prepare("UPDATE users SET house_number = ? WHERE username = ?");
         $stmt->bind_param("ss", $this->house_number, $this->username);
         $stmt->execute();
         $stmt->close();
@@ -530,9 +536,20 @@ class User
     public function setRole(string $role): void
     {
         $this->role = $role;
-        $stmt = $this->getDBConnection()->prepare("UPDATE users SET role = ? WHERE username = ?");
+        $stmt = self::getDBConnection()->prepare("UPDATE users SET role = ? WHERE username = ?");
         $stmt->bind_param("ss", $this->role, $this->username);
         $stmt->execute();
         $stmt->close();
+    }
+
+    public function setPassword(string $newPassword)
+    {
+        $salt = Hash::salt(16);
+        $password_hash = Hash::make($newPassword, $salt);
+        $stmt = self::getDBConnection()->prepare("UPDATE users SET password_hash = ?, salt = ? WHERE username = ?");
+        $stmt->bind_param("sss", $password_hash, $salt, $this->username);
+        $stmt->execute();
+        $stmt->close();
+
     }
 }

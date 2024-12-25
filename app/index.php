@@ -89,6 +89,7 @@ switch ($request) {
 
     case '/profile/update':
     case '/profile/changePassword':
+    case '/profile/delete':
         if (authenticated()) {
             require 'src/controllers/ProfileController.php';
             require 'src/views/profile.php';

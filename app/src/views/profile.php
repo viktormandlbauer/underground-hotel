@@ -336,7 +336,7 @@ if (!isset($user)) {
                                     <p>Sind Sie sicher, dass Sie Ihr Profil löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.</p>
                                     <div class="mb-3">
                                         <label for="delete_password" class="form-label">Passwort zur Bestätigung:</label>
-                                        <input type="password" id="delete_password" name="delete_password" class="form-control bg-secondary text-white" required>
+                                        <input type="password" id="password" name="password" class="form-control bg-secondary text-white" required>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
