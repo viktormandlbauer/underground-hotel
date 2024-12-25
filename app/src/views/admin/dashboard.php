@@ -47,6 +47,16 @@
                 </div>
             </div>
 
+            <div class="col-md-3 mb-4">
+                <div class="card h-100 text-center custom-card" onclick="location.href='/profile'"
+                    style="cursor: pointer;">
+                    <div class="card-body d-flex flex-column justify-content-center">
+                        <i class="fas fa-user fa-5x card-icon mb-3"></i>
+                        <h5 class="card-title mt-auto">Mein Profil</h5>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 

@@ -118,7 +118,8 @@ if (!isset($user)) {
                         <button type="button" id="changePasswordBtn" class="btn btn-outline-light btn-sm" data-bs-toggle="modal" data-bs-target="#changePasswordModal">Passwort ändern</button>
                         <button type="button" id="privacySettingsBtn" class="btn btn-outline-light btn-sm" data-bs-toggle="modal" data-bs-target="#privacySettingsModal">Datenschutzeinstellungen</button>
                         <button type="button" class="btn btn-outline-light btn-sm ms-2" data-bs-toggle="modal" data-bs-target="#privacyPolicyModal">Datenschutzrichtlinien anzeigen</button>
-                        <button type="button" id="deleteProfileBtn" class="btn btn-danger btn-sm ms-2" data-bs-toggle="modal" data-bs-target="#deleteProfileModal">Profil löschen</button>
+                        <button type="button" id="deleteProfileBtn" class="btn btn-danger btn-sm ms-2" data-bs-toggle="modal" data-bs-target="#deleteProfileModal">
+                        <i class="fas fa-trash-alt"></i>Profil löschen</button>
                     </div>
                 </div>
 
@@ -341,7 +342,7 @@ if (!isset($user)) {
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abbrechen</button>
-                                    <button type="submit" class="btn btn-danger">Profil löschen</button>
+                                    <button type="submit" class="btn btn-danger"> <i class="fas fa-trash-alt"></i>Profil löschen</button>
                                 </div>
                             </form>
                         </div>

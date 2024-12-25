@@ -169,3 +169,9 @@
         padding-bottom: 20px;
         cursor: pointer;
     }
+
+    .room-row td {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        cursor: pointer;
+    }

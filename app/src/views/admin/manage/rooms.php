@@ -1,18 +1,8 @@
 <?php include 'src/views/includes/header.php'; ?>
+<?php include 'src/views/includes/navbar.php'; ?>
+<link rel="stylesheet" href="/public/css/modal.css">
 
 <style>
-    #dropzone,
-    #editDropzone {
-        border: 2px dashed #007bff;
-        background-color: #f8f9fa;
-        padding: 30px;
-        text-align: center;
-        border-radius: 8px;
-        width: 100%;
-        margin-bottom: 20px;
-        position: relative;
-    }
-
     #fileElem,
     #editFileElem {
         position: absolute;
@@ -25,29 +15,14 @@
         opacity: 0;
         cursor: pointer;
     }
-
-    #preview,
-    #editPreview {
-        display: none;
-        max-width: 100%;
-        max-height: 300px;
-        margin-top: 20px;
-        border: 1px solid #ddd;
-        padding: 5px;
-        border-radius: 4px;
-    }
-
-    .room-row:hover {
-        background-color: #f1f1f1;
-        cursor: pointer;
-    }
 </style>
 
 <body>
 
 
-    <div class="container mt-5">
-        <h1 class="mb-4">Raumverwaltung</h1>
+    <div class="container mt-5 content-wrapper">
+        <div class="row bg-dark text-white py-4 rounded">
+        <h1 id="Pages" class="mb-4 text-center display-3">Raumverwaltung</h1>
 
         <?php if (isset($_SESSION['flash_message'])): ?>
             <div class="alert alert-info alert-dismissible fade show" id="flashMessage">
@@ -59,8 +34,8 @@
         <?php endif; ?>
 
         <div class="table-responsive">
-            <table class="table table-striped table-bordered align-middle table-hover">
-                <thead class="table-light">
+            <table class="table table-dark table-bordered align-middle table-hover tablesorter">
+                <thead>
                     <tr>
                         <th scope="col">Nummer</th>
                         <th scope="col">Name</th>
@@ -71,23 +46,23 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($rooms as $article): ?>
-                        <tr class="room-row" data-number="<?= $article['number']; ?>"
-                            data-name="<?= htmlspecialchars($article['name'], ENT_QUOTES, 'UTF-8'); ?>"
-                            data-description="<?= htmlspecialchars($article['description'], ENT_QUOTES, 'UTF-8'); ?>"
-                            data-type="<?= htmlspecialchars($article['type'], ENT_QUOTES, 'UTF-8'); ?>"
-                            data-price_per_night="<?= $article['price_per_night']; ?>"
-                            data-image_path="<?= $article['image_path']; ?>">
+                    <?php foreach ($rooms as $room): ?>
+                        <tr class="room-row" data-number="<?= $room['number']; ?>"
+                            data-name="<?= htmlspecialchars($room['name'], ENT_QUOTES, 'UTF-8'); ?>"
+                            data-description="<?= htmlspecialchars($room['description'], ENT_QUOTES, 'UTF-8'); ?>"
+                            data-type="<?= htmlspecialchars($room['type'], ENT_QUOTES, 'UTF-8'); ?>"
+                            data-price_per_night="<?= $room['price_per_night']; ?>"
+                            data-image_path="<?= $room['image_path']; ?>">
 
-                            <td><?= htmlspecialchars($article['number'], ENT_QUOTES, 'UTF-8'); ?></td>
-                            <td><?= htmlspecialchars($article['name'], ENT_QUOTES, 'UTF-8'); ?></td>
+                            <td><?= htmlspecialchars($room['number'], ENT_QUOTES, 'UTF-8'); ?></td>
+                            <td><?= htmlspecialchars($room['name'], ENT_QUOTES, 'UTF-8'); ?></td>
 
-                            <td><?= nl2br(htmlspecialchars($article['description'], ENT_QUOTES, 'UTF-8')); ?></td>
-                            <td><?= htmlspecialchars($article['type'], ENT_QUOTES, 'UTF-8'); ?></td>
-                            <td><?= htmlspecialchars($article['price_per_night']); ?> €</td>
+                            <td><?= nl2br(htmlspecialchars($room['description'], ENT_QUOTES, 'UTF-8')); ?></td>
+                            <td><?= htmlspecialchars($room['type'], ENT_QUOTES, 'UTF-8'); ?></td>
+                            <td><?= htmlspecialchars($room['price_per_night']); ?> €</td>
                             <td class="text-center">
-                                <?php if (!empty($article['image_path'])): ?>
-                                    <img src="/<?= htmlspecialchars($article['image_path'], ENT_QUOTES, 'UTF-8'); ?>"
+                                <?php if (!empty($room['image_path'])): ?>
+                                    <img src="/<?= htmlspecialchars($room['image_path'], ENT_QUOTES, 'UTF-8'); ?>"
                                         alt="Raumbild" class="img-thumbnail" style="max-width: 100px; max-height: 100px;">
                                 <?php else: ?>
                                     <span class="text-muted">Kein Bild</span>
@@ -97,9 +72,9 @@
                     <?php endforeach; ?>
                     <tr>
                         <td colspan="6" class="text-center">
-                            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+                            <button type="button" od = "addRow" class="add-row btn" data-bs-toggle="modal"
                                 data-bs-target="#roomUploadModal">
-                                <i class="fas fa-plus"></i> Neues Zimmer anlegen
+                                <i class="fas fa-plus plus-icon"></i>
                             </button>
                         </td>
                     </tr>
@@ -107,11 +82,11 @@
             </table>
         </div>
     </div>
+</div>
 
     <!-- Create room modal -->
-    <div class="modal fade" id="roomUploadModal" tabindex="-1" aria-labelledby="roomUploadModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+    <div class="modal fade" id="roomUploadModal" tabindex="-1" aria-labelledby="roomUploadModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="roomUploadModalLabel">Neues Zimmer erstellen</h5>
@@ -121,16 +96,16 @@
                     <form id="submitRoomForm" action="/admin/rooms/create" method="POST" enctype="multipart/form-data">
                         <div class="mb-3">
                             <label for="roomName" class="form-label">Room Name</label>
-                            <input type="text" class="form-control" id="roomName" name="room_name" required>
+                            <input type="text" class="form-control bg-dark text-white border-white" id="roomName" name="room_name" required>
                         </div>
                         <div class="mb-3">
                             <label for="roomNumber" class="form-label">Room Number</label>
-                            <input type="number" class="form-control" id="roomNumber" name="room_number" required>
+                            <input type="number" class="form-control bg-dark text-white border-white" id="roomNumber" name="room_number" required>
                         </div>
 
                         <div class="mb-3">
                             <label for="roomType" class="form-label">Room Type</label>
-                            <select class="form-control" id="roomType" name="room_type" required>
+                            <select class="form-select bg-dark text-white border-white" id="roomType" name="room_type" required>
                                 <option value="">Select a type</option>
                                 <option value="single">Single</option>
                                 <option value="double">Double</option>
@@ -139,13 +114,13 @@
                         </div>
                         <div class="mb-3">
                             <label for="roomDescription" class="form-label">Beschreibung</label>
-                            <textarea class="form-control" id="roomDescription" name="room_description"
+                            <textarea class="form-control bg-dark text-white border-white" id="roomDescription" name="room_description"
                                 rows="3"></textarea>
                         </div>
 
                         <div class="mb-3">
                             <label for="pricePerNight" class="form-label">Preis pro Nacht</label>
-                            <input type="number" class="form-control" id="price_per_night" name="price_per_night"
+                            <input type="number" class="form-control bg-dark text-white border-white" id="price_per_night" name="price_per_night"
                                 step="0.01" required>
                         </div>
 
@@ -169,7 +144,7 @@
 
     <!-- edit room modal -->
     <div class="modal fade" id="editRoomModal" tabindex="-1" aria-labelledby="editRoomModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Zimmer bearbeiten</h5>
@@ -180,22 +155,22 @@
                         <div class="mb-3">
                             <label for="editNumber" class="form-label">Zimmernummer</label>
                             <input type="text" id="editNumber" name="number" placeholder="Zimmernummer"
-                                class="form-control" required>
+                                class="form-control bg-dark text-white border-white" required>
                         </div>
                         <div class="mb-3">
                             <label for="editName" class="form-label">Bezeichnung</label>
-                            <input type="text" id="editName" name="name" placeholder="Bezeichnung" class="form-control"
-                                required>
+                            <input type="text" id="editName" name="name" placeholder="Bezeichnung" 
+                            class="form-control bg-dark text-white border-white" required>
                         </div>
                         <div class="mb-3">
                             <label for="editDescription" class="form-label">Beschreibung</label>
                             <input type="text" id="editDescription" name="description" placeholder="Beschreibung"
-                                class="form-control" required>
+                                class="form-control bg-dark text-white border-white" required>
                         </div>
 
                         <div class="mb-3">
                             <label for="editType" class="form-label">Zimmerart</label>
-                            <select class="form-control" id="editType" name="type" required>
+                            <select class="form-select bg-dark text-white border-white" id="editType" name="type" required>
                                 <option value="">Select a type</option>
                                 <option value="single">Single</option>
                                 <option value="double">Double</option>
@@ -206,7 +181,7 @@
                         <div class="mb-3">
                             <label for="editPricePerNight" class="form-label">Preis pro Nacht</label>
                             <input type="number" id="editPricePerNight" name="price_per_night" placeholder="Preis pro Nacht"
-                                class="form-control" required>
+                                class="form-control bg-dark text-white border-white" required>
                         </div>
 
                         <div id="editDropzone">
