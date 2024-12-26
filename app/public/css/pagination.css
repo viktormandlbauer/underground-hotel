@@ -1,0 +1,21 @@
+.page-link {
+    color: white !important;
+    background: black !important;
+    box-shadow: none !important;
+    opacity: 0.9 !important;
+}
+
+.page-link:hover {
+    color: black !important;
+    background: white !important;
+    box-shadow: none !important;
+    opacity: 0.9 !important;
+}
+
+.page-item.active .page-link {
+    color: black !important;
+    background: white !important;
+    border: 1px solid grey !important;
+    box-shadow: none !important;
+    opacity: 0.9 !important;
+}

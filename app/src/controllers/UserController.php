@@ -15,12 +15,10 @@ switch ([$request, $method]) {
             $user->load();
 
             header('Location: /');
-
         } else {
 
             $_SESSION['flash_message'] = 'Login fehlgeschlagen';
             header('Location: /login');
-
         }
 
         break;

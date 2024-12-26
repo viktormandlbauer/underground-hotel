@@ -1,4 +1,6 @@
 <?php include 'src/views/includes/header.php'; ?>
+<link rel="stylesheet" href="/public/css/pagination.css">
+</link>
 
 <body>
     <?php include 'src/views/includes/navbar.php'; ?>
@@ -9,27 +11,28 @@
                     <form method="GET" action="/rooms">
                         <div class="d-flex align-items-center flex-column">
 
-                            <h2 class="text-center">Filter</h2>
+                            <h2 class="text-center display-4" id="Pages">Filter</h2>
                             <div id="date" style="left: 50% !important; margin-left: 1.2em !important;"></div>
                             <?php include 'src/views/includes/datepicker.php'; ?>
 
-                            <label for="person_count" class="form-label">Personen</label>
-                            <output id="personCountValue" class="form-label"><?= $person_count ?? 1 ?></output>
-                            <input type="range" class="form-range" min="1" max="5" value="<?= $person_count ?? 1 ?>"
-                                id="person_count" name="person_count"
-                                oninput="document.getElementById('personCountValue').innerText = this.value">
+                            <div class="w-75">
+                                <div class="mt-2">
+                                    Personenanzahl:
+                                    <span id="personCountSpan">1</span>
+                                    <input type="hidden" id="personCount">
+                                    <div id="personCountSlider" class="w-100 my-1"></div>
+                                </div>
+                                <div class="mt-5">
+                                    Preisbereich:
+                                    <span id="minPriceSpan">0</span>€ - <span id="maxPriceSpan">300</span>€
+                                    <input type="hidden" id="minPrice">
+                                    <input type="hidden" id="maxPrice">
+                                    <div id="priceRangeSlider" class="w-100 my-1"></div>
+                                </div>
+                            </div>
+                            <link rel="stylesheet" href="/public/css/slider.css">
+                            <script src="/public/js/slider.js"></script>
 
-                            <label for="price_min" class="form-label">min </label>
-                            <output id="minPriceValue" class="form-label"><?= $price_min ?? 1 ?>€</output>
-                            <input type="range" class="form-range" min="0" max="300" value="<?= $price_min ?? 1 ?>"
-                                id="price_min" name="price_min"
-                                oninput="document.getElementById('minPriceValue').innerText = this.value + '€'">
-
-                            <label for="price_max" class="form-label">max </label>
-                            <output id="maxPriceValue" class="form-label"><?= $price_max ?? 300 ?>€</output>
-                            <input type="range" class="form-range" min="0" max="300" value="<?= $price_max ?? 300 ?>"
-                                id="price_max" name="price_max"
-                                oninput="document.getElementById('maxPriceValue').innerText = this.value + '€'">
 
                             <button type="submit"
                                 class="btn btn-success d-flex justify-content-center mt-3">Search</button>
@@ -38,7 +41,7 @@
                 </div>
             </div>
             <div class="col-9">
-                <h2 class="text-center">Verfügbare Zimmer</h2>
+                <h2 class="text-center display-3" id="Pages">Zimmer</h2>
                 <div class="p-3">
                     <table id="sortedTable"
                         class="table table-dark table-bordered table-striped align-middle table-hover tablesorter">
@@ -65,11 +68,17 @@
                     </table>
                     <nav aria-label="Page navigation example">
                         <ul class="pagination">
-                            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" tabindex="-1">Previous</a>
+                            </li>
                             <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item bg-success  active">
+                                <a class="page-link" href="#">2 <span class=" bg-success sr-only">(current)</span></a>
+                            </li>
                             <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">Next</a>
+                            </li>
                         </ul>
                     </nav>
                 </div>

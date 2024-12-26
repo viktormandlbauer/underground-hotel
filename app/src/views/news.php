@@ -3,7 +3,7 @@
 
 <body>
     <?php include 'src/views/includes/navbar.php'; ?>
-    <div class="container my-5">
+    <div class="container vh-100 my-5">
         <?php foreach ($news as $item): ?>
             <div class="card mb-4">
                 <div class="card-body clearfix">

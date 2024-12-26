@@ -1,0 +1,61 @@
+#priceRangeSlider .ui-slider-handle {
+    outline: .5px solid white;
+    border: none;
+    background: black;
+    border-radius: 50%;
+    top: -.5em;
+}
+
+#priceRangeSlider .ui-slider-handle:focus {
+    outline: .5px solid black;
+    border: none;
+    background: white;
+}
+
+#priceRangeSlider .ui-slider-handle:hover {
+    outline: .5px solid black;
+    border: none;
+    background: white;
+}
+
+#priceRangeSlider .ui-slider-range {
+    background: grey;
+}
+
+#priceRangeSlider.ui-slider-horizontal {
+    top: 1em;
+    height: .2em;
+    border: 0;
+    background: white;
+}
+
+#personCountSlider .ui-slider-handle {
+    outline: .5px solid white;
+    border: none;
+    background: black;
+    border-radius: 50%;
+    top: -.5em;
+}
+
+#personCountSlider .ui-slider-handle:focus {
+    outline: .5px solid black;
+    border: none;
+    background: white;
+}
+
+#personCountSlider .ui-slider-handle:hover {
+    outline: .5px solid black;
+    border: none;
+    background: white;
+}
+
+#personCountSlider .ui-slider-range {
+    background: grey;
+}
+
+#personCountSlider.ui-slider-horizontal {
+    top: 1em;
+    height: .2em;
+    border: 0;
+    background: white;
+}

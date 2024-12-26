@@ -1,3 +1,7 @@
+.highlighted {
+    background-color: #99ccff;
+}
+
 .well {
     margin-top: 20px;
 }
@@ -17,7 +21,6 @@ p {
     margin-bottom: 0;
 }
 
-
 .is-selected:hover {
     background-color: #204d74 !important;
 }
@@ -29,11 +32,11 @@ p {
 }
 
 .is-between:hover {
-    background-color: #204d74 !important;
+    background-color: grey !important;
 }
 
 .datepicker .check {
-    background-color: #202374;
+    background-color: black;
     color: white;
 }
 
