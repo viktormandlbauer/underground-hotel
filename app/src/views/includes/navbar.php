@@ -53,37 +53,6 @@
 </div>
 
 <style>
-  @font-face {
-    font-family: 'UNDERGROUND-HOTEL-BRAND';
-    src: url('/public/fonts/DOCALLISME_ON_STREET.ttf');
-  }
-
-  @font-face {
-    font-family: 'UNDERGROUND-HOTEL-PAGES';
-    src: url('/public/fonts/adrip1.ttf');
-  }
-
-  @font-face {
-    font-family: 'UNDERGROUND-HOTEL-PROFILE';
-    src: url('/public/fonts/Gemstone.ttf');
-  }
-
-  #navBrand {
-    font-family: 'UNDERGROUND-HOTEL-BRAND';
-  }
-
-  #Pages {
-    font-family: 'UNDERGROUND-HOTEL-PAGES';
-  }
-
-  #navProfile {
-    font-family: 'UNDERGROUND-HOTEL-PROFILE';
-  }
-
-  #adminUserHeader{
-    font-family: 'UNDERGROUND-HOTEL-PAGES';
-  }
-
   .floating-navbar {
     position: fixed;
     top: 0px;

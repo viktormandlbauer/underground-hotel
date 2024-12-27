@@ -2,9 +2,7 @@
 <input type="hidden" name="start_date" id="start_date">
 <input type="hidden" name="end_date" id="end_date">
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css" rel="stylesheet" />
-<script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+<div id="date" style="left: 50% !important; margin-left: 1.2em !important;"></div>
 
 <script>
     $('#date').datepicker({
