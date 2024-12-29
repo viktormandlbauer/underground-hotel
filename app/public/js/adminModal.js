@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
             var surname = this.getAttribute('data-surname');
             var email = this.getAttribute('data-email');
             var role = this.getAttribute('data-role');
+            var state = this.getAttribute('data-state');
 
             document.getElementById('editUserId').value = userId;
             document.getElementById('editPronouns').value = pronouns;
@@ -20,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('editSurname').value = surname;
             document.getElementById('editEmail').value = email;
             document.getElementById('editRole').value = role;
+            document.getElementById('editState').value = state;
             document.getElementById('editPassword').value = '';
 
             var editModal = new bootstrap.Modal(document.getElementById('editUserModal'));

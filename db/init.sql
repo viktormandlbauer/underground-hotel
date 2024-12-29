@@ -16,6 +16,8 @@ CREATE TABLE users (
     street VARCHAR(100),
     house_number VARCHAR(10),
     role ENUM('admin', 'employee', 'user') NOT NULL,
+    user_state ENUM('active', 'inactive') NOT NULL DEFAULT 'active',
+    newsletter BOOLEAN NOT NULL DEFAULT FALSE,
     password_hash VARCHAR(100) NOT NULL,
     salt VARCHAR(100) NOT NULL,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -85,17 +87,21 @@ INSERT INTO
         username,
         email,
         role,
+        user_state,
+        newsletter,
         password_hash,
         salt
     )
 VALUES
     (
-        'Mr',
+        'Herr',
         'hotel',
         'admin',
         'admin',
         'admin@underground-hotel.de',
         'admin',
+        'active',
+        TRUE,
         'e93730fa0232088ea4d810ebf625686291ff6977e1fdb4f6569252fd40b1f796',
         '0088359d9501078e5a16c7fcbaffdfd6'
     );

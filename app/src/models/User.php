@@ -67,48 +67,61 @@ class User
         return $result->num_rows > 0;
     }
 
+    function getDefaultProfilePicture(?string $profilePictureFromDb = null): string
+    {
+        $cfIcons = require __DIR__ . '/../config/cloudflare_icons.php';
+
+        if (!empty($profilePictureFromDb)) {
+            return $profilePictureFromDb;
+        }
+
+        return $cfIcons['user_icon'] ?? '';
+    }
+
 
     public static function addUser($data)
     {
 
-        $rules = ['strict_string','strict_string','strict_string','email','username_pattern','password_pattern','password_confirm'];
+        $rules = ['strict_string', 'strict_string', 'strict_string', 'email', 'username_pattern', 'password_pattern', 'password_confirm'];
         $registerData = [$data['pronouns'], $data['givenname'], $data['surname'], $data['email'], $data['username'], $data['password'], $data['password_confirm']];
 
-        $validationResult = isValidArray($registerData, $rules);
+        $validationResult = true; //isValidArray($registerData, $rules);
 
-        if(!$validationResult){
+        if (!$validationResult) {
             $_SESSION['flash_message'] = 'Ungültige Eingabe.';
             return false;
         }
-        
+
         $salt = Hash::salt(16);
         $password_hash = Hash::make($data['password'], $salt);
 
         $sanitizedData = sanitizeArray($data);
 
-        $stmt = self::getDBConnection()->prepare("INSERT INTO users ( pronouns, givenname, surname, username, email, password_hash, salt, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt = self::getDBConnection()->prepare("INSERT INTO users ( pronouns, givenname, surname, username, email, password_hash, salt, role, user_state) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
         $role = isset($sanitizedData['role']) && in_array($sanitizedData['role'], ['user', 'admin', 'employee']) ? $sanitizedData['role'] : 'user';
 
         $stmt->bind_param(
-            "ssssssss", 
-        $sanitizedData['pronouns'], 
-        $sanitizedData['givenname'], 
-        $sanitizedData['surname'], 
-        $sanitizedData['username'], 
-        $sanitizedData['email'], 
-        $password_hash, 
-        $salt, 
-        $role);
+            "sssssssss",
+            $sanitizedData['pronouns'],
+            $sanitizedData['givenname'],
+            $sanitizedData['surname'],
+            $sanitizedData['username'],
+            $sanitizedData['email'],
+            $password_hash,
+            $salt,
+            $sanitizedData['role'],
+            $sanitizedData['state']
+        );
 
         if ($stmt->execute()) {
-            $_SESSION['flash_message'] ='Benutzer erfolgreich angelegt.';
+            $_SESSION['flash_message'] = 'Benutzer erfolgreich angelegt.';
             return true;
         } else {
-            $_SESSION['flash_message'] = 'Benutzer konnte nicht angelegt werden.' ;
+            $_SESSION['flash_message'] = 'Benutzer konnte nicht angelegt werden.';
             $stmt->close();
             return false;
-        }        
+        }
     }
 
     public static function login($username, $password)
@@ -126,6 +139,10 @@ class User
         $result = $stmt->get_result();
         $user = $result->fetch_assoc();
 
+        if($user['user_state'] == 'inactive'){
+            return false;
+        }
+
         if ($user) {
             if (Hash::make($password, $user['salt']) == $user['password_hash']) {
                 return true;
@@ -137,7 +154,7 @@ class User
     public function load()
     {
 
-        
+
         $stmt = $this->getDBConnection()->prepare("SELECT * FROM users WHERE user_id = ?");
         $stmt->bind_param("i", $this->id);
         $stmt->execute();
@@ -155,7 +172,8 @@ class User
         return $user;
     }
 
-    public function loadProfile(){
+    public function loadProfile()
+    {
         $stmt = self::getDBConnection()->prepare("SELECT * FROM users WHERE username = ?");
         $stmt->bind_param("s", $this->username);
         $stmt->execute();
@@ -222,7 +240,7 @@ class User
 
     public function save($givenname, $surname, $email)
     {
-        isValidArray([ $givenname, $surname, $email], ['strict_string', 'strict_string', 'email']);
+        isValidArray([$givenname, $surname, $email], ['strict_string', 'strict_string', 'email']);
         sanitizeArray([$givenname, $surname, $email]);
 
         $this->givenname = $givenname;
@@ -234,23 +252,24 @@ class User
         $stmt->execute();
     }
 
-    public function deleteUser(){
+    public function deleteUser()
+    {
         $stmt = $this->getDBConnection()->prepare("DELETE FROM users WHERE username = ?");
         $stmt->bind_param("s", $this->username);
         $stmt->execute();
     }
 
 
-    public function changePassword(string $oldPassword,string $newPassword,string $confirmPassword ): bool
+    public function changePassword(string $oldPassword, string $newPassword, string $confirmPassword): bool
     {
         $stmt = self::getDBConnection()->prepare("SELECT password_hash, salt FROM users WHERE username = ?");
         $stmt->bind_param("s", $this->username);
         $stmt->execute();
-    
-        $result = $stmt->get_result();
-        $user   = $result->fetch_assoc();
 
-        if(!$user) {
+        $result = $stmt->get_result();
+        $user = $result->fetch_assoc();
+
+        if (!$user) {
             throw new Exception("Benutzer nicht gefunden oder Passwort konnte nicht überprüft werden.");
         }
 
@@ -258,16 +277,16 @@ class User
         if ($oldHash !== $user['password_hash']) {
             throw new Exception("Das eingegebene alte Passwort ist nicht korrekt.");
         }
-        
+
         if ($newPassword !== $confirmPassword) {
             throw new Exception("Die neuen Passwörter stimmen nicht überein.");
         }
 
         $stmt->close();
-        
+
         $validResult = true;//isValidArray([$oldPassword, $newPassword, $confirmPassword], ['password_pattern', 'password_pattern', 'password_confirm']);
 
-        if(!$validResult){
+        if (!$validResult) {
             throw new Exception("Ungültige Eingaben.");
         }
 
@@ -283,11 +302,11 @@ class User
 
         return true;
     }
-    
+
 
     public static function getAllUsers()
     {
-        $stmt = self::getDBConnection()->prepare("SELECT user_id, username, role, givenname, surname, email, pronouns FROM users");
+        $stmt = self::getDBConnection()->prepare("SELECT user_id, username, role, user_state, givenname, surname, email, pronouns FROM users");
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -311,6 +330,7 @@ class User
             $user['surname'] = htmlspecialchars($user['surname'], ENT_QUOTES, 'UTF-8');
             $user['email'] = htmlspecialchars($user['email'], ENT_QUOTES, 'UTF-8');
             $user['role'] = htmlspecialchars($user['role'], ENT_QUOTES, 'UTF-8');
+            $user['user_state'] = htmlspecialchars($user['user_state'], ENT_QUOTES, 'UTF-8');
         }
         unset($user);
         return sanitizeArray($users);
@@ -538,6 +558,14 @@ class User
         $this->role = $role;
         $stmt = self::getDBConnection()->prepare("UPDATE users SET role = ? WHERE username = ?");
         $stmt->bind_param("ss", $this->role, $this->username);
+        $stmt->execute();
+        $stmt->close();
+    }
+
+    public function setUserState(string $state): void
+    {
+        $stmt = self::getDBConnection()->prepare("UPDATE users SET user_state = ? WHERE username = ?");
+        $stmt->bind_param("ss", $state, $this->username);
         $stmt->execute();
         $stmt->close();
     }

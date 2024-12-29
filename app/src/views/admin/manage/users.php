@@ -28,6 +28,7 @@
                             <th data-sort="text">Nachname</th>
                             <th data-sort="text">E-Mail</th>
                             <th data-sort="text">Rolle</th>
+                            <th data-sort="text">Status</th>
                         </tr>
                     </thead>
                     <tbody id="userTableBody">
@@ -39,7 +40,8 @@
                                 data-givenname="<?= $user['givenname'] ?>" 
                                 data-surname="<?= $user['surname'] ?>"
                                 data-email="<?= $user['email'] ?>" 
-                                data-role="<?= $user['role'] ?>">
+                                data-role="<?= $user['role'] ?>"
+                                data-state="<?= $user['user_state'] ?>">
                                 <td><?= $user['user_id'] ?></td>
                                 <td><?= $user['pronouns'] ?></td>
                                 <td><?= $user['username'] ?></td>
@@ -47,10 +49,17 @@
                                 <td><?= $user['surname'] ?></td>
                                 <td><?= $user['email'] ?></td>
                                 <td><?= $user['role'] ?></td>
+                                <td class="text-center">
+                                    <?php if ($user['user_state'] == 'active'): ?>
+                                        <span class="status-indicator bg-success"></span>
+                                    <?php else: ?>
+                                        <span class="status-indicator bg-danger"></span>
+                                    <?php endif; ?>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                         <tr>
-                            <td colspan="7" class="text-center">
+                            <td colspan="8" class="text-center">
                                 <button type="button" id="addRow" class="add-row btn" data-bs-toggle="modal" data-bs-target="#addUserModal">
                                     <i class="fas fa-plus plus-icon"></i>
                                 </button>
@@ -103,6 +112,14 @@
                                     <option value="">Bitte wählen</option>
                                     <option value="user">User</option>
                                     <option value="admin">Admin</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="editState" class="form-label">Status</label>
+                                <select class="form-select bg-dark text-white border-white" id="editState" name="state" required>
+                                    <option value="">Bitte wählen</option>
+                                    <option value="active">Aktiv</option>
+                                    <option value="inactive">Inaktiv</option>
                                 </select>
                             </div>
                             <div class="mb-3">
@@ -159,6 +176,14 @@
                                     <option value="">Bitte wählen</option>
                                     <option value="user">User</option>
                                     <option value="admin">Admin</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="addState" class="form-label">Status</label>
+                                <select class="form-select bg-dark text-white border-white" id="addState" name="state" required>
+                                    <option value="">Bitte wählen</option>
+                                    <option value="active">Aktiv</option>
+                                    <option value="inactive">Inaktiv</option>
                                 </select>
                             </div>
                             <div class="mb-3">

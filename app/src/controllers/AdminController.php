@@ -27,6 +27,9 @@ switch ([$request, $method]) {
         if (isset($_POST['role'])) {
             $user->setRole($_POST['role']);
         }
+        if (isset($_POST['state'])) {
+            $user->setUserState($_POST['state']);
+        }
         if (isset($_POST['password'])){
             $user->setPassword($_POST['password']);
         }
@@ -55,7 +58,8 @@ switch ([$request, $method]) {
                     'email' => $_POST['email'], 
                     'username' => $_POST['username'], 
                     'password' => $_POST['password'], 
-                    'role' => $_POST['role']];
+                    'role' => $_POST['role'],
+                    'state' => $_POST['state']];
 
             if (User::addUser($data)) {
                 $_SESSION['flash_message'] = 'Neuer Benutzer erfolgreich angelegt.';
