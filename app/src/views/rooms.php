@@ -5,7 +5,7 @@
 
 <body>
     <?php include 'src/views/includes/navbar.php'; ?>
-    <div class="container my-5">
+    <div class="container my-5 content-wrapper">
         <div class="row bg-dark text-white py-4 rounded">
             <div class="col-3">
                 <div class="p-3">
