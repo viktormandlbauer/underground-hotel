@@ -29,8 +29,7 @@
                 </thead>
                 <tbody id="newsTableBody">
                     <?php foreach ($news as $article): ?>
-                        <tr class="news-row" style="cursor-pointer"
-                            data-news-id="<?= $article['news_id']; ?>"
+                        <tr class="news-row" style="cursor-pointer" data-news-id="<?= $article['news_id']; ?>"
                             data-title="<?= htmlspecialchars($article['title'], ENT_QUOTES, 'UTF-8'); ?>"
                             data-image-path="<?= htmlspecialchars($article['image_path'], ENT_QUOTES, 'UTF-8'); ?>"
                             data-content="<?= htmlspecialchars($article['content'], ENT_QUOTES, 'UTF-8'); ?>"
@@ -40,8 +39,7 @@
                             <td><?= htmlspecialchars($article['title'], ENT_QUOTES, 'UTF-8'); ?></td>
                             <td class="text-center">
                                 <?php if (!empty($article['image_path'])): ?>
-                                    <img src="/<?= htmlspecialchars($article['image_path'], ENT_QUOTES, 'UTF-8'); ?>"
-                                        alt="News Bild" class="img-thumbnail" style="max-width: 100px; max-height: 100px;">
+                                    <img src="/<?= htmlspecialchars($article['image_path'], ENT_QUOTES, 'UTF-8'); ?>" alt="News Bild" class="img-thumbnail" style="max-width: 100px; max-height: 100px;">
                                 <?php else: ?>
                                     <span class="text-muted">Kein Bild</span>
                                 <?php endif; ?>
