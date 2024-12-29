@@ -9,9 +9,10 @@ global $method;
 switch ([$request, $method]) {
 
     case ['/rooms', 'GET']:
-
+        
+        error_log(implode($_GET));
         if (isset($_GET['start_date'], $_GET['end_date'], $_GET['price_min'], $_GET['price_max'], $_GET['person_count'])) {
-
+            
             $start_date = $_GET['start_date'];
             $end_date = $_GET['end_date'];
             $price_min = $_GET['price_min'];

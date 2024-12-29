@@ -1,52 +1,23 @@
-.well {
-    margin-top: 20px;
+.datepicker table tr td.day:hover, .datepicker table tr td.highlighted:hover {
+    background-color: #ffffff;
+    color: #000000
 }
 
-.date-range {
-    margin: auto;
-    text-align: center;
+.datepicker table tr td.highlighted {
+    background-color: #484848;
 }
 
-.date-range>div {
-    display: inline-block;
-    margin: 10px;
+.datepicker table tr td.active {
+    background-image: linear-gradient(0deg, #000000, #787878);
 }
 
-p {
-    text-align: right;
-    margin-bottom: 0;
+.datepicker table tr td.active:hover {
+    background-image: linear-gradient(0deg, #ffffff, #ffffff);
+    color: black;
 }
 
-
-.is-selected:hover {
-    background-color: #204d74 !important;
-}
-
-.is-between {
-    border-radius: 0 !important;
-    background-color: #5599d4;
-    color: white;
-}
-
-.is-between:hover {
-    background-color: #204d74 !important;
-}
-
-.datepicker .check {
-    background-color: #202374;
-    color: white;
-}
-
-.datepicker .start {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-}
-
-.datepicker .end {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-}
-
-.disabled {
-    color: #d8d8d8 !important;
-}
+.datepicker .datepicker-switch:hover, .datepicker .prev:hover, .datepicker .next:hover {
+    background-color: #ffffff;
+    color: #000000;
+    border: #000000;
+} 

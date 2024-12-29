@@ -41,13 +41,5 @@
 </head>
 
 <style>
-    body {
-        background: url('/public/images/welcome.jpg') no-repeat center center fixed;
-        background-size: cover;
-        position: relative;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        opacity: 0.9;
-    }
+
 </style>

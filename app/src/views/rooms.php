@@ -1,6 +1,7 @@
 <?php include 'src/views/includes/header.php'; ?>
 <link rel="stylesheet" href="/public/css/pagination.css">
-</link>
+<link rel="stylesheet" href="/public/css/slider.css">
+<script src="/public/js/slider.js"></script>
 
 <body>
     <?php include 'src/views/includes/navbar.php'; ?>
@@ -18,23 +19,18 @@
                                 <div class="mt-2">
                                     Personenanzahl:
                                     <span id="personCountSpan">1</span>
-                                    <input type="hidden" id="personCount">
-                                    <div id="personCountSlider" class="w-100 my-1"></div>
+                                    <input type="hidden" name="person_count" id="person_count" value="1">
+                                    <div id="personCountSlider"></div>
                                 </div>
                                 <div class="mt-5">
                                     Preisbereich:
-                                    <span id="minPriceSpan">0</span>€ - <span id="maxPriceSpan">300</span>€
-                                    <input type="hidden" id="minPrice">
-                                    <input type="hidden" id="maxPrice">
-                                    <div id="priceRangeSlider" class="w-100 my-1"></div>
+                                    <span id="priceSpan_min">0</span>€ - <span id="priceSpan_max">300</span>€
+                                    <input type="hidden" name="price_min" id="price_min" value="0>">
+                                    <input type="hidden" name="price_max" id="price_max" value="300">
+                                    <div id="priceRangeSlider"></div>
                                 </div>
+                                <button type="submit" class="btn btn-outline-light mt-5 w-100">Suchen</button>
                             </div>
-                            <link rel="stylesheet" href="/public/css/slider.css">
-                            <script src="/public/js/slider.js"></script>
-
-
-                            <button type="submit"
-                                class="btn btn-success d-flex justify-content-center mt-3">Search</button>
                         </div>
                     </form>
                 </div>
@@ -71,7 +67,7 @@
                                 <a class="page-link" href="#" tabindex="-1">Previous</a>
                             </li>
                             <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item bg-success  active">
+                            <li class="page-item active">
                                 <a class="page-link" href="#">2 <span class=" bg-success sr-only">(current)</span></a>
                             </li>
                             <li class="page-item"><a class="page-link" href="#">3</a></li>
