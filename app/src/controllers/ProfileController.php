@@ -1,7 +1,7 @@
 <?php
 require_once 'src/models/Room.php';
 require_once 'src/util/validation.php';
-require_once 'src/util/image.php';
+require_once 'src/util/Image.php';
 require_once 'src/models/User.php';
 
 global $request;
