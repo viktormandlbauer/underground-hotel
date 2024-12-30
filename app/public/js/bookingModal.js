@@ -12,14 +12,15 @@ document.addEventListener('DOMContentLoaded', function () {
             var roomType = this.getAttribute('data-room-type');
             var roomPrice = this.getAttribute('data-room-price');
             var roomImagePath = this.getAttribute('data-room-image');
+            var checkIn = this.getAttribute('start_date');
+            var checkOut = this.getAttribute('end_date');
 
             document.getElementById('bookingRoomImage').src   = roomImagePath;
             document.getElementById('bookingRoomDescription').textContent     = roomDescription;
             document.getElementById('bookingRoomPrice').textContent  = roomPrice;
-            //document.getElementById('editCheckIn').value    = null;
-            //document.getElementById('editCheckOut').value  = null;
+            document.getElementById('bookingArrivalDate').textContent = checkIn;
+            document.getElementById('bookingDepartureDate').textContent = checkOut;
         
-            // Modal öffnen
             var editModal = new bootstrap.Modal(document.getElementById('bookingModal'));
             editModal.show();
         });

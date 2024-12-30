@@ -56,7 +56,9 @@
                                     data-room-description="<?= $room['description'] ?>"
                                     data-room-type="<?= $room["type"] ?>" 
                                     data-room-price="<?= $room['price_per_night'] ?>"
-                                    data-room-image="<?= $room['image_path'] ?>">
+                                    data-room-image="<?= $room['image_path'] ?>"
+                                    data-start-date="2025-01-01"
+                                    data-end-date="2025-01-15">
                                     <td><?= $room['name'] ?></td>
                                     <td><?= $room['description'] ?></td>
                                     <td><?= $room['type'] ?></td>
