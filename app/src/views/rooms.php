@@ -51,7 +51,12 @@
                         </thead>
                         <tbody>
                             <?php foreach ($rooms as $room): ?>
-                                <tr>
+                                <tr class="booking-row" 
+                                    data-room-name="<?= $room['name'] ?>"
+                                    data-room-description="<?= $room['description'] ?>"
+                                    data-room-type="<?= $room["type"] ?>" 
+                                    data-room-price="<?= $room['price_per_night'] ?>"
+                                    data-room-image="<?= $room['image_path'] ?>">
                                     <td><?= $room['name'] ?></td>
                                     <td><?= $room['description'] ?></td>
                                     <td><?= $room['type'] ?></td>
@@ -79,6 +84,86 @@
                 </div>
             </div>
         </div>
+        <!-- Booking Modal -->
+        <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <form id="bookingForm" action="/rooms/booking" method="POST">
+                    <div class="modal-content bg-dark text-white">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="bookingModalLabel">Zimmer buchen</h5>
+                            <button type="button" class="btn-close-white" data-bs-dismiss="modal" aria-label="Schließen"></button>
+                        </div>
+
+                        <div class="modal-body d-flex">
+                            <div class="flex-grow-1">
+                                <img id="bookingRoomImage" src="" alt="Zimmer Bild" class="img-fluid mb-2"
+                                    style="max-height: 200px; object-fit: cover;">
+
+                                <p id="bookingRoomDescription" class="mb-3"></p>
+
+                                <div class="mb-3">
+                                    <strong>Preis pro Nacht:</strong>
+                                    <span id="bookingRoomPrice"></span> €
+                                </div>
+                            </div>
+
+                            <div class="vr mx-3" style="border-left: 1px solid #ccc;"></div>
+
+                            <div class="d-flex flex-column" style="width: 33%;">
+                                <div class="mb-3">
+                                    <label for="editCheckIn" class="form-label">Anreise</label>
+                                    <input type="text" class="form-control bg-dark text-white " id="bookingArrivalDate" name="arrival_date"
+                                        readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="editCheckOut" class="form-label">Abreise</label>
+                                    <input type="text" class="form-control bg-dark text-white " id="bookingDepartureDate"
+                                        name="departure_date" readonly>
+                                </div>
+
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input bg-dark text-white" type="checkbox" id="bookingBreakfast"
+                                        name="with_breakfast" value="1">
+                                    <label class="form-check-label" for="bookingBreakfast">
+                                        Mit Frühstück
+                                    </label>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="bookingPet" class="form-label">Haustier</label>
+                                    <select class="form-select bg-secondary text-white" id="bookingPet" name="pet">
+                                        <option value="">Kein Haustier</option>
+                                        <option value="hund">Hund</option>
+                                        <option value="katze">Katze</option>
+                                        <option value="kaninchen">Kaninchen</option>
+                                        <option value="hamster">Hamster</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <h6>Preis-Aufschlüsselung:</h6>
+                                    <ul class="list-unstyled">
+                                        <li>Grundpreis: <span id="bookingBasePrice"></span> €</li>
+                                        <li>Aufpreis Frühstück: <span id="bookingBreakfastPrice"></span> €</li>
+                                        <li><strong>Gesamt: <span id="bookingTotalPrice"></span> €</strong></li>
+                                    </ul>
+                                </div>
+
+                                <input type="hidden" id="bookingRoomNumber" name="room_number" />
+
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-light">Buchen</button>
+                            <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Abbrechen</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
     <?php include 'src/views/includes/footer.php'; ?>
 </body>
+
+<script src="/public/js/bookingModal.js"></script>
