@@ -65,8 +65,9 @@
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const currentPath = window.location.pathname;
-    const navLinks = document.querySelectorAll('#navPages .nav-link');
-
+    const navLinks = document.querySelectorAll('#Pages .nav-link');
+    console.log(currentPath);
+    console.log(navLinks);
     navLinks.forEach(link => {
       if (link.getAttribute('href') === currentPath) {
         link.classList.add('active');
