@@ -43,6 +43,7 @@ CREATE TABLE bookings (
     check_out_date DATE NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(user_id),
     FOREIGN KEY (room_number) REFERENCES rooms(number),
+    status ENUM('new', 'approved', 'canceled') NOT NULL,
     booked_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
