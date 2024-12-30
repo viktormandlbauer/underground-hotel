@@ -17,4 +17,3 @@ class Hash {
         return self::make(uniqid());
     }
 }
-?>

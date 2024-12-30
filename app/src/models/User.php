@@ -357,7 +357,7 @@ class User
         $stmt->bind_param("i", $id);
         $stmt->execute();
         $result = $stmt->get_result();
-        return sanitize($result->fetch_assoc()['username'] ?? null);
+        return sanitizeString($result->fetch_assoc()['username'] ?? null);
     }
     public function delete()
     {

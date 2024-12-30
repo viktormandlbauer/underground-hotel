@@ -70,7 +70,7 @@ class News
     public static function getNews($limit, $offset)
     {
 
-        isValidArray([$limit, $offset], ['integer', 'integer']);
+        isValidArray([$limit, $offset], [ValidationTypes::integer, ValidationTypes::integer]);
 
         $stmt = self::getDBConnection()->prepare("SELECT * FROM news ORDER BY date DESC LIMIT ? OFFSET ?");
         $stmt->bind_param("ii", $limit, $offset);
@@ -82,12 +82,12 @@ class News
             $newsPosts[] = $row;
         }
         return sanitizeArray($newsPosts);
-        }
+    }
 
     public static function getTotalPages($limit)
     {
 
-        isValidArray([$limit], ['integer']);
+        isValidArray([$limit], [ValidationTypes::integer]);
 
         $totalResult = self::getDBConnection()->query("SELECT COUNT(*) AS total FROM news");
         $totalRow = $totalResult->fetch_assoc();
@@ -95,13 +95,13 @@ class News
 
         $totalPages = ceil($totalNews / $limit);
 
-        return sanitize($totalPages);
+        return sanitizeString($totalPages);
     }
 
     public static function getPaginatedNews($limit, $offset)
     {
 
-        isValidArray([$limit, $offset], ['integer', 'integer']);
+        isValidArray([$limit, $offset], [ValidationTypes::integer, ValidationTypes::integer]);
         $stmt = self::getDBConnection()->prepare("SELECT * FROM news ORDER BY created_at DESC LIMIT ? OFFSET ?");
         $stmt->bind_param("ii", $limit, $offset);
         $stmt->execute();
@@ -125,12 +125,12 @@ class News
 
     public function getId()
     {
-        $stmt = self::getDBConnection()->prepare("SELECT news_id FROM news WHERE title = ? AND content = ? AND image_path = ?");
-        $stmt->bind_param("sss", $this->title, $this->content, $this->image);
+        $stmt = self::getDBConnection()->prepare("SELECT news_id FROM news WHERE title = ? AND content = ?");
+        $stmt->bind_param("ss", $this->title, $this->content);
         $stmt->execute();
         $result = $stmt->get_result();
         $id = $result->fetch_assoc();
-        return sanitize($id["news_id"]);
+        return sanitizeString($id["news_id"]);
     }
 
     public static function getNewsById($id)
@@ -151,18 +151,18 @@ class News
     }
 
     public static function updateNews($newsId, $title, $content, $imagePath = null)
-{
-    isValidArray([$newsId, $title, $content, $imagePath], ['integer', 'open_string', 'open_string', 'url']);
-    if ($imagePath) {
-        $stmt = self::getDBConnection()->prepare("UPDATE news SET title = ?, content = ?, image_path = ? WHERE news_id = ?");
-        $stmt->bind_param("sssi", $title, $content, $imagePath, $newsId);
-    } else {
-        $stmt = self::getDBConnection()->prepare("UPDATE news SET title = ?, content = ? WHERE news_id = ?");
-        $stmt->bind_param("ssi", $title, $content, $newsId);
+    {
+        isValidArray([$newsId, $title, $content, $imagePath], [ValidationTypes::integer, ValidationTypes::strict_string, ValidationTypes::strict_string, ValidationTypes::url]);
+        if ($imagePath) {
+            $stmt = self::getDBConnection()->prepare("UPDATE news SET title = ?, content = ?, image_path = ? WHERE news_id = ?");
+            $stmt->bind_param("sssi", $title, $content, $imagePath, $newsId);
+        } else {
+            $stmt = self::getDBConnection()->prepare("UPDATE news SET title = ?, content = ? WHERE news_id = ?");
+            $stmt->bind_param("ssi", $title, $content, $newsId);
+        }
+        $stmt->execute();
+        $stmt->close();
     }
-    $stmt->execute();
-    $stmt->close();
-}
 
 
 }

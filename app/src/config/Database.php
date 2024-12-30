@@ -1,6 +1,4 @@
 <?php
-
-
 class Database {
     private static $instance = null;
     private $conn;
@@ -37,4 +35,3 @@ class Database {
         return $this->conn;
     }
 }
-?>

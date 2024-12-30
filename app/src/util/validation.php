@@ -1,11 +1,22 @@
 <?php
-function sanitize($data)
-{
+enum ValidationTypes {
+    case strict_string;
+    case password_pattern;
+    case username_pattern;
+    case integer;
+    case email;
+    case float;
+    case date;
+    case url;
+}
 
-    if ($data === null) {
+function sanitizeString($string)
+{
+    if(isset($string)) {
+        return htmlspecialchars(trim($string), ENT_QUOTES, 'UTF-8');
+    }else {
         return '';
     }
-    return htmlspecialchars(trim($data), ENT_QUOTES, 'UTF-8');
 }
 
 function sanitizeArray(array $data)
@@ -15,7 +26,7 @@ function sanitizeArray(array $data)
         if (is_array($value)) {
             $sanitized[$key] = sanitizeArray($value);
         } else {
-            $sanitized[$key] = sanitize($value);
+            $sanitized[$key] = sanitizeString($value);
         }
     }
     return $sanitized;
@@ -24,62 +35,56 @@ function sanitizeArray(array $data)
 
 function isValidArray(array $values, array $rule)
 {
+
+    if(count($values) !== count($rule)) {
+        throw new Exception('Values and rules arrays must have the same length');
+    }
+
     for ($i = 0; $i < count($values); $i++) {
-        if (!isset($values[$i])) {
-            continue;
-        }
         switch ($rule[$i]) {
-            case "strict_string":
+            case ValidationTypes::strict_string:
                 if (!is_string($values[$i]) || !ctype_alpha($values[$i])) {
                     return false;
                 }
                 break;
 
-            case "password_pattern":
-                if (!is_string($value) || !preg_match('/[^\x20-\x7e]/', $value)) { // pregmatch ASCII 32-126
+            case ValidationTypes::password_pattern:
+                if (!is_string($values[$i]) || !preg_match('/[^\x20-\x7e]/', $value)) { // pregmatch ASCII 32-126
                     return false;
                 } 
                 break;
 
-            case "username_pattern":
-                if (!is_string($value) || !preg_match('/[^A-Za-z0-9.\-_]/', $value)) { 
+            case ValidationTypes::username_pattern:
+                if (!is_string($values[$i]) || !preg_match('/[^A-Za-z0-9.\-_]/', $value)) { 
                     return false;
                 } 
                 break;
 
-            case "integer":
+            case ValidationTypes::integer:
                 if (!filter_var($values[$i], FILTER_VALIDATE_INT)) {
                     return false;
                                 }
                 break;
 
-            case "email":
+            case ValidationTypes::email:
                 if (!filter_var($values[$i], FILTER_VALIDATE_EMAIL)) {
                     return false;
                                 }
                 break;
 
-            case "float":
+            case ValidationTypes::float:
                 if (!filter_var($values[$i], FILTER_VALIDATE_FLOAT)) {
                     return false;
                                 }
                 break;
 
-            case "date":
+            case ValidationTypes::date:
                 if (!strtotime($values[$i])) {
                     return false;
                                 }
                 break;
 
-            case "password_confirm":
-                if (empty($values[$i-1]) || empty($values[$i])) {
-                    return false;
-                } elseif ($values[$i-1] !== $values[$i]) {
-                    return false;
-                                }
-                break;
-
-            case "url":
+            case ValidationTypes::url:
                 if ($value === null) {
                     return true;
                 } else
