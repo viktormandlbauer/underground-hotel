@@ -5,21 +5,19 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
 
-            
-
             var roomName = this.getAttribute('data-room-name');
             var roomDescription = this.getAttribute('data-room-description');
             var roomType = this.getAttribute('data-room-type');
             var roomPrice = this.getAttribute('data-room-price');
             var roomImagePath = this.getAttribute('data-room-image');
-            var checkIn = this.getAttribute('start_date');
-            var checkOut = this.getAttribute('end_date');
+            var checkIn = document.getElementById('start_date').value;
+            var checkOut = document.getElementById('end_date').value;
 
             document.getElementById('bookingRoomImage').src   = roomImagePath;
             document.getElementById('bookingRoomDescription').textContent     = roomDescription;
             document.getElementById('bookingRoomPrice').textContent  = roomPrice;
-            document.getElementById('bookingArrivalDate').textContent = checkIn;
-            document.getElementById('bookingDepartureDate').textContent = checkOut;
+            document.getElementById('bookingArrivalDate').value = checkIn;
+            document.getElementById('bookingDepartureDate').value = checkOut;
         
             var editModal = new bootstrap.Modal(document.getElementById('bookingModal'));
             editModal.show();

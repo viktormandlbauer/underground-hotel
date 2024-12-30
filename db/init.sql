@@ -44,6 +44,10 @@ CREATE TABLE bookings (
     FOREIGN KEY (user_id) REFERENCES users(user_id),
     FOREIGN KEY (room_number) REFERENCES rooms(number),
     status ENUM('new', 'approved', 'canceled') NOT NULL,
+    breakfast BOOLEAN NOT NULL DEFAULT FALSE,
+    parking BOOLEAN NOT NULL DEFAULT FALSE,
+    pet BOOLEAN NOT NULL DEFAULT FALSE,
+    additional_info TEXT,
     booked_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 

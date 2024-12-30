@@ -1,6 +1,6 @@
 $(function () {
     $('#date').datepicker({
-        starteDate: new Date(),
+        startDate: new Date(),
         format: "yyyy-mm-dd",
         startView: 0,
         minViewMode: 0,
@@ -48,10 +48,5 @@ $(function () {
         $('#date').datepicker('setDates', [searchParams.get('start_date'), searchParams.get('end_date')]);
         $('#start_date').val(searchParams.get('start_date'));
         $('#end_date').val(searchParams.get('end_date'));
-
-        $('.booking-row').each(function(){
-            $(this).attr(('data-start-date'), searchParams.get('start_date'))
-            .attr(('data-end-date'), searchParams.get('end_date'));
-        })
     }
 });
