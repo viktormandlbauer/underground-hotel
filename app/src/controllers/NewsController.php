@@ -28,10 +28,17 @@ switch ([$request, $method]) {
 
         $user_id = User::getUseridByUsername($_SESSION['username']);
 
-        if ($image->uploaded) {
-            $id = News::newNews($_POST['title'], $_POST['content'], $image->getPath(), $user_id);
-        } else {
-            $id = News::newNews($_POST['title'], $_POST['content'], null, $user_id);
+
+        try {
+            if ($image->uploaded) {
+                $id = News::newNews($_POST['title'], $_POST['content'], $image->getPath(), $user_id);
+            } else {
+                $id = News::newNews($_POST['title'], $_POST['content'], null, $user_id);
+            }
+        } catch (Exception $e) {
+            $_SESSION['flash_message'] = $e->getMessage();
+            header('Location: /news');
+            exit;
         }
 
         header('Location: /news');

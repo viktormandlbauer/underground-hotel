@@ -70,7 +70,9 @@ class News
     public static function getNews($limit, $offset)
     {
 
-        isValidArray([$limit, $offset], [ValidationTypes::integer, ValidationTypes::integer]);
+        if(!isValidArray([$limit, $offset], [ValidationTypes::integer, ValidationTypes::integer])) {
+            throw new Exception('Invalid input');
+        }
 
         $stmt = self::getDBConnection()->prepare("SELECT * FROM news ORDER BY date DESC LIMIT ? OFFSET ?");
         $stmt->bind_param("ii", $limit, $offset);
@@ -152,7 +154,7 @@ class News
 
     public static function updateNews($newsId, $title, $content, $imagePath = null)
     {
-        isValidArray([$newsId, $title, $content, $imagePath], [ValidationTypes::integer, ValidationTypes::strict_string, ValidationTypes::strict_string, ValidationTypes::url]);
+        isValidArray([$newsId, $title, $content, $imagePath], [ValidationTypes::integer, ValidationTypes::open_string, ValidationTypes::open_string, ValidationTypes::url]);
         if ($imagePath) {
             $stmt = self::getDBConnection()->prepare("UPDATE news SET title = ?, content = ?, image_path = ? WHERE news_id = ?");
             $stmt->bind_param("sssi", $title, $content, $imagePath, $newsId);

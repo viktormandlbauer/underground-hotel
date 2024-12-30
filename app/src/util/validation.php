@@ -1,6 +1,7 @@
 <?php
 enum ValidationTypes {
     case strict_string;
+    case open_string;
     case password_pattern;
     case username_pattern;
     case integer;
@@ -47,7 +48,11 @@ function isValidArray(array $values, array $rule)
                     return false;
                 }
                 break;
-
+            case ValidationTypes::open_string:
+                if (!is_string($values[$i])) {
+                    return false;
+                }
+                break;
             case ValidationTypes::password_pattern:
                 if (!is_string($values[$i]) || !preg_match('/[^\x20-\x7e]/', $value)) { // pregmatch ASCII 32-126
                     return false;
@@ -100,10 +105,3 @@ function isValidArray(array $values, array $rule)
 
     return true;
 }
-
-if (!empty($errors)) {
-    $_SESSION['flash_messages'] = $errors;
-    return false;
-}
-
-return true;
