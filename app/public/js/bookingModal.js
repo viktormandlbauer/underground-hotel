@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
             var roomImagePath = this.getAttribute('data-room-image');
             var checkIn = document.getElementById('start_date').value;
             var checkOut = document.getElementById('end_date').value;
-            var pricePerNight = parseFloat(roomPrice);
+            var pricePerNight = parseFloat(this.getAttribute('data-price-per-night')) || 0;
 
             var nights = calculateNights(checkIn, checkOut);
             var basePrice = roomPrice * nights;
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
         function updateTotalPrice() {
             const base = parseFloat(document.getElementById('bookingBasePrice').textContent || '0');
             const breakfastUnitPrice = 10.0;
-            const parkingUnitPrice = 10.0; // Angepasst auf deinen gewünschten Aufpreis
+            const parkingUnitPrice = 10.0;
 
             const checkIn = document.getElementById('bookingArrivalDate').value;
             const checkOut = document.getElementById('bookingDepartureDate').value;

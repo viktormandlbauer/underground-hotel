@@ -41,6 +41,7 @@ class Booking
     {
         $stmt = self::getDBConnection()->prepare("SELECT * FROM bookings");
         $stmt->execute();
+        
         $result = $stmt->get_result();
 
         $bookings = [];
@@ -49,6 +50,18 @@ class Booking
         }
 
         return $bookings;
+    }
+
+    public static function createBooking($user_id, $room_number, $check_in_date, $check_out_date, $status, $breakfast, $parking, $pet, $additional_info)
+    {
+        $stmt = self::getDBConnection()->prepare("INSERT INTO bookings (user_id, room_number, check_in_date, check_out_date, status, breakfast, parking, pet, additional_info) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("iissiiiss", $user_id, $room_number, $check_in_date, $check_out_date, $status, $breakfast, $parking, $pet, $additional_info);
+        if($stmt->execute()){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     public function setUserId($user_id)

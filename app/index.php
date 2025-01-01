@@ -60,10 +60,11 @@ switch ($request) {
         break;
 
     case '/admin/manage/bookings/edit':
+    case '/admin/manage/bookings/add':
         require 'src/controllers/BookingController.php';
         require 'src/views/admin/manage/bookings.php';
         break;
-        
+
     case '/rooms':
     case '/rooms/booking':
         require 'src/controllers/RoomController.php';

@@ -1,6 +1,7 @@
 <?php include 'src/views/includes/header.php'; ?>
 <link rel="stylesheet" href="/public/css/modal.css">
 <?php include 'src/controllers/BookingController.php'; ?>
+
 <body>
     <?php include 'src/views/includes/navbar.php'; ?>
 
@@ -33,18 +34,16 @@
                     </thead>
                     <tbody id="bookingTableBody">
                         <?php foreach ($bookings as $booking): ?>
-                            <tr class="booking-row" onclick="href='#editBookingModal'" data-bs-toggle="modal" data-bs-target="#editBookingModal"
-                                data-booking-id="<?= $booking['booking_id'] ?>"
+                            <tr class="booking-row" onclick="href='#editBookingModal'" data-bs-toggle="modal"
+                                data-bs-target="#editBookingModal" data-booking-id="<?= $booking['booking_id'] ?>"
                                 data-user-id="<?= $booking['user_id'] ?>"
                                 data-username="<?= User::getUsernameByID($booking['user_id']) ?>"
                                 data-room-number="<?= $booking['room_number'] ?>"
                                 data-check-in="<?= $booking['check_in_date'] ?>"
                                 data-check-out="<?= $booking['check_out_date'] ?>"
                                 data-price-per-night="<?= $booking['price_per_night'] ?>"
-                                data-status="<?= $booking['status'] ?>"
-                                data-breakfast="<?= $booking['breakfast'] ?>" 
-                                data-parking="<?= $booking['parking'] ?>"
-                                data-pet="<?= $booking['pet'] ?>" 
+                                data-status="<?= $booking['status'] ?>" data-breakfast="<?= $booking['breakfast'] ?>"
+                                data-parking="<?= $booking['parking'] ?>" data-pet="<?= $booking['pet'] ?>"
                                 data-additional-info="<?= $booking['additional_info'] ?>">
 
                                 <td><?= $booking['booking_id'] ?></td>
@@ -105,7 +104,7 @@
     <div class="modal fade" id="addBookingModal" tabindex="-1" aria-labelledby="addBookingModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg">
-            <form id="addBookingForm" action="/bookings/create" method="POST">
+            <form id="addBookingForm" action="/admin/manage/bookings/add" method="POST">
                 <div class="modal-content bg-dark text-white">
                     <div class="modal-header">
                         <h5 class="modal-title" id="addBookingModalLabel">Neue Buchung erstellen</h5>

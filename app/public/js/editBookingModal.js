@@ -9,16 +9,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function updateTotalPrice(modalId, basePriceElementId, breakfastCheckboxId, parkingCheckboxId, breakfastPriceElementId, parkingPriceElementId, totalPriceElementId) {
         const modal = document.getElementById(modalId);
-        const basePrice = parseFloat(document.getElementById(basePriceElementId).textContent) || 0;
+        const pricePerNight = parseFloat(modal.getAttribute('data-price-per-night')) || 0;
 
         const checkIn = modal.querySelector(`#${modalId} #editCheckInDate`).value;
         const checkOut = modal.querySelector(`#${modalId} #editCheckOutDate`).value;
         const nights = calculateNights(checkIn, checkOut);
 
+        const basePrice = pricePerNight * nights;
         const breakfastPrice = document.getElementById(breakfastCheckboxId).checked ? 10 * nights : 0;
         const parkingPrice = document.getElementById(parkingCheckboxId).checked ? 7 * nights : 0;
         const totalPrice = basePrice + breakfastPrice + parkingPrice;
 
+        document.getElementById(basePriceElementId).textContent = basePrice.toFixed(2);
         document.getElementById(breakfastPriceElementId).textContent = breakfastPrice.toFixed(2);
         document.getElementById(parkingPriceElementId).textContent = parkingPrice.toFixed(2);
         document.getElementById(totalPriceElementId).textContent = totalPrice.toFixed(2);
@@ -54,6 +56,9 @@ document.addEventListener('DOMContentLoaded', function () {
         let basePrice = pricePerNight * nights;
         document.getElementById('editBasePrice').textContent = basePrice.toFixed(2);
 
+        document.getElementById('editBookingModal').setAttribute('data-price-per-night', pricePerNight);
+
+
         updateTotalPrice('editBookingModal', 'editBasePrice', 'editBreakfast', 'editParking', 'editBreakfastPrice', 'editParkingPrice', 'editTotalPrice');
     }
 
@@ -66,20 +71,17 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     document.getElementById('editCheckInDate').addEventListener('change', function () {
-        updateTotalPrice('editBookingModal', 'editBasePrice', 'editBreakfast', 'editParking', 'editPet', 'editBreakfastPrice', 'editParkingPrice', 'editPetPrice', 'editTotalPrice');
+        updateTotalPrice('editBookingModal', 'editBasePrice', 'editBreakfast', 'editParking', 'editBreakfastPrice', 'editParkingPrice', 'editTotalPrice');
     });
 
     document.getElementById('editCheckOutDate').addEventListener('change', function () {
-        updateTotalPrice('editBookingModal', 'editBasePrice', 'editBreakfast', 'editParking', 'editPet', 'editBreakfastPrice', 'editParkingPrice', 'editPetPrice', 'editTotalPrice');
-    });
+        updateTotalPrice('editBookingModal', 'editBasePrice', 'editBreakfast', 'editParking', 'editBreakfastPrice', 'editParkingPrice', 'editTotalPrice');    });
 
     document.getElementById('editBreakfast').addEventListener('change', function () {
-        updateTotalPrice('editBookingModal', 'editBasePrice', 'editBreakfast', 'editParking', 'editPet', 'editBreakfastPrice', 'editParkingPrice', 'editPetPrice', 'editTotalPrice');
-    });
+        updateTotalPrice('editBookingModal', 'editBasePrice', 'editBreakfast', 'editParking', 'editBreakfastPrice', 'editParkingPrice', 'editTotalPrice');    });
 
     document.getElementById('editParking').addEventListener('change', function () {
-        updateTotalPrice('editBookingModal', 'editBasePrice', 'editBreakfast', 'editParking', 'editPet', 'editBreakfastPrice', 'editParkingPrice', 'editPetPrice', 'editTotalPrice');
-    });
+        updateTotalPrice('editBookingModal', 'editBasePrice', 'editBreakfast', 'editParking', 'editBreakfastPrice', 'editParkingPrice', 'editTotalPrice');    });
 
 
     function updateAddTotalPrice() {
@@ -95,7 +97,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         let breakfastPrice = document.getElementById('addBreakfast').checked ? 10 * nights : 0;
         let parkingPrice = document.getElementById('addParking').checked ? 7 * nights : 0;
-        let petPrice = document.getElementById('addPet').checked ? 5 * nights : 0;
 
         let totalPrice = basePrice + breakfastPrice + parkingPrice;
 

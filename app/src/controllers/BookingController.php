@@ -22,32 +22,32 @@ switch ([$request, $method]) {
     case ['/admin/manage/bookings/edit', 'POST']:
         $booking = new Booking($_POST['booking_id']);
 
-        if (isset($_POST['editUserId'])) {
-            $booking->setUserId($_POST['editUserId']);
+        if (isset($_POST['user_id'])) {
+            $booking->setUserId($_POST['user_id']);
         }
-        if (isset($_POST['editRoomNumber'])) {
-            $booking->setRoomNumber($_POST['editRoomNumber']);
+        if (isset($_POST['room_number'])) {
+            $booking->setRoomNumber($_POST['room_number']);
         }
-        if (isset($_POST['checkInDate'])) {
-            $booking->setCheckIn($_POST['editCheckInDate']);
+        if (isset($_POST['check_in_date'])) {
+            $booking->setCheckIn($_POST['check_in_date']);
         }
-        if (isset($_POST['checkOutDate'])) {
-            $booking->setCheckOut($_POST['editCheckOutDate']);
+        if (isset($_POST['check_out_date'])) {
+            $booking->setCheckOut($_POST['check_out_date']);
         }
-        if (isset($_POST['editStatus'])) {
-            $booking->setStatus($_POST['editStatus']);
+        if (isset($_POST['status'])) {
+            $booking->setStatus($_POST['status']);
         }
-        if (isset($_POST['editBreakfast'])) {
-            $booking->setBreakfast($_POST['editBreakfast']);
+        if (isset($_POST['with_breakfast'])) {
+            $booking->setBreakfast($_POST['with_breakfast']);
         }
-        if (isset($_POST['editParking'])) {
-            $booking->setParking($_POST['editParking']);
+        if (isset($_POST['with_parking'])) {
+            $booking->setParking($_POST['with_parking']);
         }
-        if (isset($_POST['editPet'])) {
-            $booking->setPet($_POST['editPet']);
+        if (isset($_POST['with_pet'])) {
+            $booking->setPet($_POST['with_pet']);
         }
-        if (isset($_POST['editRemarks'])) {
-            $booking->setAdditionalInfo($_POST['editRemarks']);
+        if (isset($_POST['remarks'])) {
+            $booking->setAdditionalInfo($_POST['remarks']);
         }
         $_SESSION['flash_message'] = 'Buchung erfolgreich aktualisiert.';
 
@@ -59,4 +59,42 @@ switch ([$request, $method]) {
         $_SESSION['flash_message'] = 'Fehler beim aktualisieren der Buchung.';
         header ('Location: /admin/manage/bookings');
         break;
+
+
+    case ['/admin/manage/bookings/add', 'POST']:
+        $bookingData = [
+            'user_id' => $_POST['user_id'],
+            'room_number' => $_POST['room_number'],
+            'check_in_date' => $_POST['check_in_date'],
+            'check_out_date' => $_POST['check_out_date'],
+            'status' => 'new',
+            'breakfast' => $_POST['with_breakfast'] ?? 0,
+            'parking' => $_POST['with_parking'] ?? 0,
+            'pet' => $_POST['with_pet'] ?? 0,
+            'additional_info' => $_POST['remarks']
+        ];
+
+        $bookingSuccess = Booking::createBooking(
+            $bookingData['user_id'],
+            $bookingData['room_number'],
+            $bookingData['check_in_date'],
+            $bookingData['check_out_date'],
+            $bookingData['status'],
+            $bookingData['breakfast'],
+            $bookingData['parking'],
+            $bookingData['pet'],
+            $bookingData['additional_info']
+        );
+
+        if ($bookingSuccess) {
+            $_SESSION['flash_message'] = 'Buchung erfolgreich hinzugefügt.';
+            header('Location: /admin/manage/bookings');
+            exit();
+        } else {
+            $_SESSION['flash_message'] = 'Fehler beim Hinzufügen der Buchung.';
+            header('Location: /admin/manage/bookings');
+        }
+
+        break;
+
 }
