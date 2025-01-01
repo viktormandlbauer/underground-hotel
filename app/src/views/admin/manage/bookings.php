@@ -1,8 +1,6 @@
 <?php include 'src/views/includes/header.php'; ?>
 <link rel="stylesheet" href="/public/css/modal.css">
 <?php include 'src/controllers/BookingController.php'; ?>
-<script src="/public/js/bookingModal.js"></script>
-
 <body>
     <?php include 'src/views/includes/navbar.php'; ?>
 
@@ -314,10 +312,6 @@
                                 <td class="text-end">Aufpreis Parkplatz:</td>
                                 <td class="text-end"><span id="editParkingPrice">0.00</span> €</td>
                             </tr>
-                            <tr>
-                                <td class="text-end">Aufpreis Haustier:</td>
-                                <td class="text-end"><span id="editPetPrice">0.00</span> €</td>
-                            </tr>
                             <tr class="fw-bold">
                                 <td class="text-end">Gesamt:</td>
                                 <td class="text-end"><span id="editTotalPrice">0.00</span> €</td>
@@ -335,5 +329,7 @@
 
     <?php include 'src/views/includes/footer.php'; ?>
 </body>
+
+<script src="/public/js/editBookingModal.js"></script>
 
 </html>

@@ -22,10 +22,11 @@
                     <thead>
                         <tr>
                             <th data-sort="number">Buchungs-ID</th>
+                            <th data-sort="text">Benutzername</th>
                             <th data-sort="text">Zimmernummer</th>
                             <th data-sort="text">Anreise</th>
                             <th data-sort="text">Abreise</th>
-                            <th data-sort="text">Frühstücl</th>
+                            <th data-sort="text">Frühstück</th>
                             <th data-sort="text">Parkplatz</th>
                             <th data-sort="text">Haustier</th>
                             <th data-sort="text">Preis</th>
