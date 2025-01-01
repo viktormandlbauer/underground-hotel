@@ -215,7 +215,7 @@
     <div class="modal fade" id="editBookingModal" tabindex="-1" aria-labelledby="editBookingModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg">
-            <form id="editBookingForm" action="/bookings/edit" method="POST">
+            <form id="editBookingForm" action="/admin/manage/bookings/edit" method="POST">
                 <div class="modal-content bg-dark text-white">
                     <div class="modal-header">
                         <h5 class="modal-title" id="editBookingModalLabel">Buchung bearbeiten</h5>
