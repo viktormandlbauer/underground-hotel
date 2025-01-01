@@ -67,3 +67,7 @@ body {
   .bg-danger {
     background-color: #dc3545 !important;
   }
+
+  .bg-info {
+    background-color: #aeb615 !important;
+  }

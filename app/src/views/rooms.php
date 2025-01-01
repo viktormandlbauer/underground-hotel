@@ -53,10 +53,11 @@
                             <?php foreach ($rooms as $room): ?>
                                 <tr class="booking-row" 
                                     data-room-name="<?= $room['name'] ?>"
+                                    data-room-number="<?= $room['number'] ?>"
                                     data-room-description="<?= $room['description'] ?>"
                                     data-room-type="<?= $room["type"] ?>" 
                                     data-room-price="<?= $room['price_per_night'] ?>"
-                                    data-room-image="<?= $room['image_path'] ?>"
+                                    data-room-image="<?= $room['image_path'] ?>" 
                                     data-start-date="2025-01-01"
                                     data-end-date="2025-01-15">
                                     <td><?= $room['name'] ?></td>
@@ -93,72 +94,101 @@
                     <div class="modal-content bg-dark text-white">
                         <div class="modal-header">
                             <h5 class="modal-title" id="bookingModalLabel">Zimmer buchen</h5>
-                            <button type="button" class="btn-close-white" data-bs-dismiss="modal" aria-label="Schließen"></button>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                                aria-label="Schließen"></button>
                         </div>
-
-                        <div class="modal-body d-flex">
-                            <div class="flex-grow-1">
-                                <img id="bookingRoomImage" src="" alt="Zimmer Bild" class="img-fluid mb-2"
-                                    style="max-height: 200px; object-fit: cover;">
-
-                                <p id="bookingRoomDescription" class="mb-3"></p>
-
-                                <div class="mb-3">
-                                    <strong>Preis pro Nacht:</strong>
-                                    <span id="bookingRoomPrice"></span> €
+                        <div class="modal-body">
+                            <div class="row mb-4">
+                                <div class="col-md-6 d-flex">
+                                    <img id="bookingRoomImage" src="" alt="Zimmer Bild"
+                                        class="img-fluid me-3 booking-image"
+                                        style="max-height: 200px; object-fit: cover;">
+                                    <div>
+                                        <p id="bookingRoomDescription" class="mb-2"></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 d-flex align-items-center justify-content-end">
+                                    <div class="price-per-night text-end" style="font-size: 1.5rem; font-weight: bold;">
+                                        <span id="bookingRoomPrice"></span> € / Nacht
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="vr mx-3" style="border-left: 1px solid #ccc;"></div>
+                            <hr class="my-4">
 
-                            <div class="d-flex flex-column" style="width: 33%;">
-                                <div class="mb-3">
-                                    <label for="editCheckIn" class="form-label">Anreise</label>
-                                    <input type="text" class="form-control bg-dark text-white " id="bookingArrivalDate" name="arrival_date"
-                                        readonly>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="editCheckOut" class="form-label">Abreise</label>
-                                    <input type="text" class="form-control bg-dark text-white " id="bookingDepartureDate"
-                                        name="departure_date" readonly>
-                                </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="bookingArrivalDate" class="form-label">Anreise</label>
+                                        <input type="text" class="form-control bg-dark text-white"
+                                            id="bookingArrivalDate" name="arrival_date" readonly>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="bookingDepartureDate" class="form-label">Abreise</label>
+                                        <input type="text" class="form-control bg-dark text-white"
+                                            id="bookingDepartureDate" name="departure_date" readonly>
+                                    </div>
 
-                                <div class="form-check mb-3">
-                                    <input class="form-check-input bg-dark text-white" type="checkbox" id="bookingBreakfast"
-                                        name="with_breakfast" value="1">
-                                    <label class="form-check-label" for="bookingBreakfast">
-                                        Mit Frühstück
-                                    </label>
-                                </div>
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input bg-dark text-white" type="checkbox"
+                                            id="bookingPet" name="with_pet" value="1">
+                                        <label class="form-check-label" for="bookingPet">
+                                            Mit Haustier
+                                        </label>
+                                    </div>
 
-                                <div class="mb-3">
-                                    <label for="bookingPet" class="form-label">Haustier</label>
-                                    <select class="form-select bg-secondary text-white" id="bookingPet" name="pet">
-                                        <option value="">Kein Haustier</option>
-                                        <option value="hund">Hund</option>
-                                        <option value="katze">Katze</option>
-                                        <option value="kaninchen">Kaninchen</option>
-                                        <option value="hamster">Hamster</option>
-                                    </select>
-                                </div>
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input bg-dark text-white" type="checkbox"
+                                            id="bookingBreakfast" name="with_breakfast" value="1">
+                                        <label class="form-check-label" for="bookingBreakfast">
+                                            Mit Frühstück
+                                        </label>
+                                    </div>
 
-                                <div class="mb-3">
-                                    <h6>Preis-Aufschlüsselung:</h6>
-                                    <ul class="list-unstyled">
-                                        <li>Grundpreis: <span id="bookingBasePrice"></span> €</li>
-                                        <li>Aufpreis Frühstück: <span id="bookingBreakfastPrice"></span> €</li>
-                                        <li><strong>Gesamt: <span id="bookingTotalPrice"></span> €</strong></li>
-                                    </ul>
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input bg-dark text-white" type="checkbox"
+                                            id="bookingParking" name="with_parking" value="1">
+                                        <label class="form-check-label" for="bookingParking">
+                                            Mit Parkplatz
+                                        </label>
+                                    </div>
                                 </div>
 
-                                <input type="hidden" id="bookingRoomNumber" name="room_number" />
+                                <div class="col-md-6">
 
+                                    <div class="mb-3">
+                                        <label for="bookingRemarks" class="form-label">Bemerkungen</label>
+                                        <textarea class="form-control bg-dark text-white" id="bookingRemarks"
+                                            name="remarks" rows="3" placeholder="Ihre Bemerkungen hier..."></textarea>
+                                    </div>
+                                    <table class="table table-borderless table-sm table-dark text-white">
+                                        <tr>
+                                            <td class="text-end">Grundpreis:</td>
+                                            <td class="text-end"><span id="bookingBasePrice">0.00</span> €</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-end">Aufpreis Frühstück:</td>
+                                            <td class="text-end"><span id="bookingBreakfastPrice">0.00</span> €</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-end">Aufpreis Parkplatz:</td>
+                                            <td class="text-end"><span id="bookingParkingPrice">0.00</span> €</td>
+                                        </tr>
+                                        <tr class="fw-bold">
+                                            <td class="text-end">Gesamt:</td>
+                                            <td class="text-end"><span id="bookingTotalPrice">0.00</span> €</td>
+                                        </tr>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
 
+                            <input type="hidden" id="bookingRoomNumber" name="room_number" />
+                            <input type="hidden" id="bookingRoomPricePerNight" name="price_per_night" />
+                        </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-light">Buchen</button>
-                            <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Abbrechen</button>
+                            <button type="button" class="btn btn-outline-light"
+                                data-bs-dismiss="modal">Abbrechen</button>
                         </div>
                     </div>
                 </form>

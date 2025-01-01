@@ -47,22 +47,23 @@
                 </thead>
                 <tbody>
                     <?php foreach ($rooms as $room): ?>
-                        <tr class="room-row" data-number="<?= $room['number']; ?>"
-                            data-name="<?= htmlspecialchars($room['name'], ENT_QUOTES, 'UTF-8'); ?>"
-                            data-description="<?= htmlspecialchars($room['description'], ENT_QUOTES, 'UTF-8'); ?>"
-                            data-type="<?= htmlspecialchars($room['type'], ENT_QUOTES, 'UTF-8'); ?>"
+                        <tr class="room-row"
+                            data-number="<?= $room['number']; ?>"
+                            data-name="<?= $room['name']; ?>"
+                            data-description="<?= $room['description']; ?>"
+                            data-type="<?= $room['type']; ?>"
                             data-price_per_night="<?= $room['price_per_night']; ?>"
                             data-image_path="<?= $room['image_path']; ?>">
 
-                            <td><?= htmlspecialchars($room['number'], ENT_QUOTES, 'UTF-8'); ?></td>
-                            <td><?= htmlspecialchars($room['name'], ENT_QUOTES, 'UTF-8'); ?></td>
+                            <td><?= $room['number']; ?></td>
+                            <td><?= $room['name']; ?></td>
 
-                            <td><?= nl2br(htmlspecialchars($room['description'], ENT_QUOTES, 'UTF-8')); ?></td>
-                            <td><?= htmlspecialchars($room['type'], ENT_QUOTES, 'UTF-8'); ?></td>
-                            <td><?= htmlspecialchars($room['price_per_night']); ?> €</td>
+                            <td><?= nl2br($room['description']); ?></td>
+                            <td><?= $room['type']; ?></td>
+                            <td><?= $room['price_per_night']; ?> €</td>
                             <td class="text-center">
                                 <?php if (!empty($room['image_path'])): ?>
-                                    <img src="/<?= htmlspecialchars($room['image_path'], ENT_QUOTES, 'UTF-8'); ?>"
+                                    <img src="/<?= $room['image_path']; ?>"
                                         alt="Raumbild" class="img-thumbnail" style="max-width: 100px; max-height: 100px;">
                                 <?php else: ?>
                                     <span class="text-muted">Kein Bild</span>
@@ -134,8 +135,8 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abbrechen</button>
-                    <button type="submit" class="btn btn-primary" form="submitRoomForm">Zimmer anlegen</button>
+                    <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Abbrechen</button>
+                    <button type="submit" class="btn btn-light" form="submitRoomForm">Zimmer anlegen</button>
                 </div>
             </div>
         </div>
@@ -201,7 +202,7 @@
                             <i class="fas fa-trash-alt"></i> Löschen
                         </button>
                     </form>
-                    <button type="submit" class="btn btn-primary" form="editRoomForm">Änderungen speichern</button>
+                    <button type="submit" class="btn btn-light" form="editRoomForm">Änderungen speichern</button>
                 </div>
             </div>
         </div>

@@ -1,4 +1,5 @@
 <?php
+require_once 'src/models/User.php';
 require_once 'src/models/Room.php';
 require_once 'src/util/Image.php';
 
@@ -23,6 +24,38 @@ switch ([$request, $method]) {
         } else {
             $rooms = Room::getAllRooms();
         }
+
+        break;
+
+    case ['/rooms/booking', 'POST']:
+
+        $bookingData = [
+            'user_id' => User::getUseridByUsername($_SESSION['username']),
+            'room_number' => $_POST['room_number'],
+            'start_date' => $_POST['arrival_date'],
+            'end_date' => $_POST['departure_date'],
+            'price_per_night' => $_POST['price_per_night'],
+            'status' => 'new',
+            'breakfast' => isset($_POST['with_breakfast']) ? 1 : 0,
+            'parking' => isset($_POST['with_parking']) ? 1 : 0,
+            'pet' => isset($_POST['with_pet']) ? 1 : 0,
+            'additional_info' => $_POST['remarks']
+
+        ];
+        
+        $bookingSuccess = Room::bookRoom($bookingData);
+
+            if($bookingSuccess){
+                $_SESSION['flash_message'] = 'Buchung erfolgreich.';
+                header('Location: /rooms');
+                exit();
+            }
+
+            else{
+                $_SESSION['flash_message'] = 'Fehler bei der Buchung.';
+                header('Location: /rooms');
+
+            }
 
         break;
 

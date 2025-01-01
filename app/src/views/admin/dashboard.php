@@ -57,6 +57,16 @@
                 </div>
             </div>
 
+            <div class="col-md-3 mb-4">
+                <div class="card h-100 text-center custom-card" onclick="location.href='/bookings'"
+                    style="cursor: pointer;">
+                    <div class="card-body d-flex flex-column justify-content-center">
+                        <i class="fas fa-users fa-5x card-icon mb-3"></i>
+                        <h5 class="card-title mt-auto">Meine Buchungen</h5>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
