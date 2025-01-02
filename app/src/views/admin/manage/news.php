@@ -70,7 +70,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="newsUploadModalLabel">Neuen News-Beitrag erstellen</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Schließen"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Schließen"></button>
                 </div>
                 <div class="modal-body">
                     <form id="submitNewsForm" action="/news/submit" method="post" enctype="multipart/form-data">
@@ -93,7 +93,7 @@
                         </div>
 
                         <div class="d-flex justify-content-center align-items-center" style="height: 300px;">
-                            <img id="uploadPreview" class="img-fluid" alt="Bildvorschau">
+                            <img id="preview" class="img-fluid" alt="Bildvorschau">
                         </div>
                     </form>
                 </div>
@@ -112,7 +112,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">News-Beitrag bearbeiten</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Schließen"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Schließen"></button>
                 </div>
                 <div class="modal-body">
                     <form id="editNewsForm" action="/admin/news/edit" method="post" enctype="multipart/form-data">
@@ -163,7 +163,7 @@
                     <input type="hidden" name="news_id" id="deleteNewsId">
                     <div class="modal-header">
                         <h5 class="modal-title">News-Beitrag löschen</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Schließen"></button>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Schließen"></button>
                     </div>
                     <div class="modal-body">
                         <p>Bist du sicher, dass du diesen News-Beitrag löschen möchtest?</p>

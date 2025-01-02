@@ -1,5 +1,6 @@
 <?php include 'src/views/includes/header.php'; ?>
 <?php require 'src/controllers/NewsController.php'; ?>
+<link rel="stylesheet" href="/public/css/dropzone.css">
 
 <body>
     <?php include 'src/views/includes/navbar.php'; ?>

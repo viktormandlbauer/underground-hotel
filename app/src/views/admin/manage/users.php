@@ -77,7 +77,7 @@
                     <form action="/admin/users/edit" method="POST">
                         <div class="modal-header">
                             <h5 class="modal-title" id="editUserModalLabel">Benutzer bearbeiten</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Schließen"></button>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Schließen"></button>
                         </div>
                         <div class="modal-body">
                             <input type="hidden" name="editUserId" id="editUserId" value="" />
@@ -146,7 +146,7 @@
                     <form action="/admin/users/add" method="POST">
                         <div class="modal-header">
                             <h5 class="modal-title" id="addUserModalLabel">Neuen Benutzer anlegen</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Schließen"></button>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Schließen"></button>
                         </div>
                         <div class="modal-body">
                             <div class="mb-3">
@@ -211,7 +211,7 @@
                     <form action="/admin/users/delete" method="POST">
                         <div class="modal-header delete-header">
                             <h5 class="modal-title" id="deleteUserModalLabel">Benutzer löschen</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Schließen"></button>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Schließen"></button>
                         </div>
                         <div class="modal-body">
                             <p id="deleteUserMessage">Sind Sie sich sicher, dass Sie den Benutzer löschen möchten?</p>

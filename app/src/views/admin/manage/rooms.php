@@ -91,7 +91,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="roomUploadModalLabel">Neues Zimmer erstellen</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Schließen"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Schließen"></button>
                 </div>
                 <div class="modal-body">
                     <form id="submitRoomForm" action="/admin/rooms/create" method="POST" enctype="multipart/form-data">
@@ -149,7 +149,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Zimmer bearbeiten</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Schließen"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Schließen"></button>
                 </div>
                 <div class="modal-body">
                     <form id="editRoomForm" action="/admin/rooms/edit" method="post" enctype="multipart/form-data">
@@ -218,7 +218,7 @@
                     <input type="hidden" name="number" id="deleteRoomNumber">
                     <div class="modal-header">
                         <h5 class="modal-title">Raum löschen</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Schließen"></button>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Schließen"></button>
                     </div>
                     <div class="modal-body">
                         <p>Bist du sicher, dass du diesen room-Beitrag löschen möchtest?</p>

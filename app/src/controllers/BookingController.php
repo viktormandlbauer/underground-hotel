@@ -37,15 +37,13 @@ switch ([$request, $method]) {
         if (isset($_POST['status'])) {
             $booking->setStatus($_POST['status']);
         }
-        if (isset($_POST['with_breakfast'])) {
-            $booking->setBreakfast($_POST['with_breakfast']);
-        }
-        if (isset($_POST['with_parking'])) {
-            $booking->setParking($_POST['with_parking']);
-        }
-        if (isset($_POST['with_pet'])) {
-            $booking->setPet($_POST['with_pet']);
-        }
+
+        $booking->setBreakfast($_POST['with_breakfast'] ?? 0);
+
+        $booking->setParking($_POST['with_parking'] ?? 0);
+
+        $booking->setPet($_POST['with_pet'] ?? 0);
+
         if (isset($_POST['remarks'])) {
             $booking->setAdditionalInfo($_POST['remarks']);
         }
@@ -57,7 +55,7 @@ switch ([$request, $method]) {
 
     default:
         $_SESSION['flash_message'] = 'Fehler beim aktualisieren der Buchung.';
-        header ('Location: /admin/manage/bookings');
+        header('Location: /admin/manage/bookings');
         break;
 
 

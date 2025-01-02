@@ -34,7 +34,7 @@
                     </thead>
                     <tbody id="bookingTableBody">
                         <?php foreach ($bookings as $booking): ?>
-                            <tr class="booking-row" onclick="href='#editBookingModal'" data-bs-toggle="modal"
+                            <tr class="booking-row"
                                 data-bs-target="#editBookingModal" data-booking-id="<?= $booking['booking_id'] ?>"
                                 data-user-id="<?= $booking['user_id'] ?>"
                                 data-username="<?= User::getUsernameByID($booking['user_id']) ?>"
@@ -108,8 +108,7 @@
                 <div class="modal-content bg-dark text-white">
                     <div class="modal-header">
                         <h5 class="modal-title" id="addBookingModalLabel">Neue Buchung erstellen</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                            aria-label="Schließen"></button>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Schließen"></button>
                     </div>
                     <div class="modal-body">
                         <div class="mb-3">
@@ -146,6 +145,7 @@
                                     name="check_out_date" required>
                             </div>
                         </div>
+
 
                         <div class="form-check mb-3">
                             <input class="form-check-input bg-dark text-white" type="checkbox" id="addBreakfast"

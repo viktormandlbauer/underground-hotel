@@ -87,6 +87,16 @@ class Room
         return $rooms;
     }
 
+    public static function getRoomPrice($room_number)
+    {
+        $stmt = self::getDBConnection()->prepare("SELECT price_per_night FROM rooms WHERE number = ?");
+        $stmt->bind_param("i", $room_number);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $price = $result->fetch_assoc();
+        return $price['price_per_night'];
+    }
+
     public static function bookRoom($bookingData)
     {
 
