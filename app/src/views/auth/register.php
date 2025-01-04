@@ -23,7 +23,7 @@
                     <!-- Anrede -->
                     <div class="mb-3">
                         <label for="pronouns" class="form-label">Anrede:</label>
-                        <select id="pronouns" name="pronouns" class="form-select" required>
+                        <select id="pronouns" name="pronouns" class="form-select bg-dark text-white" required>
                             <option value="" selected disabled>Bitte wählen</option>
                             <option value="Herr">Herr</option>
                             <option value="Frau">Frau</option>
@@ -36,9 +36,9 @@
 
                     <!-- Vorname -->
                     <div class="form-floating mb-3">
-                        <input type="text" id="givenname" name="givenname" class="form-control" 
+                        <input type="text" id="givenname" name="givenname" class="form-control bg-dark text-white" 
                              placeholder="Vorname" required> <!-- pattern="[A-Za-zÄäÖöÜüß]+" -->
-                        <label for="givenname text-black-50" class="text-black-50">Vorname</label>
+                        <label for="givenname text" class="">Vorname</label>
                         <!--<div class="invalid-feedback">
                             Bitte geben Sie Ihren Vornamen ein (nur Buchstaben).
                         </div> -->
@@ -46,9 +46,9 @@
 
                     <!-- Nachname -->
                     <div class="form-floating mb-3">
-                        <input type="text" id="surname" name="surname" class="form-control" 
+                        <input type="text" id="surname" name="surname" class="form-control bg-dark text-white" 
                             placeholder="Nachname" required> <!-- pattern="[A-Za-zÄäÖöÜüß]+" -->
-                        <label for="surname" class="text-black-50">Nachname</label>
+                        <label for="surname" class="">Nachname</label>
                        <!-- <div class="invalid-feedback">
                             Bitte geben Sie Ihren Nachnamen ein (nur Buchstaben).
                         </div> -->
@@ -56,8 +56,8 @@
 
                     <!-- E-Mail -->
                     <div class="form-floating mb-3">
-                        <input type="text" id="email" name="email" class="form-control" placeholder="E-Mail Adresse" required>
-                        <label for="email" class="text-black-50">E-Mail-Adresse</label>
+                        <input type="text" id="email" name="email" class="form-control bg-dark text-white" placeholder="E-Mail Adresse" required>
+                        <label for="email" class="">E-Mail-Adresse</label>
                         <!--<div class="invalid-feedback">
                             Bitte geben Sie eine gültige E-Mail-Adresse ein.
                         </div> -->
@@ -65,9 +65,9 @@
 
                     <!-- Username -->
                     <div class="form-floating mb-3">
-                        <input type="text" id="username" name="username" class="form-control" minlength="3"
+                        <input type="text" id="username" name="username" class="form-control bg-dark text-white" minlength="3"
                             maxlength="20" placeholder="Username" required>
-                        <label for="username" class="text-black-50">Username</label>
+                        <label for="username" class="">Username</label>
                         <!--<div class="invalid-feedback">
                             Bitte wählen Sie einen Benutzernamen (3-20 Zeichen).
                         </div> -->
@@ -75,9 +75,9 @@
 
                     <!-- Passwort -->
                     <div class="form-floating mb-3">
-                        <input type="password" id="password" name="password" class="form-control" minlength="8"
+                        <input type="password" id="password" name="password" class="form-control bg-dark text-white" minlength="8"
                             placeholder="Passwort" required>
-                        <label for="password" class="text-black-50">Passwort</label>
+                        <label for="password" class="">Passwort</label>
                         <i class="fa fa-eye-slash toggle-password" id="togglePassword"></i>
                         <!--<div class="invalid-feedback">
                             Bitte geben Sie ein Passwort mit mindestens 8 Zeichen ein.
@@ -86,9 +86,9 @@
 
                     <!-- Passwort bestätigen -->
                     <div class="form-floating mb-3">
-                        <input type="password" id="password_confirm" name="password_confirm" class="form-control"
+                        <input type="password" id="password_confirm" name="password_confirm" class="form-control bg-dark text-white"
                             minlength="8" placeholder="Passwort bestätigen" required>
-                        <label for="password_confirm" class="text-black-50">Passwort bestätigen</label>
+                        <label for="password_confirm" class="">Passwort bestätigen</label>
                         <!--<div class="invalid-feedback">
                             Die Passwörter stimmen nicht überein.
                         </div> -->

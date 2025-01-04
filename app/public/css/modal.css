@@ -7,7 +7,7 @@
     width: 100%;
     margin-bottom: 20px;
     position: relative;
-    transition: background-color 0.3s, border-color 0.3s, color 0.3s, transform 0.3s;
+    transition: background-color 0.3s, border-color 0.3s, 0.3s, transform 0.3s;
     color: #ffffff;
     cursor: pointer;
 }
@@ -16,18 +16,15 @@
     background-color: #ffffff; 
     color: #343a40; 
     border-color: #343a40;
-    transform: scale(1.05); 
+    transform: scale(1.02); 
 }
 
 .add-row .plus-icon {
     font-size: 2em;
     font-weight: bold;
-    transition: color 0.3s;
+    transition: 0.3s;
 }
 
-.add-row:hover .plus-icon {
-    color: #343a40; 
-}
 .modal-content {
     background-color: #23272b;
     color:#ffffff;
@@ -129,7 +126,7 @@
     #dropzone:hover,
     #editDropzone:hover {
         background-color: #343a40; 
-        border-color: #0b5ed7; 
+        border-color: #f3f3f3; 
         transform: scale(1.02); 
     }
 

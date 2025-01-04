@@ -19,17 +19,17 @@
                     <?php endif; ?>
 
                     <!-- Username -->
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="username" name="username" placeholder="Username"
+                    <div class="form-floating mb-3 bg-dark">
+                        <input type="text" class="form-control bg-dark" id="username" name="username" placeholder=""
                             required />
-                        <label class="text-black-50" for="username">Username</label>
+                        <label class="" for="username">Username</label>
                     </div>
 
                     <!-- Passwort -->
-                    <div class="form-floating position-relative mb-3">
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Passwort"
+                    <div class="form-floating position-relative mb-3 bg-dark">
+                        <input type="password" class="form-control bg-dark" id="password" name="password" placeholder="Passwort"
                             required />
-                        <label class="text-black-50" for="password">Passwort</label>
+                        <label class="" for="password">Passwort</label>
                         <i class="fa fa-eye-slash toggle-password" id="togglePassword"></i>
                     </div>
 

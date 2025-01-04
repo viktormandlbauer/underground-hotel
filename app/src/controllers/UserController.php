@@ -12,9 +12,11 @@ switch ([$request, $method]) {
         if (User::login($_POST['username'], $_POST['password'])) {
 
             $_SESSION['username'] = $_POST['username'];
+            $_SESSION['last_activity'] = time();
 
             $user = new User($_SESSION['username']);
             $user->load();
+
 
             header('Location: /');
 
@@ -51,7 +53,8 @@ switch ([$request, $method]) {
                 'username' => $_POST['username'] ?? '',
                 'password' => $_POST['password'] ?? '',
                 'password_confirm' => $_POST['password_confirm'] ?? '',
-                'role' => $_POST['role'] ?? 'user'
+                'role' => $_POST['role'] ?? 'user',
+                'state' => 'active',
             ];
 
             $registerSuccess = User::addUser($data);

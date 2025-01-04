@@ -69,7 +69,8 @@ switch ([$request, $method]) {
             'breakfast' => $_POST['with_breakfast'] ?? 0,
             'parking' => $_POST['with_parking'] ?? 0,
             'pet' => $_POST['with_pet'] ?? 0,
-            'additional_info' => $_POST['remarks']
+            'additional_info' => $_POST['remarks'],
+            'price_per_night' => $_POST['price_per_night']
         ];
 
         $bookingSuccess = Booking::createBooking(
@@ -81,7 +82,8 @@ switch ([$request, $method]) {
             $bookingData['breakfast'],
             $bookingData['parking'],
             $bookingData['pet'],
-            $bookingData['additional_info']
+            $bookingData['additional_info'],
+            $bookingData['price_per_night']
         );
 
         if ($bookingSuccess) {

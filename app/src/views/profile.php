@@ -191,8 +191,8 @@ if (!isset($user)) {
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
-                                    <button type="submit" class="btn btn-primary">Änderungen speichern</button>
+                                    <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Schließen</button>
+                                    <button type="submit" class="btn btn-light">Änderungen speichern</button>
                                 </div>
                             </form>
                         </div>
@@ -225,8 +225,8 @@ if (!isset($user)) {
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
-                                    <button type="submit" class="btn btn-primary">Änderungen speichern</button>
+                                    <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Schließen</button>
+                                    <button type="submit" class="btn btn-light">Änderungen speichern</button>
                                 </div>
                             </form>
                         </div>
@@ -260,8 +260,8 @@ if (!isset($user)) {
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
-                                    <button type="submit" class="btn btn-primary">Einstellungen speichern</button>
+                                    <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Schließen</button>
+                                    <button type="submit" class="btn btn-light">Einstellungen speichern</button>
                                 </div>
                             </form>
                         </div>
@@ -318,7 +318,7 @@ if (!isset($user)) {
                                 </p>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
+                                <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Schließen</button>
                             </div>
                         </div>
                     </div>
@@ -341,7 +341,7 @@ if (!isset($user)) {
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abbrechen</button>
+                                    <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Abbrechen</button>
                                     <button type="submit" class="btn btn-danger"> <i class="fas fa-trash-alt"></i>Profil löschen</button>
                                 </div>
                             </form>

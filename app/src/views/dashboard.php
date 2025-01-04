@@ -17,7 +17,7 @@
             </div>
 
             <div class="col-md-3 mb-4">
-                <div class="card h-100 text-center custom-card" onclick="location.href='#'"
+                <div class="card h-100 text-center custom-card" onclick="location.href='/bookings'"
                     style="cursor: pointer;">
                     <div class="card-body d-flex flex-column justify-content-center">
                         <i class="fas fa-calendar-check fa-5x card-icon mb-3"></i>

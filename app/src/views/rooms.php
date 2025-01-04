@@ -120,21 +120,13 @@
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="bookingArrivalDate" class="form-label">Anreise</label>
-                                        <input type="text" class="form-control bg-dark text-white"
-                                            id="bookingArrivalDate" name="arrival_date" readonly>
+                                        <input type="date" class="form-control bg-dark text-white"
+                                            id="bookingArrivalDate" name="arrival_date" required>
                                     </div>
                                     <div class="mb-3">
                                         <label for="bookingDepartureDate" class="form-label">Abreise</label>
-                                        <input type="text" class="form-control bg-dark text-white"
-                                            id="bookingDepartureDate" name="departure_date" readonly>
-                                    </div>
-
-                                    <div class="form-check mb-3">
-                                        <input class="form-check-input bg-dark text-white" type="checkbox"
-                                            id="bookingPet" name="with_pet" value="1">
-                                        <label class="form-check-label" for="bookingPet">
-                                            Mit Haustier
-                                        </label>
+                                        <input type="date" class="form-control bg-dark text-white"
+                                            id="bookingDepartureDate" name="departure_date" required>
                                     </div>
 
                                     <div class="form-check mb-3">
@@ -150,6 +142,14 @@
                                             id="bookingParking" name="with_parking" value="1">
                                         <label class="form-check-label" for="bookingParking">
                                             Mit Parkplatz
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input bg-dark text-white" type="checkbox"
+                                            id="bookingPet" name="with_pet" value="1">
+                                        <label class="form-check-label" for="bookingPet">
+                                            Mit Haustier
                                         </label>
                                     </div>
                                 </div>

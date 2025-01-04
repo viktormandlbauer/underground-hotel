@@ -98,8 +98,9 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Abbrechen</button>
                     <button type="submit" class="btn btn-light" form="submitNewsForm">Beitrag veröffentlichen</button>
+                    <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Abbrechen</button>
+
                 </div>
             </div>
         </div>
@@ -140,14 +141,14 @@
                     </form>
                 </div>
                 <div class="modal-footer">
+                    <button type="submit" class="btn btn-light" form="editNewsForm">Änderungen speichern</button>
+                    <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Abbrechen</button>
                     <form id="deleteNewsForm" action="/news/delete" method="post">
                         <button type="button" class="btn btn-danger" id="deleteButton" data-bs-toggle="modal"
                             data-bs-target="#deleteNewsModal">
                             <i class="fas fa-trash-alt"></i> Löschen
                         </button>
                     </form>
-                    <button type="submit" class="btn btn-light" form="editNewsForm">Änderungen speichern</button>
-                    <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Abbrechen</button>
                 </div>
             </div>
         </div>

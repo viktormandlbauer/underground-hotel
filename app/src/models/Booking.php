@@ -52,7 +52,7 @@ class Booking
         return $bookings;
     }
 
-    public static function createBooking($user_id, $room_number, $check_in_date, $check_out_date, $status, $breakfast, $parking, $pet, $additional_info)
+    public static function createBooking($user_id, $room_number, $check_in_date, $check_out_date, $status, $breakfast, $parking, $pet, $additional_info, $price_per_night)
     {
         $price_per_night = Room::getRoomPrice($room_number);
         $stmt = self::getDBConnection()->prepare("INSERT INTO bookings (user_id, room_number, check_in_date, check_out_date, status, breakfast, parking, pet, additional_info, price_per_night) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");

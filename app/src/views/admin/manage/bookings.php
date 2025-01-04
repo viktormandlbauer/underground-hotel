@@ -55,25 +55,24 @@
                                 <td><?= $booking['parking'] ? 'Ja' : 'Nein' ?></td>
                                 <td><?= $booking['pet'] ? 'Ja' : 'Nein' ?></td>
                                 <td>
-                                    <?php
-                                    switch ($booking['status']) {
-                                        case 'new':
-                                            echo '<span class="status-indicator bg-info">Neu</span>';
-                                            break;
-                                        case 'approved':
-                                            echo '<span class="status-indicator bg-success">Genehmigt</span>';
-                                            break;
-                                        case 'canceled':
-                                            echo '<span class="status-indicator bg-danger">Storniert</span>';
-                                            break;
-                                    }
-                                    ?>
-                                </td>
+                                    <?php if ($booking['status'] == 'new'): ?>
+                                        <span class="status-indicator bg-info"></span>
+                                        <span class="text-end">Neu</span>
+
+                                    <?php elseif($booking['status'] == 'approved'): ?>
+                                        <span class="status-indicator bg-success"></span>
+                                        <span class="text-end">Bestätigt</span>
+
+                                    <?php else: ?>
+                                        <span class="status-indicator bg-danger"></span>
+                                        <span class="text-end">Storniert</span>
+                                    <?php endif; ?>
+                                </td>   
                             </tr>
                         <?php endforeach; ?>
                         <tr>
                             <td colspan="9" class="text-center">
-                                <button type="button" id="addRow" class="add-row btn btn-success" data-bs-toggle="modal"
+                                <button type="button" id="addRow" class="add-row btn" data-bs-toggle="modal"
                                     data-bs-target="#addBookingModal">
                                     <i class="fas fa-plus"></i> Neue Buchung
                                 </button>
@@ -128,9 +127,12 @@
                                 <?php foreach ($rooms as $room): ?>
                                     <option value="<?= $room['number'] ?>">
                                         <?= $room['number'] . ' - ' . $room['name'] ?>
+                                        <hidden id="addPricePerNight" name="price_per_night" value="<?= $room['price_per_night'] ?>"></hidden>
                                     </option>
                                 <?php endforeach; ?>
                             </select>
+                            <input type="hidden" id="addPricePerNight" name="price_per_night" value="<?= $room['price_per_night'] ?>"></input>
+
                         </div>
 
                         <div class="row">
@@ -190,10 +192,6 @@
                             <tr>
                                 <td class="text-end">Aufpreis Parkplatz:</td>
                                 <td class="text-end"><span id="addParkingPrice">0.00</span> €</td>
-                            </tr>
-                            <tr>
-                                <td class="text-end">Aufpreis Haustier:</td>
-                                <td class="text-end"><span id="addPetPrice">0.00</span> €</td>
                             </tr>
                             <tr class="fw-bold">
                                 <td class="text-end">Gesamt:</td>
@@ -262,7 +260,7 @@
                             <label for="editStatus" class="form-label">Status</label>
                             <select class="form-select" id="editStatus" name="status" required>
                                 <option value="new">Neu</option>
-                                <option value="approved">Genehmigt</option>
+                                <option value="approved">Bestätigt</option>
                                 <option value="canceled">Storniert</option>
                             </select>
                         </div>

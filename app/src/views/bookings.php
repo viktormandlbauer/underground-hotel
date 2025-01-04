@@ -35,18 +35,15 @@
                     </thead>
                     <tbody id="userTableBody">
                         <?php foreach ($bookings as $booking): ?>
-                            <tr class="user-row" 
-                            data-booking-id="<?= $booking['booking_id'] ?>"
+                            <tr class="user-row" data-booking-id="<?= $booking['booking_id'] ?>"
                                 data-user-id="<?= $booking['user_id'] ?>"
                                 data-username="<?= User::getUsernameByID($booking['user_id']) ?>"
                                 data-room-number="<?= $booking['room_number'] ?>"
                                 data-check-in="<?= $booking['check_in_date'] ?>"
                                 data-check-out="<?= $booking['check_out_date'] ?>"
                                 data-price-per-night="<?= $booking['price_per_night'] ?>"
-                                data-status="<?= $booking['status'] ?>"
-                                data-breakfast="<?= $booking['breakfast'] ?>" 
-                                data-parking="<?= $booking['parking'] ?>"
-                                data-pet="<?= $booking['pet'] ?>" 
+                                data-status="<?= $booking['status'] ?>" data-breakfast="<?= $booking['breakfast'] ?>"
+                                data-parking="<?= $booking['parking'] ?>" data-pet="<?= $booking['pet'] ?>"
                                 data-additional-info="<?= $booking['additional_info'] ?>">
 
                                 <td><?= $booking['booking_id'] ?></td>
@@ -59,19 +56,18 @@
                                 <td><?= $booking['pet'] ? 'Ja' : 'Nein' ?></td>
                                 <td><?= $booking['price_per_night'] ?></td>
                                 <td>
-                                    <?php
-                                    switch ($booking['status']) {
-                                        case 'new':
-                                            echo '<span class="status-indicator bg-info">Neu</span>';
-                                            break;
-                                        case 'approved':
-                                            echo '<span class="status-indicator bg-success">Genehmigt</span>';
-                                            break;
-                                        case 'canceled':
-                                            echo '<span class="status-indicator bg-danger">Storniert</span>';
-                                            break;
-                                    }
-                                    ?>
+                                    <?php if ($booking['status'] == 'new'): ?>
+                                        <span class="status-indicator bg-info"></span>
+                                        <span class="text-end">Neu</span>
+
+                                    <?php elseif ($booking['status'] == 'approved'): ?>
+                                        <span class="status-indicator bg-success"></span>
+                                        <span class="text-end">Bestätigt</span>
+
+                                    <?php else: ?>
+                                        <span class="status-indicator bg-danger"></span>
+                                        <span class="text-end">Storniert</span>
+                                    <?php endif; ?>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

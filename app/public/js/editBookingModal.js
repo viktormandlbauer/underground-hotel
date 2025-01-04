@@ -85,13 +85,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     function updateAddTotalPrice() {
-        const addRoomNumber = document.getElementById('addRoomNumber').value;
+        const pricePerNight = document.getElementById('addPricePerNight').value;
         const checkIn = document.getElementById('addCheckInDate').value;
         const checkOut = document.getElementById('addCheckOutDate').value;
 
-        let roomPrice = roomPrices[addRoomNumber] || 0;
         let nights = calculateNights(checkIn, checkOut);
-        let basePrice = roomPrice * nights;
+        let basePrice = pricePerNight * nights;
 
         document.getElementById('addBasePrice').textContent = basePrice.toFixed(2);
 
@@ -104,6 +103,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('addParkingPrice').textContent = parkingPrice.toFixed(2);
         document.getElementById('addTotalPrice').textContent = totalPrice.toFixed(2);
     }
+
 
     document.getElementById('addRoomNumber').addEventListener('change', updateAddTotalPrice);
     document.getElementById('addCheckInDate').addEventListener('change', updateAddTotalPrice);
