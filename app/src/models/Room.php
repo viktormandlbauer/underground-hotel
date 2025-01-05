@@ -73,6 +73,20 @@ class Room
         return $rooms;
     }
 
+    public static function isRoomFree($room_number, $check_in_date, $check_out_date): bool
+    {
+        $stmt = self::getDBConnection()->prepare("SELECT * FROM bookings WHERE room_number = ? AND ((check_in_date BETWEEN ? AND ?) OR (check_out_date BETWEEN ? AND ?) OR (check_in_date > ? AND check_out_date < ?))");
+        $stmt->bind_param("issssss", $room_number, $check_in_date, $check_out_date, $check_in_date, $check_out_date, $check_in_date, $check_out_date);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     public static function getAllRooms(): array
     {
         $stmt = self::getDBConnection()->prepare("SELECT * FROM rooms");
@@ -95,20 +109,6 @@ class Room
         $result = $stmt->get_result();
         $price = $result->fetch_assoc();
         return $price['price_per_night'];
-    }
-
-    public static function bookRoom($bookingData)
-    {
-
-        $stmt = self::getDBConnection()->prepare("INSERT INTO bookings (user_id, room_number, check_in_date, check_out_date, price_per_night, status, breakfast, parking, pet, additional_info) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("iissdsssss", $bookingData['user_id'], $bookingData['room_number'], $bookingData['start_date'], $bookingData['end_date'],$bookingData['price_per_night'], $bookingData['status'], $bookingData['breakfast'], $bookingData['parking'], $bookingData['pet'], $bookingData['additional_info']);
-        $stmt->execute();
-
-        if ($stmt->execute()) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
 }

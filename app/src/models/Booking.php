@@ -1,6 +1,7 @@
 <?php
 
 require_once 'src/config/Database.php';
+require_once 'src/models/Room.php';
 
 class Booking
 {
@@ -52,11 +53,12 @@ class Booking
         return $bookings;
     }
 
-    public static function createBooking($user_id, $room_number, $check_in_date, $check_out_date, $status, $breakfast, $parking, $pet, $additional_info, $price_per_night)
+    public static function createBooking($bookingData)
     {
-        $price_per_night = Room::getRoomPrice($room_number);
+        
+        $price_per_night = Room::getRoomPrice($bookingData['room_number']);
         $stmt = self::getDBConnection()->prepare("INSERT INTO bookings (user_id, room_number, check_in_date, check_out_date, status, breakfast, parking, pet, additional_info, price_per_night) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("iisssiiisd", $user_id, $room_number, $check_in_date, $check_out_date, $status, $breakfast, $parking, $pet, $additional_info, $price_per_night);
+        $stmt->bind_param("iisssiiisd", $bookingData['user_id'], $bookingData['room_number'], $bookingData['check_in_date'], $bookingData['check_out_date'], $bookingData['status'], $bookingData['breakfast'], $bookingData['parking'], $bookingData['pet'], $bookingData['additional_info'], $price_per_night);
         if($stmt->execute()){
             return true;
         }

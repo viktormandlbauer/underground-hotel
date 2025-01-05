@@ -7,6 +7,15 @@
     <?php include 'src/views/includes/navbar.php'; ?>
     <div class="container my-5 content-wrapper">
         <div class="row bg-dark text-white py-4 rounded">
+
+        <?php if (isset($_SESSION['flash_message'])): ?>
+                <div class="alert alert-info alert-dismissible fade show" id="flashMessage">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <?= htmlspecialchars($_SESSION['flash_message'], ENT_QUOTES, 'UTF-8'); ?>
+                </div>
+                <script src='/public/js/flashMessage.js'></script>
+            <?php endif; ?>
+            
             <div class="col-3">
                 <div class="p-3">
                     <form method="GET" action="/rooms">

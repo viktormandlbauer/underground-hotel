@@ -28,6 +28,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function populateEditModal(row) {
 
+        
+
         let bookingId = row.getAttribute('data-booking-id');
         let userId = row.getAttribute('data-user-id');
         let username = row.getAttribute('data-username');

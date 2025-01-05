@@ -62,7 +62,7 @@ switch ([$request, $method]) {
     case ['/admin/manage/bookings/add', 'POST']:
         $bookingData = [
             'user_id' => $_POST['user_id'],
-            'room_number' => $_POST['room_number'],
+            'room_number' => intval($_POST['room_number']),
             'check_in_date' => $_POST['check_in_date'],
             'check_out_date' => $_POST['check_out_date'],
             'status' => 'new',
@@ -73,18 +73,13 @@ switch ([$request, $method]) {
             'price_per_night' => $_POST['price_per_night']
         ];
 
-        $bookingSuccess = Booking::createBooking(
-            $bookingData['user_id'],
-            $bookingData['room_number'],
-            $bookingData['check_in_date'],
-            $bookingData['check_out_date'],
-            $bookingData['status'],
-            $bookingData['breakfast'],
-            $bookingData['parking'],
-            $bookingData['pet'],
-            $bookingData['additional_info'],
-            $bookingData['price_per_night']
-        );
+        if (!Room::isRoomFree($bookingData['room_number'], $bookingData['check_in_date'], $bookingData['check_out_date'])) {
+            $_SESSION['flash_message'] = 'Raum ist in diesem Zeitraum nicht verfügbar.';
+            header('Location: /admin/manage/bookings');
+            exit();
+        }
+
+        $bookingSuccess = Booking::createBooking($bookingData);
 
         if ($bookingSuccess) {
             $_SESSION['flash_message'] = 'Buchung erfolgreich hinzugefügt.';

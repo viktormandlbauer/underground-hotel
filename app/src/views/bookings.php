@@ -7,7 +7,7 @@
 
     <div class="container mt-5 content-wrapper">
         <div class="row bg-dark text-white py-4 rounded">
-            <h1 id="Pages" class="mb-4 text-center display-3">Benutzerverwaltung</h1>
+            <h1 id="Pages" class="mb-4 text-center display-3">Buchungsübersicht</h1>
 
             <?php if (isset($_SESSION['flash_message'])): ?>
                 <div class="alert alert-info alert-dismissible fade show" id="flashMessage">

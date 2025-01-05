@@ -20,16 +20,16 @@
 
                     <!-- Username -->
                     <div class="form-floating mb-3 bg-dark">
-                        <input type="text" class="form-control bg-dark" id="username" name="username" placeholder=""
+                        <input type="text" class="form-control bg-dark text-white" id="username" name="username" placeholder="Username"
                             required />
-                        <label class="" for="username">Username</label>
+                        <label class="text-white" for="username">Username</label>
                     </div>
 
                     <!-- Passwort -->
-                    <div class="form-floating position-relative mb-3 bg-dark">
-                        <input type="password" class="form-control bg-dark" id="password" name="password" placeholder="Passwort"
+                    <div class="form-floating position-relative mb-3 bg-dark text-white">
+                        <input type="password" class="form-control bg-dark text-white" id="password" name="password" placeholder="Passwort"
                             required />
-                        <label class="" for="password">Passwort</label>
+                        <label class="text-white" for="password">Passwort</label>
                         <i class="fa fa-eye-slash toggle-password" id="togglePassword"></i>
                     </div>
 

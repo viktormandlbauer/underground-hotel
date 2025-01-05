@@ -2,6 +2,7 @@
 require_once 'src/models/User.php';
 require_once 'src/models/Room.php';
 require_once 'src/util/Image.php';
+require_once 'src/models/Booking.php';
 
 global $request;
 global $method;
@@ -32,8 +33,8 @@ switch ([$request, $method]) {
         $bookingData = [
             'user_id' => User::getUseridByUsername($_SESSION['username']),
             'room_number' => $_POST['room_number'],
-            'start_date' => $_POST['arrival_date'],
-            'end_date' => $_POST['departure_date'],
+            'check_in_date' => $_POST['arrival_date'],
+            'check_out_date' => $_POST['departure_date'],
             'price_per_night' => $_POST['price_per_night'],
             'status' => 'new',
             'breakfast' => isset($_POST['with_breakfast']) ? 1 : 0,
@@ -42,8 +43,15 @@ switch ([$request, $method]) {
             'additional_info' => $_POST['remarks']
 
         ];
+
+        if (!Room::isRoomFree($bookingData['room_number'], $bookingData['check_in_date'], $bookingData['check_out_date'])) {
+            header('Location: /rooms');
+            $_SESSION['flash_message'] = 'Zimmer ist nicht verfügbar.';
+
+            exit();
+        }
         
-        $bookingSuccess = Room::bookRoom($bookingData);
+        $bookingSuccess = Booking::createBooking($bookingData);
 
             if($bookingSuccess){
                 $_SESSION['flash_message'] = 'Buchung erfolgreich.';
