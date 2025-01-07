@@ -18,6 +18,18 @@ switch ([$request, $method]) {
         $bookings = Booking::getMyBookings(User::getUseridByUsername($_SESSION['username']));
         break;
 
+    case ['/booking/cancel', 'POST']:
+        if (!isset($_POST['data-booking-id-value']) || !is_numeric($_POST['data-booking-id-value'])) {
+            $_SESSION['flash_message'] = 'Ungültige Buchungs-ID.'.$_POST['data-booking-id-value'];
+            header('Location: /bookings');
+            exit();
+        }
+        $booking = new Booking(intval($_POST['data-booking-id-value']));
+        $booking->setStatus('canceled');
+        $_SESSION['flash_message'] = 'Buchung erfolgreich storniert.';
+        header('Location: /bookings');
+        break;
+
 
     case ['/admin/manage/bookings/edit', 'POST']:
         $booking = new Booking($_POST['booking_id']);

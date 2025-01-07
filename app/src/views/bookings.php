@@ -9,13 +9,7 @@
         <div class="row bg-dark text-white py-4 rounded">
             <h1 id="Pages" class="mb-4 text-center display-3">Buchungsübersicht</h1>
 
-            <?php if (isset($_SESSION['flash_message'])): ?>
-                <div class="alert alert-info alert-dismissible fade show" id="flashMessage">
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    <?= htmlspecialchars($_SESSION['flash_message'], ENT_QUOTES, 'UTF-8'); ?>
-                </div>
-                <script src='/public/js/flashMessage.js'></script>
-            <?php endif; ?>
+            <?php include 'src/views/includes/flashmessage.php'; ?>
 
             <div class="table-responsive">
                 <table id="sortedTable" class="table table-dark table-bordered align-middle table-hover tablesorter">
@@ -31,6 +25,7 @@
                             <th data-sort="text">Haustier</th>
                             <th data-sort="text">Preis</th>
                             <th data-sort="text">Status</th>
+                            <th>Stornieren</th>
                         </tr>
                     </thead>
                     <tbody id="userTableBody">
@@ -69,10 +64,41 @@
                                         <span class="text-end">Storniert</span>
                                     <?php endif; ?>
                                 </td>
+                                <td>
+                                    <?php if ($booking['status'] == 'new'): ?>
+                                        <button type="button" class="btn btn-danger cancel-booking" 
+                                        data-booking-id-value="<?= $booking['booking_id'] ?>"
+                                        data-bs-toggle="modal" data-bs-target="#cancelBookingModal">Stornieren</button>
+                                    <?php else: ?>
+                                        <button class="btn btn-secondary" disabled>Stornieren</button>
+                                    <?php endif; ?>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
+            </div>
+        </div>
+
+        <div class="modal fade" id="cancelBookingModal" tabindex="-1" aria-labelledby="cancelBookingModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form action="/booking/cancel" method="POST">
+                        <input type="hidden" name="booking_id" id="bookingId" value="">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="cancelBookingModalLabel">Buchung stornieren</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Möchten Sie die Buchung wirklich stornieren?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abbrechen</button>
+                        <button type="submit" class="btn btn-danger" id="confirmCancelBooking">Stornieren</button>
+                    </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

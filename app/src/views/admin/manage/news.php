@@ -6,14 +6,8 @@
     <div class="row bg-dark text-white py-4 rounded">
         <h1 id="Pages" class="mb-4 text-center display-3">Newsverwaltung</h1>
 
-        <?php if (isset($_SESSION['flash_message'])): ?>
-            <div class="alert alert-info alert-dismissible fade show" id="flashMessage">
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Schließen"></button>
-                <?= $_SESSION['flash_message'];
-                unset($_SESSION['flash_message']); ?>
-            </div>
-            <script src='/public/js/flashMessage.js'></script>
-        <?php endif; ?>
+        <?php include 'src/views/includes/flashmessage.php'; ?>
+
 
         <div class="table-responsive">
             <table id="sortedTable" class="table table-dark table-bordered table-bordered align-middle table-hover tablesorter">

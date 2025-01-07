@@ -45,9 +45,8 @@ switch ([$request, $method]) {
         ];
 
         if (!Room::isRoomFree($bookingData['room_number'], $bookingData['check_in_date'], $bookingData['check_out_date'])) {
+            $_SESSION['flash_message'] = 'Zimmer ist in dem gewählten Zeitraum nicht verfügbar.';
             header('Location: /rooms');
-            $_SESSION['flash_message'] = 'Zimmer ist nicht verfügbar.';
-
             exit();
         }
         

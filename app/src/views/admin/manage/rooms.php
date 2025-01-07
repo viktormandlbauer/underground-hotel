@@ -24,14 +24,8 @@
         <div class="row bg-dark text-white py-4 rounded">
         <h1 id="Pages" class="mb-4 text-center display-3">Raumverwaltung</h1>
 
-        <?php if (isset($_SESSION['flash_message'])): ?>
-            <div class="alert alert-info alert-dismissible fade show" id="flashMessage">
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Schließen"></button>
-                <?= $_SESSION['flash_message'];
-                unset($_SESSION['flash_message']); ?>
-            </div>
-            <script src='/public/js/flashMessage.js'></script>
-        <?php endif; ?>
+        <?php include 'src/views/includes/flashmessage.php'; ?>
+
 
         <div class="table-responsive">
             <table class="table table-dark table-bordered align-middle table-hover tablesorter">
@@ -57,7 +51,6 @@
 
                             <td><?= $room['number']; ?></td>
                             <td><?= $room['name']; ?></td>
-
                             <td><?= nl2br($room['description']); ?></td>
                             <td><?= $room['type']; ?></td>
                             <td><?= $room['price_per_night']; ?> €</td>
@@ -71,17 +64,19 @@
                             </td>
                         </tr>
                     <?php endforeach; ?>
-                    <tr>
-                        <td colspan="6" class="text-center">
+                </tbody>
+                
+                        
+                    
+            </table>
+            
+        </div>
+        <td colspan="6" class="text-center">
                             <button type="button" od = "addRow" class="add-row btn" data-bs-toggle="modal"
                                 data-bs-target="#roomUploadModal">
                                 <i class="fas fa-plus plus-icon"></i>
                             </button>
                         </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
     </div>
 </div>
 

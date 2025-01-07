@@ -9,13 +9,8 @@
         <div class="row bg-dark text-white py-4 rounded">
             <h1 id="Pages" class="mb-4 text-center display-3">Buchungsverwaltung</h1>
 
-            <?php if (isset($_SESSION['flash_message'])): ?>
-                <div class="alert alert-info alert-dismissible fade show" id="flashMessage">
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    <?= htmlspecialchars($_SESSION['flash_message'], ENT_QUOTES, 'UTF-8'); ?>
-                </div>
-                <script src='/public/js/flashMessage.js'></script>
-            <?php endif; ?>
+            <?php include 'src/views/includes/flashmessage.php'; ?>
+
 
             <div class="table-responsive">
                 <table id="sortedTable" class="table table-dark table-bordered align-middle table-hover tablesorter">
@@ -34,9 +29,8 @@
                     </thead>
                     <tbody id="bookingTableBody">
                         <?php foreach ($bookings as $booking): ?>
-                            <tr class="booking-row"
-                                data-bs-target="#editBookingModal" data-booking-id="<?= $booking['booking_id'] ?>"
-                                data-user-id="<?= $booking['user_id'] ?>"
+                            <tr class="booking-row" data-bs-target="#editBookingModal"
+                                data-booking-id="<?= $booking['booking_id'] ?>" data-user-id="<?= $booking['user_id'] ?>"
                                 data-username="<?= User::getUsernameByID($booking['user_id']) ?>"
                                 data-room-number="<?= $booking['room_number'] ?>"
                                 data-check-in="<?= $booking['check_in_date'] ?>"
@@ -59,7 +53,7 @@
                                         <span class="status-indicator bg-info"></span>
                                         <span class="text-end">Neu</span>
 
-                                    <?php elseif($booking['status'] == 'approved'): ?>
+                                    <?php elseif ($booking['status'] == 'approved'): ?>
                                         <span class="status-indicator bg-success"></span>
                                         <span class="text-end">Bestätigt</span>
 
@@ -67,18 +61,18 @@
                                         <span class="status-indicator bg-danger"></span>
                                         <span class="text-end">Storniert</span>
                                     <?php endif; ?>
-                                </td>   
+                                </td>
                             </tr>
                         <?php endforeach; ?>
-                        <tr>
-                            <td colspan="9" class="text-center">
-                                <button type="button" id="addRow" class="add-row btn" data-bs-toggle="modal"
-                                    data-bs-target="#addBookingModal">
-                                    <i class="fas fa-plus"></i> Neue Buchung
-                                </button>
-                            </td>
-                        </tr>
                     </tbody>
+                    <tr>
+                        <td colspan="9" class="text-center">
+                            <button type="button" id="addRow" class="add-row btn" data-bs-toggle="modal"
+                                data-bs-target="#addBookingModal">
+                                <i class="fas fa-plus"></i> Neue Buchung
+                            </button>
+                        </td>
+                    </tr>
                 </table>
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-center">
@@ -107,7 +101,8 @@
                 <div class="modal-content bg-dark text-white">
                     <div class="modal-header">
                         <h5 class="modal-title" id="addBookingModalLabel">Neue Buchung erstellen</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Schließen"></button>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                            aria-label="Schließen"></button>
                     </div>
                     <div class="modal-body">
                         <div class="mb-3">
@@ -127,11 +122,13 @@
                                 <?php foreach ($rooms as $room): ?>
                                     <option value="<?= $room['number'] ?>">
                                         <?= $room['number'] . ' - ' . $room['name'] ?>
-                                        <hidden id="addPricePerNight" name="price_per_night" value="<?= $room['price_per_night'] ?>"></hidden>
+                                        <hidden id="addPricePerNight" name="price_per_night"
+                                            value="<?= $room['price_per_night'] ?>"></hidden>
                                     </option>
                                 <?php endforeach; ?>
                             </select>
-                            <input type="hidden" id="addPricePerNight" name="price_per_night" value="<?= $room['price_per_night'] ?>"></input>
+                            <input type="hidden" id="addPricePerNight" name="price_per_night"
+                                value="<?= $room['price_per_night'] ?>"></input>
 
                         </div>
 

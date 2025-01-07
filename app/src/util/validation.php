@@ -54,13 +54,13 @@ function isValidArray(array $values, array $rule)
                 }
                 break;
             case ValidationTypes::password_pattern:
-                if (!is_string($values[$i]) || !preg_match('/[^\x20-\x7e]/', $value)) { // pregmatch ASCII 32-126
+                if (!is_string($values[$i]) || preg_match('/[^\x20-\x7e]/', $values[$i])) { // pregmatch ASCII 32-126. No negation of the pregmatch because '^' negates the regex expression
                     return false;
                 } 
                 break;
 
             case ValidationTypes::username_pattern:
-                if (!is_string($values[$i]) || !preg_match('/[^A-Za-z0-9.\-_]/', $value)) { 
+                if (!is_string($values[$i]) || preg_match('/[^A-Za-z0-9.\-_]/', $values[$i])) { //No negation of the pregmatch because '^' negates the regex expression
                     return false;
                 } 
                 break;

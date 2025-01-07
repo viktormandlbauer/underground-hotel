@@ -238,20 +238,6 @@ class User
         ];
     }
 
-    public function save($givenname, $surname, $email)
-    {
-        isValidArray([$givenname, $surname, $email], ['strict_string', 'strict_string', 'email']);
-        sanitizeArray([$givenname, $surname, $email]);
-
-        $this->givenname = $givenname;
-        $this->surname = $surname;
-        $this->email = $email;
-
-        $stmt = $this->getDBConnection()->prepare("UPDATE users SET givenname = ?, surname = ?, email = ? WHERE username = ?");
-        $stmt->bind_param("ssss", $this->givenname, $this->surname, $this->email, $this->username);
-        $stmt->execute();
-    }
-
     public function deleteUser()
     {
         $stmt = $this->getDBConnection()->prepare("DELETE FROM users WHERE username = ?");

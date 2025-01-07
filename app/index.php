@@ -72,6 +72,7 @@ switch ($request) {
         break;
 
     case '/bookings':
+    case '/booking/cancel':
         require 'src/controllers/BookingController.php';
         require 'src/views/bookings.php';
         break;

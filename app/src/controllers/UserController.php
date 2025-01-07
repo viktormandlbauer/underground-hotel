@@ -11,8 +11,13 @@ switch ([$request, $method]) {
       
         if (User::login($_POST['username'], $_POST['password'])) {
 
+            if(empty($_POST['username']) || empty($_POST['password']) ||!isValidArray([$_POST['username'], $_POST['password']], [ValidationTypes::username_pattern, ValidationTypes::password_pattern])){
+                $_SESSION['flash_message'] = 'Ungültige Eingabe';
+                header('Location: /login');
+                exit();
+            }
+
             $_SESSION['username'] = $_POST['username'];
-            $_SESSION['last_activity'] = time();
 
             $user = new User($_SESSION['username']);
             $user->load();
@@ -30,6 +35,18 @@ switch ([$request, $method]) {
         break;
 
     case ['/auth/submit/registration', 'POST']:
+
+        if (
+            empty($_POST['pronouns']) || empty($_POST['givenname']) || 
+            empty($_POST['surname']) || empty($_POST['email']) || 
+            empty($_POST['username']) || empty($_POST['password']) || 
+            empty($_POST['password_confirm'])) {
+
+            $_SESSION['flash_message'] = 'Bitte füllen Sie alle Felder aus';
+            header('Location: /register');
+            exit();
+
+        }
 
         if (User::exists_username($_POST['username'])) {
 
@@ -57,6 +74,30 @@ switch ([$request, $method]) {
                 'state' => 'active',
             ];
 
+            $rules = [
+                'pronouns' => ValidationTypes::strict_string,
+                'givenname' => ValidationTypes::strict_string,
+                'surname' => ValidationTypes::strict_string,
+                'email' => ValidationTypes::email,
+                'username' => ValidationTypes::username_pattern,
+                'password' => ValidationTypes::password_pattern,
+                'password_confirm' => ValidationTypes::password_pattern,
+                'role' => ValidationTypes::strict_string,
+                'state' => ValidationTypes::strict_string,
+            ];
+
+            if($data['password'] !== $data['password_confirm']){
+                $_SESSION['flash_message'] = 'Passwörter stimmen nicht überein';
+                header('Location: /register');
+                exit();
+            }
+
+            if(!isValidArray(array_values($data), array_values($rules))){
+                $_SESSION['flash_message'] = 'Ungültige Eingabe';
+                header('Location: /register');
+                exit();
+            }
+
             $registerSuccess = User::addUser($data);
 
             if($registerSuccess){
@@ -78,85 +119,5 @@ switch ([$request, $method]) {
         header('Location: /');
         break;
 
-    case '/profile/load':               // Load profile data
-        $user = new User($_SESSION['username']);
-        $user->loadProfile();
-        echo json_encode($user->toArray());
-        break;
-
-    case '/profile/edit':               // Profile Handler
-        try {
-            $data = handle_request();
-        } catch (Exception $e) {
-            error_log("Error: " . $e->getMessage());
-            echo json_encode(['error' => $e->getMessage()]);
-            exit;
-        }
-
-        if (!isset($data['username'])) {
-            $user = new User($_SESSION['username']);
-        } else {
-            if (!authorized('admin')) {
-                echo json_encode(['error' => 'Unauthorized']);
-                exit;
-            } else {
-                $user = new User($data['username']);
-            }
-        }
-
-        foreach ($data as $key => $value) {
-            $user->$key = $value;
-            switch ($key) {
-                case 'pronouns':
-                    $user->setPronouns($value);
-                    break;
-                case 'givenname':
-                    $user->setGivenname($value);
-                    break;
-                case 'surname':
-                    $user->setSurname($value);
-                    break;
-                case 'email':
-                    $user->setEmail($value);
-                    break;
-                case 'telephone':
-                    $user->setTelephone($value);
-                    break;
-                case 'counrty':
-                    $user->setCountry($value);
-                    break;
-                case 'postal_code':
-                    $user->setPostalCode($value);
-                    break;
-                case 'city':
-                    $user->setCity($value);
-                    break;
-                case 'street':
-                    $user->setStreet($value);
-                    break;
-                case 'house_number':
-                    $user->setHouseNumber($value);
-                    break;
-                case 'new_password':
-                    if (isset($data['old_password'])) {
-                        if (User::login($user->username, $data['old_password'])) {
-                            $user->changePassword($data['new_password']);
-                        } else {
-                            echo json_encode(['error' => 'Invalid password']);
-                            exit;
-                        }
-                    } else if (authorized('admin')) {
-                        $user->changePassword($data['new_password']);
-                    } else {
-                        include 'src/errors/403.php';
-                        exit;
-                    }
-            }
-        }
-
-        break;
-
-    case '/profile/delete':
-        //TODO
-        break;
+    
 }

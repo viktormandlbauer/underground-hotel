@@ -17,13 +17,8 @@ if (!isset($user)) {
             <div class="bg-dark text-white p-5 rounded">
                 <h1 class="mb-4">Profilverwaltung</h1>
 
-                <?php if (isset($_SESSION['flash_message'])): ?>
-                <div class="alert alert-info alert-dismissible fade show" id="flashMessage">
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    <?= htmlspecialchars($_SESSION['flash_message'], ENT_QUOTES, 'UTF-8'); ?>
-                </div>
-                <script src='/public/js/flashMessage.js'></script>
-            <?php endif; ?>
+                <?php include 'src/views/includes/flashmessage.php'; ?>
+
 
                 <!-- Profilinformationen -->
                 <div id="profileInfo" class="card bg-dark text-white p-3 mb-3">
