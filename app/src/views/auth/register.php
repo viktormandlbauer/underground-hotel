@@ -10,7 +10,6 @@
                 <h1 class="text-center mt-5">Registrierung</h1>
 
 
-
                 <?php if (isset($_SESSION['flash_message'])): ?>
                     <div class="alert alert-danger">
                         <?= $_SESSION['flash_message'];

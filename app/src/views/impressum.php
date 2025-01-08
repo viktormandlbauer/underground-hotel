@@ -37,11 +37,11 @@
                     <h2>Vertretungsbefugte</h2>
                     <div class="row">
                         <div class="col-md-6 text-center">
-                            <img src="/path" alt="Foto von Viktor Mandlbauer" class="img-fluid rounded mb-2" />
+                            <img src="/public/images/demo_profile.webp" alt="Foto von Viktor Mandlbauer" class="img-fluid rounded mb-2" style="width: 100px; height: auto;"/>
                             <p>Gesellschafter Viktor Mandlbauer (51%)</p>
                         </div>
                         <div class="col-md-6 text-center">
-                            <img src="/path" alt="Foto von Florian Dallarosa" class="img-fluid rounded mb-2" />
+                            <img src="/public/images/demo_profile.webp" alt="Foto von Florian Dallarosa" class="img-fluid rounded mb-2" style="width: 100px; height: auto;"/>
                             <p>Gesellschafter Florian Dallarosa (49%)</p>
                         </div>
                     </div>

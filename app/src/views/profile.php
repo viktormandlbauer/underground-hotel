@@ -14,7 +14,7 @@
                 <div id="profileInfo" class="card bg-dark text-white p-3 mb-3">
                     <!-- Profilbild und Benutzerinformationen -->
                     <div class="d-flex align-items-center mb-3">
-                        <img id="profile_picture" src="" alt="Profile Picture" class="img-fluid me-2" style="width: 100px; height: auto;" />
+                        <img id="profile_picture" src="/public/images/demo_profile.webp" alt="Profile Picture" class="img-fluid me-2" style="width: 100px; height: auto;" />
                         <div>
                             <h2 id="username" class="h5 mb-1"><?= $user->username ?></h2>
                             <small class="text-muted" id="userRole"><?= $user->role ?></small>
