@@ -1,6 +1,5 @@
 <?php include 'src/views/includes/header.php'; ?>
 <link rel="stylesheet" href="/public/css/modal.css">
-<?php include 'src/controllers/BookingController.php'; ?>
 
 <body>
     <?php include 'src/views/includes/navbar.php'; ?>

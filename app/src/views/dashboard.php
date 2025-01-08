@@ -1,9 +1,9 @@
 <?php include 'src/views/includes/header.php'; ?>
-<?php include 'src/views/includes/navbar.php'; ?>
 <link rel="stylesheet" href="/public/css/dashboard.css">
 
 
 <body>
+    <?php include 'src/views/includes/navbar.php'; ?>
     <div class="container align-items-center d-flex content-wrapper">
         <div class="row container mt-5 content justify-content-center">
             <div class="col-md-3 mb-4">

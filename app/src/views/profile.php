@@ -1,17 +1,7 @@
-<?php
-// src/views/profile.php
-
-// Überprüfen, ob $user gesetzt ist
-if (!isset($user)) {
-    echo "Fehler: Benutzer nicht definiert.";
-    exit();
-}
-?>
-
 <?php include 'src/views/includes/header.php'; ?>
-<?php include 'src/views/includes/navbar.php'; ?>
 
 <body>
+    <?php include 'src/views/includes/navbar.php'; ?>
     <div class="d-flex justify-content-center align-items-center content-wrapper">
         <div class="container mt-5 content">
             <div class="bg-dark text-white p-5 rounded">

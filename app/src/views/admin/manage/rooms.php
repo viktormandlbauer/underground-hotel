@@ -1,5 +1,4 @@
 <?php include 'src/views/includes/header.php'; ?>
-<?php include 'src/views/includes/navbar.php'; ?>
 <link rel="stylesheet" href="/public/css/modal.css">
 
 <style>
@@ -18,7 +17,7 @@
 </style>
 
 <body>
-
+    <?php include 'src/views/includes/navbar.php'; ?>
 
     <div class="container mt-5 content-wrapper">
         <div class="row bg-dark text-white py-4 rounded">

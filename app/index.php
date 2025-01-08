@@ -1,6 +1,30 @@
 <?php
 
 // phpinfo(); exit;
+/*
+|--------------------------------------------------------------------------
+| index.php
+|--------------------------------------------------------------------------
+| This file serves as the entry point for the application.
+| It handles routing based on the request URL and delegates control
+| to the appropriate controllers or views.
+|
+| Features and Flow:
+| 1. Captures the HTTP request method and path.
+| 2. Initializes a PHP session to manage user sessions.
+| 3. Implements routing logic:
+|    - Routes requests to views for static pages (e.g., welcome, help).
+|    - Directs dynamic actions (e.g., login, dashboard, profile updates) 
+|      to appropriate controllers and views.
+|    - Secures routes requiring authentication and authorization.
+|    - Returns appropriate error pages (401 Unauthorized, 404 Not Found).
+| 4. Integrates authentication and authorization checks:
+|    - `authenticated()`: Verifies if a user is logged in.
+|    - `authorized($role)`: Ensures the user has the required role 
+|      (e.g., admin, user).
+| 5. Handles additional application logic, such as managing bookings, 
+|    rooms, and news.
+*/
 
 require_once 'src/util/auth.php';
 
@@ -56,13 +80,21 @@ switch ($request) {
         break;
 
     case '/logout':
-        require 'src/controllers/UserController.php';
+        if (authenticated()) {
+            require 'src/controllers/UserController.php';
+        } else {
+            require 'src/error/401.php';
+        }
         break;
 
     case '/admin/manage/bookings/edit':
     case '/admin/manage/bookings/add':
-        require 'src/controllers/BookingController.php';
-        require 'src/views/admin/manage/bookings.php';
+        if (authenticated() && authorized('admin')) {
+            require 'src/controllers/BookingController.php';
+            require 'src/views/admin/manage/bookings.php';
+        } else {
+            require 'src/error/401.php';
+        }
         break;
 
     case '/rooms':
@@ -128,7 +160,7 @@ switch ($request) {
 
     case '/admin/manage/users':
         if (authenticated() && authorized("admin")) {
-            require 'src/controllers/AdminController.php';
+            require 'src/controllers/UserController.php';
             require 'src/views/admin/manage/users.php';
         } else {
             require 'src/error/401.php';
@@ -189,7 +221,7 @@ switch ($request) {
 
     case '/admin/users/edit':
         if (authenticated() && authorized("admin")) {
-            require 'src/controllers/AdminController.php';
+            require 'src/controllers/UserController.php';
         } else {
             require 'src/error/401.php';
         }
@@ -197,7 +229,7 @@ switch ($request) {
 
     case '/admin/users/add':
         if (authenticated() && authorized("admin")) {
-            require 'src/controllers/AdminController.php';
+            require 'src/controllers/UserController.php';
         } else {
             require 'src/error/401.php';
         }
@@ -205,22 +237,23 @@ switch ($request) {
 
     case '/admin/users/delete':
         if (authenticated() && authorized("admin")) {
-            require 'src/controllers/AdminController.php';
+            require 'src/controllers/UserController.php';
         } else {
             require 'src/error/401.php';
         }
         break;
 
     case '/news':
+        require 'src/controllers/NewsController.php';
         require 'src/views/news.php';
         break;
 
     case '/news/submit':
-        require 'src/controllers/NewsController.php';
-        break;
-
-    case '/news/detail':
-        require 'src/views/newsdetail.php';
+        if (authenticated() && authorized("admin")) {
+            require 'src/controllers/NewsController.php';
+        } else {
+            require 'src/error/401.php';
+        }
         break;
 
     case '/news/get':

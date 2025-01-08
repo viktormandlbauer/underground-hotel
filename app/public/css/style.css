@@ -1,73 +1,86 @@
 body {
-    margin-top: 85px;
-    background: url('/public/images/welcome.jpg') no-repeat center center fixed;
-    background-size: cover;
-    position: relative;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    opacity: 0.9;
+  margin-top: 85px;
+  background: url('/public/images/welcome.jpg') no-repeat center center fixed;
+  background-size: cover;
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  opacity: 0.9;
 }
 
 .footer {
-    background-color: #3b2f2f;
-    color: #f5f5f5;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    height: 100px;
-    position: relative;
-    bottom: 0;
-    width: 100%;
-    /* eliminate negative space between footer and content */
-    flex-shrink: 0;
+  background-color: #3b2f2f;
+  color: #f5f5f5;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 100px;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  /* eliminate negative space between footer and content */
+  flex-shrink: 0;
 }
 
 .content-wrapper {
-    /* wrap content */
-    flex: 1 0 auto; 
-  }
-  
+  /* wrap content */
+  flex: 1 0 auto;
+}
+
+a {
+  text-decoration: underline;
+  text-decoration-color: white;
+  /* Set underline color to white */
+  color: inherit;
+  /* Optional: Keeps the link text color the same as the surrounding text */
+}
+
+a:hover {
+  text-decoration-color: #ccc;
+  /* Optional: Change underline color on hover for better UX */
+}
+
 #flash-message {
-    width: 100%;
-    margin-top: 5px;
-    display: none;
-    z-index: 1000;
+  width: 100%;
+  margin-top: 5px;
+  display: none;
+  z-index: 1000;
 }
 
 .alert {
-    margin: 0 auto;
-    width: 100%;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .alert-dismissible .btn-close {
-    position: absolute;
-    right: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .status-indicator {
-    display: inline-block;
-    width: 0.75rem;
-    height: 0.75rem;
-    border-radius: 50%;
-    margin-right: 0.5rem;
-    vertical-align: middle;
+  display: inline-block;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+  vertical-align: middle;
 }
-  
-  .bg-success {
-    background-color: #28a745 !important;
-  }
-  
-  .bg-danger {
-    background-color: #dc3545 !important;
-  }
 
-  .bg-info {
-    background-color: #aeb615 !important;
-  }
+.bg-success {
+  background-color: #28a745 !important;
+}
+
+.bg-danger {
+  background-color: #dc3545 !important;
+}
+
+.bg-info {
+  background-color: #aeb615 !important;
+}

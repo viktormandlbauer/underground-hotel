@@ -2,8 +2,8 @@
 
 <body>
     <?php include 'src/views/includes/navbar.php'; ?>
-    <div class="container my-5 py-5 content content-wrapper">
-        <div class="mx-auto bg-dark text-white pt-5 rounded">
+    <div class="container my-5 content content-wrapper">
+        <div class="mx-auto bg-dark text-white p-5 rounded">
             <h1 class="mb-4">Hilfeseite des Underground-Hotels Berlin</h1>
             <p>
                 Wir freuen uns, Sie auf unserer Hilfeseite begrüßen zu dürfen. Hier finden Sie Antworten auf häufig

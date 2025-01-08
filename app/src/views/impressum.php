@@ -3,7 +3,7 @@
 <body>
     <?php include 'src/views/includes/navbar.php'; ?>
     <div class="container my-5 content-wrapper">
-        <div class="bg-dark pt-5 rounded">
+        <div class="bg-dark py-5 rounded">
 
             <div class="col-lg-8 text-white mx-auto">
                 <h1 class="text-center mb-5">Impressum</h1>
