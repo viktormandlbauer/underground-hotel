@@ -8,7 +8,7 @@
     <div class="container my-5 content-wrapper">
         <div class="row bg-dark text-white py-4 rounded">
 
-        <?php include 'src/views/includes/flashmessage.php'; ?>
+            <?php include 'src/views/includes/flashmessage.php'; ?>
 
 
             <div class="col-3">
@@ -46,48 +46,30 @@
                         class="table table-dark table-bordered table-striped align-middle table-hover tablesorter">
                         <thead>
                             <tr>
+                                <th scope="col">Bild</th>
                                 <th scope="col">Bezeichnung</th>
                                 <th scope="col">Beschreibung</th>
                                 <th scope="col">Typ</th>
                                 <th scope="col">Preis pro Nacht</th>
-                                <th scope="col">Bild</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach ($rooms as $room): ?>
-                                <tr class="booking-row" 
-                                    data-room-name="<?= $room['name'] ?>"
+                                <tr class="booking-row" data-room-name="<?= $room['name'] ?>"
                                     data-room-number="<?= $room['number'] ?>"
                                     data-room-description="<?= $room['description'] ?>"
-                                    data-room-type="<?= $room["type"] ?>" 
-                                    data-room-price="<?= $room['price_per_night'] ?>"
-                                    data-room-image="<?= $room['image_path'] ?>" 
-                                    data-start-date="2025-01-01"
+                                    data-room-type="<?= $room["type"] ?>" data-room-price="<?= $room['price_per_night'] ?>"
+                                    data-room-image="<?= $room['image_path'] ?>" data-start-date="2025-01-01"
                                     data-end-date="2025-01-15">
+                                    <td><img src="<?= $room['image_path'] ?>" alt="No Image" width="100"></td>
                                     <td><?= $room['name'] ?></td>
                                     <td><?= $room['description'] ?></td>
                                     <td><?= $room['type'] ?></td>
                                     <td><?= $room['price_per_night'] ?>€</td>
-                                    <td><img src="<?= $room['image_path'] ?>" alt="No Image" width="100"></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
                     </table>
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination">
-                            <li class="page-item">
-                                <a class="page-link" href="#" tabindex="-1">Previous</a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item active">
-                                <a class="page-link" href="#">2 <span class=" bg-success sr-only">(current)</span></a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">Next</a>
-                            </li>
-                        </ul>
-                    </nav>
                 </div>
             </div>
         </div>
@@ -199,7 +181,7 @@
             </div>
         </div>
     </div>
-    
+
     <?php include 'src/views/includes/footer.php'; ?>
 </body>
 

@@ -67,7 +67,7 @@
                                 <td>
                                     <?php if ($booking['status'] == 'new'): ?>
                                         <button type="button" class="btn btn-danger cancel-booking" 
-                                        data-booking-id-value="<?= $booking['booking_id'] ?>"
+                                        onclick="openCancelModal(<?= $booking['booking_id'] ?>)"
                                         data-bs-toggle="modal" data-bs-target="#cancelBookingModal">Stornieren</button>
                                     <?php else: ?>
                                         <button class="btn btn-secondary" disabled>Stornieren</button>
@@ -104,3 +104,10 @@
     </div>
     <?php include 'src/views/includes/footer.php'; ?>
 </body>
+
+<script>
+    function openCancelModal(bookingId) {
+
+        document.getElementById('bookingId').value = bookingId;
+    }
+</script>

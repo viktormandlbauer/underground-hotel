@@ -19,12 +19,12 @@ switch ([$request, $method]) {
         break;
 
     case ['/booking/cancel', 'POST']:
-        if (!isset($_POST['data-booking-id-value']) || !is_numeric($_POST['data-booking-id-value'])) {
-            $_SESSION['flash_message'] = 'Ungültige Buchungs-ID.'.$_POST['data-booking-id-value'];
+        if (!isset($_POST['booking_id']) || !is_numeric($_POST['booking_id'])) {
+            $_SESSION['flash_message'] = 'Ungültige Buchungs-ID.'.$_POST['booking_id'];
             header('Location: /bookings');
             exit();
         }
-        $booking = new Booking(intval($_POST['data-booking-id-value']));
+        $booking = new Booking(intval($_POST['booking_id']));
         $booking->setStatus('canceled');
         $_SESSION['flash_message'] = 'Buchung erfolgreich storniert.';
         header('Location: /bookings');

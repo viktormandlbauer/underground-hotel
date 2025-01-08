@@ -1,6 +1,7 @@
 <?php include 'src/views/includes/header.php'; ?>
 
 <link rel="stylesheet" href="/public/css/dropzone.css">
+<link rel="stylesheet" href="/public/css/pagination.css">
 
 <body>
     <?php include 'src/views/includes/navbar.php'; ?>
