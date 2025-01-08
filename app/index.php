@@ -86,7 +86,8 @@ switch ($request) {
             require 'src/error/401.php';
         }
         break;
-
+    
+    case '/admin/manage/bookings':
     case '/admin/manage/bookings/edit':
     case '/admin/manage/bookings/add':
         if (authenticated() && authorized('admin')) {
@@ -205,15 +206,6 @@ switch ($request) {
     case '/admin/news/delete':
         if (authenticated() && authorized("admin")) {
             require 'src/controllers/NewsController.php';
-        } else {
-            require 'src/error/401.php';
-        }
-        break;
-
-
-    case '/admin/manage/bookings':
-        if (authenticated() && authorized("admin")) {
-            require 'src/views/admin/manage/bookings.php';
         } else {
             require 'src/error/401.php';
         }
