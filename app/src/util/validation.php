@@ -90,7 +90,7 @@ function isValidArray(array $values, array $rule)
                 break;
 
             case ValidationTypes::url:
-                if ($value === null) {
+                if ($values[$i] === null) {
                     return true;
                 } else
                 if (!filter_var($values[$i], FILTER_VALIDATE_URL)) {
