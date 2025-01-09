@@ -31,7 +31,6 @@
                     <tbody id="userTableBody">
                         <?php foreach ($bookings as $booking): ?>
                             <tr class="user-row" data-booking-id="<?= $booking['booking_id'] ?>"
-                                style=" padding-top: 20px; padding-bottom: 20px; cursor: pointer;"
                                 data-user-id="<?= $booking['user_id'] ?>"
                                 data-username="<?= User::getUsernameByID($booking['user_id']) ?>"
                                 data-room-number="<?= $booking['room_number'] ?>"
