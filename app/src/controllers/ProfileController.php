@@ -109,8 +109,8 @@ switch ([$request, $method]) {
         $username = $_SESSION['username'];
         $user = new User($username);
         $user->loadProfile();
-        $newsletter = isset($_POST['newsletter']) ? $_POST['newsletter'] : 0;
-        $user->setNewsletter($newsletter);
+
+        $user->setNewsletter($_POST['newsletter'] ?? 0);
         $_SESSION['flash_message'] = 'Datenschutzeinstellungen erfolgreich aktualisiert.';
         header('Location: /profile');
 

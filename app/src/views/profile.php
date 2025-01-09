@@ -231,7 +231,7 @@
                                     <!-- Newsletter Subscription -->
                                     <div class="form-check mb-3">
                                         <input class="form-check-input" type="checkbox" 
-                                        value="1" checked="<?= $user->newsletter ?>" 
+                                        value="<?= $user->newsletter ?>" checked="<?= $user->newsletter ?? 0 ?>" 
                                         id="newsletter" name="newsletter" >
                                         <label class="form-check-label" for="newsletter">
                                             Newsletter abonnieren

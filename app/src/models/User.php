@@ -83,8 +83,20 @@ class User
     public static function addUser($data)
     {
 
-        $rules = ['strict_string', 'strict_string', 'strict_string', 'email', 'username_pattern', 'password_pattern', 'password_confirm'];
-        $registerData = [$data['pronouns'], $data['givenname'], $data['surname'], $data['email'], $data['username'], $data['password'], $data['password_confirm']];
+        $rules = [ValidationTypes::strict_string, 
+        ValidationTypes::strict_string, 
+        ValidationTypes::strict_string, 
+        ValidationTypes::email, 
+        ValidationTypes::username_pattern, 
+        ValidationTypes::password_pattern, 
+        ValidationTypes::password_pattern];
+        $registerData = [$data['pronouns'], 
+        $data['givenname'], 
+        $data['surname'], 
+        $data['email'], 
+        $data['username'], 
+        $data['password'], 
+        $data['password_confirm']];
 
         $validationResult = isValidArray($registerData, $rules);
 
@@ -568,7 +580,7 @@ class User
 
     }
     public function setNewsletter($newsletter){
-        $newsletter = $newsletter ? 1 : 0;
+    
         $stmt = self::getDBConnection()->prepare("UPDATE users SET newsletter = ? WHERE username = ?");
         $stmt->bind_param("is", $newsletter, $this->username);
         $stmt->execute();
