@@ -55,10 +55,15 @@ class Booking
 
     public static function createBooking($bookingData)
     {
-        
+        $breakfast_price = 10;
+        $parking_price = 7;
         $price_per_night = Room::getRoomPrice($bookingData['room_number']);
-        $stmt = self::getDBConnection()->prepare("INSERT INTO bookings (user_id, room_number, check_in_date, check_out_date, status, breakfast, parking, pet, additional_info, price_per_night) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("iisssiiisd", $bookingData['user_id'], $bookingData['room_number'], $bookingData['check_in_date'], $bookingData['check_out_date'], $bookingData['status'], $bookingData['breakfast'], $bookingData['parking'], $bookingData['pet'], $bookingData['additional_info'], $price_per_night);
+        $days = (strtotime($bookingData['check_out_date']) - strtotime($bookingData['check_in_date'])) / (60 * 60 * 24);
+
+        $total_price = ($price_per_night+$breakfast_price+$parking_price)*$days;
+
+        $stmt = self::getDBConnection()->prepare("INSERT INTO bookings (user_id, room_number, check_in_date, check_out_date, status, breakfast, parking, pet, additional_info, price_per_night, total_price) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("iisssiiisdd", $bookingData['user_id'], $bookingData['room_number'], $bookingData['check_in_date'], $bookingData['check_out_date'], $bookingData['status'], $bookingData['breakfast'], $bookingData['parking'], $bookingData['pet'], $bookingData['additional_info'], $price_per_night, $total_price);
         if($stmt->execute()){
             return true;
         }
@@ -127,6 +132,24 @@ class Booking
     {
         $stmt = self::getDBConnection()->prepare("UPDATE bookings SET additional_info = ? WHERE booking_id = ?");
         $stmt->bind_param("si", $additional_info, $this->id);
+        $stmt->execute();
+    }
+
+    public function setPricePerNight($price_per_night)
+    {
+        $stmt = self::getDBConnection()->prepare("UPDATE bookings SET price_per_night = ? WHERE booking_id = ?");
+        $stmt->bind_param("di", $price_per_night, $this->id);
+        $stmt->execute();
+    }
+
+    public function setTotalPrice($price_per_night, $check_in, $check_out){
+        $breakfast_price = 10;
+        $parking_price = 7;
+        $days = (strtotime($check_out) - strtotime($check_in)) / (60 * 60 * 24);
+        $total_price = ($price_per_night+$breakfast_price+$parking_price)*$days;
+
+        $stmt = self::getDBConnection()->prepare("UPDATE bookings SET total_price = ? WHERE booking_id = ?");
+        $stmt->bind_param("di", $total_price, $this->id);
         $stmt->execute();
     }
 }

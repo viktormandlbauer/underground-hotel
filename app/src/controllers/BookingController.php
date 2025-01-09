@@ -59,6 +59,14 @@ switch ([$request, $method]) {
         if (isset($_POST['remarks'])) {
             $booking->setAdditionalInfo($_POST['remarks']);
         }
+
+        if(isset($_POST['room_number'])){
+            $booking->setPricePerNight(Room::getRoomPrice($_POST['room_number']));
+        }
+
+        if (isset($_POST['room_number']) && isset($_POST['check_in_date']) && isset($_POST['check_out_date'])) {
+            $booking->setTotalPrice(Room::getRoomPrice($_POST['room_number']), $_POST['check_in_date'], $_POST['check_out_date']);
+        }
         $_SESSION['flash_message'] = 'Buchung erfolgreich aktualisiert.';
 
         header('Location: /admin/manage/bookings');

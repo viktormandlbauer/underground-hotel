@@ -42,6 +42,7 @@ CREATE TABLE bookings (
     check_in_date DATE NOT NULL,
     check_out_date DATE NOT NULL,
     price_per_night FLOAT NOT NULL,
+    total_price FLOAT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(user_id),
     FOREIGN KEY (room_number) REFERENCES rooms(number),
     status ENUM('new', 'approved', 'canceled') NOT NULL,

@@ -49,7 +49,7 @@
                                 <td><?= $booking['breakfast'] ? 'Ja' : 'Nein' ?></td>
                                 <td><?= $booking['parking'] ? 'Ja' : 'Nein' ?></td>
                                 <td><?= $booking['pet'] ? 'Ja' : 'Nein' ?></td>
-                                <td><?= $booking['price_per_night'] ?></td>
+                                <td><?= number_format($booking['total_price'],2) ?> €</td>
                                 <td>
                                     <?php if ($booking['status'] == 'new'): ?>
                                         <span class="status-indicator bg-info"></span>
