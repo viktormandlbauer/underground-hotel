@@ -568,6 +568,7 @@ class User
 
     }
     public function setNewsletter($newsletter){
+        $newsletter = $newsletter ? 1 : 0;
         $stmt = self::getDBConnection()->prepare("UPDATE users SET newsletter = ? WHERE username = ?");
         $stmt->bind_param("is", $newsletter, $this->username);
         $stmt->execute();

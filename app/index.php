@@ -139,6 +139,7 @@ switch ($request) {
     case '/profile/delete':
     case '/profile/load':
         if (authenticated()) {
+            require 'src/controllers/UserController.php';
             require 'src/controllers/ProfileController.php';
         } else {
             require 'src/error/401.php';
