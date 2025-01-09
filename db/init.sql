@@ -112,3 +112,5 @@ VALUES
         'e93730fa0232088ea4d810ebf625686291ff6977e1fdb4f6569252fd40b1f796',
         '0088359d9501078e5a16c7fcbaffdfd6'
     );
+
+    <?php include 'sample.sql'; ?>
