@@ -135,17 +135,11 @@ switch ($request) {
 
     case '/profile/update':
     case '/profile/changePassword':
+    case '/profile/privacy_settings':
     case '/profile/delete':
-        if (authenticated()) {
-            require 'src/controllers/ProfileController.php';
-            require 'src/views/profile.php';
-        } else {
-            require 'src/error/401.php';
-        }
-        break;
     case '/profile/load':
         if (authenticated()) {
-            require 'src/controllers/UserController.php';
+            require 'src/controllers/ProfileController.php';
         } else {
             require 'src/error/401.php';
         }

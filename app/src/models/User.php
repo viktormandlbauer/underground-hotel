@@ -19,6 +19,7 @@ class User
     public $city;
     public $street;
     public $house_number;
+    public $newsletter;
 
     public function __construct($identifier)
     {
@@ -85,7 +86,7 @@ class User
         $rules = ['strict_string', 'strict_string', 'strict_string', 'email', 'username_pattern', 'password_pattern', 'password_confirm'];
         $registerData = [$data['pronouns'], $data['givenname'], $data['surname'], $data['email'], $data['username'], $data['password'], $data['password_confirm']];
 
-        $validationResult = true; //isValidArray($registerData, $rules);
+        $validationResult = isValidArray($registerData, $rules);
 
         if (!$validationResult) {
             $_SESSION['flash_message'] = 'Ungültige Eingabe.';
@@ -270,7 +271,7 @@ class User
 
         $stmt->close();
 
-        $validResult = true;//isValidArray([$oldPassword, $newPassword, $confirmPassword], ['password_pattern', 'password_pattern', 'password_confirm']);
+        $validResult = isValidArray([$oldPassword, $newPassword, $confirmPassword], ['password_pattern', 'password_pattern', 'password_confirm']);
 
         if (!$validResult) {
             throw new Exception("Ungültige Eingaben.");
@@ -562,6 +563,13 @@ class User
         $password_hash = Hash::make($newPassword, $salt);
         $stmt = self::getDBConnection()->prepare("UPDATE users SET password_hash = ?, salt = ? WHERE username = ?");
         $stmt->bind_param("sss", $password_hash, $salt, $this->username);
+        $stmt->execute();
+        $stmt->close();
+
+    }
+    public function setNewsletter($newsletter){
+        $stmt = self::getDBConnection()->prepare("UPDATE users SET newsletter = ? WHERE username = ?");
+        $stmt->bind_param("is", $newsletter, $this->username);
         $stmt->execute();
         $stmt->close();
 

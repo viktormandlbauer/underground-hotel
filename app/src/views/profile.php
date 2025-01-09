@@ -230,7 +230,7 @@
                                 <div class="modal-body">
                                     <!-- Newsletter Subscription -->
                                     <div class="form-check mb-3">
-                                        <input class="form-check-input" type="checkbox" value="1" id="newsletter" name="newsletter" >
+                                        <input class="form-check-input" type="checkbox" value="1" checked="<?= $user->newsletter ?>" id="newsletter" name="newsletter" >
                                         <label class="form-check-label" for="newsletter">
                                             Newsletter abonnieren
                                         </label>
