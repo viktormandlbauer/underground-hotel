@@ -7,7 +7,7 @@
 
     <div class="container mt-5 content-wrapper">
         <div class="row bg-dark text-white py-4 rounded">
-            <h1 id="Pages" class="mb-4 text-center display-3">Buchungsübersicht</h1>
+            <h1 id="Pages" class="mb-4 text-center display-3">Buchungen</h1>
 
             <?php include 'src/views/includes/flashmessage.php'; ?>
 
@@ -31,6 +31,7 @@
                     <tbody id="userTableBody">
                         <?php foreach ($bookings as $booking): ?>
                             <tr class="user-row" data-booking-id="<?= $booking['booking_id'] ?>"
+                                style=" padding-top: 20px; padding-bottom: 20px; cursor: pointer;"
                                 data-user-id="<?= $booking['user_id'] ?>"
                                 data-username="<?= User::getUsernameByID($booking['user_id']) ?>"
                                 data-room-number="<?= $booking['room_number'] ?>"
